@@ -34,53 +34,62 @@ public class Task
     // 1. Title must be at least 3 characters long
     // 2. Title must be at most 12 characters long
     // 3. Must contain an "!" at the end
-    public Result SetTitle(string title) 
+    public Result<None> SetTitle(string title)
     {
+        List<Error> errors = new List<Error>();
+        
         if (title.Length < 3)
         {
-            return Result.Failure("Title must be at least 3 characters long");
+            errors.Add(EventErrors.InvalidName());
         }
         if (title.Length > 12)
         {
-            return Result.Failure("Title must be at most 12 characters long");
+            errors.Add(EventErrors.InvalidName());
         }
         if (!title.EndsWith("!"))
         {
-            return Result.Failure("Title must contain an \"!\" at the end");
+            errors.Add(EventErrors.InvalidName());
         }
 
-        return Result.Success();
+        return errors.Count > 0 ? Result<None>.Failure(errors) : Result<None>.Success();
+
     }
     
     
     //Returns something, cannot fail
-    public SubTask CreateSubTask_Cannot_Fail(string title, int timeToCompleteHours)
+    public Result<SubTask> CreateSubTask_Cannot_Fail(string title, int timeToCompleteHours)
     {
         var subTask = new SubTask(title, timeToCompleteHours);
         SubTasks.Add(subTask);
-        return subTask;
+        return Result<SubTask>.Success(subTask);
     }
     
     //Returns something, can fail
     public Result<SubTask> CreateSubTask_Can_Fail(string title, int timeToCompleteHours)
     {
+        List<Error> errors = new List<Error>();
+        
         if (title.Length < 3)
         {
-            return Result.Failure("Title must be at least 3 characters long");
+            errors.Add(EventErrors.InvalidName());
         }
         if (title.Length > 12)
         {
-            return Result.Failure("Title must be at most 12 characters long");
+            errors.Add(EventErrors.InvalidName());
         }
         if (!title.EndsWith("!"))
         {
-            return Result.Failure("Title must contain an \"!\" at the end");
+            errors.Add(EventErrors.InvalidName());
+        }
+
+        SubTask subTask = new SubTask(title, timeToCompleteHours);
+        
+        if (errors.Any())
+        {
+            return Result<SubTask>.Failure(errors);
         }
         
-        var subTask = new SubTask(title, SubTasks.Count + 1, timeToCompleteHours);
         SubTasks.Add(subTask);
-        return Result.Success(subTask);
+        return Result<SubTask>.Success(subTask);
     }
-    
-    
 }
