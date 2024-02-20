@@ -6,7 +6,7 @@ public class Result<T>
 {
   public T Payload { get; } = default!;
   public List<Error> Errors { get; } = new();
-  public bool IsFailure => Errors.Count < 0;
+  public bool IsFailure => Errors.Any();
 
   protected Result() { }
   protected Result(T payload) => Payload = payload;

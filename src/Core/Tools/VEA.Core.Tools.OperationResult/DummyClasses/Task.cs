@@ -22,12 +22,14 @@ public class Task
     }
     
     //Returns Nothing, cannot fail.
-    public void ReadyToStart()
+    public Result<None> ReadyToStart()
     {
         //Send Emails to all my participants
         
         //Change the status of the task
         Status = TaskStatus.Started;
+
+        return Result<None>.Success();
     }
     
     //Returns nothing, can Fail
