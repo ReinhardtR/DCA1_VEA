@@ -9,7 +9,7 @@ public class OperationResultUnitTest
     [Fact]
     public void Test1()
     {
-        Result none = Result.Success();
-        Result something = Result.Success(new TestPayload("John", 25));
+        var none = Result<None>.Success(new None());
+        var payload = Result<TestPayload>.Success(new TestPayload("John", 25));
     }
 }
