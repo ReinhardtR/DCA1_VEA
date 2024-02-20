@@ -1,16 +1,18 @@
 ﻿namespace VEA.Core.Tools.OperationResult;
 
-public class None() {}
+public class None {}
 
 public class Result<T>
 {
   public T Payload { get; } = default!;
-  public string ErrorMessage { get; } = null!;
-  public bool IsFailure => !string.IsNullOrEmpty(ErrorMessage);
+  public List<Error> Errors { get; } = new();
+  public bool IsFailure => Errors.Count < 0;
 
-  protected Result(string errorMessage) => ErrorMessage = errorMessage;
+  protected Result() { }
   protected Result(T payload) => Payload = payload;
+  protected Result(List<Error> errors) => Errors = errors;
 
+  public static Result<T> Success() => new();
   public static Result<T> Success(T payload) => new(payload);
-  public static Result<T> Failure(string errorMessage) => new(errorMessage);
+  public static Result<T> Failure(List<Error> errors) => new(errors);
 }
