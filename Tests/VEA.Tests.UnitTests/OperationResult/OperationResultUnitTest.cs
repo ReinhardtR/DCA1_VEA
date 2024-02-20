@@ -9,30 +9,30 @@ public class OperationResultUnitTest
     [Fact]
     public void Returns_Nothing_CannotFail()
     {
-        //Return Void?
+        Result<None>.Success();
     }
     
     [Fact]
     public void Returns_Nothing_CanFail()
     {
-        //Return Result<Void>? With a possible error?
+        Result<None>.Failure("Error message");
     }
     
     [Fact]
     public void Returns_Something_CannotFail()
     {
-        //Return T?
+        Result<TestPayload>.Success(new TestPayload("John", 25));
     }
     
     [Fact]
     public void Returns_Something_CanFail()
     {
-        //Return Result<T>? With a possible error?
+        Result<TestPayload>.Failure("Error message");
     }
     
     [Fact]
     public void Returns_Something_CanFail_WithMultipleErrors()
     {
-        //Return Result<T>? With a possible error?
+        // TBD
     }
 }
