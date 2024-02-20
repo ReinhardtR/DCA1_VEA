@@ -10,8 +10,6 @@ public class OperationResultUnitTest
     public void Returns_Nothing_CannotFail()
     {
         //Return Void?
-        Result none = Result.Success();
-        Result something = Result.Success(new TestPayload("John", 25));
     }
     
     [Fact]
