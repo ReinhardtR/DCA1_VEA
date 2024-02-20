@@ -5,7 +5,10 @@ namespace VEA.Tests.UnitTests;
 public class OperationResultUnitTest
 {
     private record TestPayload(string Name, int Age);
-
+    
+    //Initialize Task Class
+    private Task testTask = new Task("Test Task");
+    
     [Fact]
     public void Returns_Nothing_CannotFail()
     {
