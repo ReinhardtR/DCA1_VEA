@@ -2,9 +2,9 @@
 
 public class Error
 {
-    public ErrorType ErrorType { get; set; }
-    public int ErrorCode { get; set; }
-    public string ErrorMessage { get; set; }
+    public ErrorType ErrorType { get; }
+    public int ErrorCode { get; }
+    public string ErrorMessage { get; }
 
     public Error(ErrorType errorType, int errorCode, string errorMessage)
     {
