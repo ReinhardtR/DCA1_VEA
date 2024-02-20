@@ -2,6 +2,6 @@
 
 public enum ErrorType
 {
-    InvalidInput,
+    InvalidArgument,
     NotFound
 }
