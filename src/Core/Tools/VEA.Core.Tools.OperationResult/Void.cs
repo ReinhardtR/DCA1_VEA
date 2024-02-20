@@ -1,6 +1,6 @@
 ﻿namespace VEA.Core.Tools.OperationResult;
 
-public class Class1
+public class Void
 {
-
+  public Void() { }
 }

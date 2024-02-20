@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{6A9DD23A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VEA.Core.Tools.OperationResult", "src\Core\Tools\VEA.Core.Tools.OperationResult\VEA.Core.Tools.OperationResult.csproj", "{84B4D9CB-7096-4F41-8BE2-0EE3683ECC2D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C3807581-13F4-4019-8176-3499AF9F3154}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VEA.Tests.UnitTests", "Tests\VEA.Tests.UnitTests\VEA.Tests.UnitTests.csproj", "{A171FDC4-9B99-4477-A1B2-8E9EC1297BB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,10 @@ Global
 		{84B4D9CB-7096-4F41-8BE2-0EE3683ECC2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84B4D9CB-7096-4F41-8BE2-0EE3683ECC2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84B4D9CB-7096-4F41-8BE2-0EE3683ECC2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A171FDC4-9B99-4477-A1B2-8E9EC1297BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A171FDC4-9B99-4477-A1B2-8E9EC1297BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A171FDC4-9B99-4477-A1B2-8E9EC1297BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A171FDC4-9B99-4477-A1B2-8E9EC1297BB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,5 +46,6 @@ Global
 		{88931C83-0BE7-4B27-908A-4BD7637FC6EA} = {9EABA73D-DA73-42DF-BF08-72F7F4A515F0}
 		{6A9DD23A-7482-406C-BD78-99AD31EAE5DB} = {88931C83-0BE7-4B27-908A-4BD7637FC6EA}
 		{84B4D9CB-7096-4F41-8BE2-0EE3683ECC2D} = {6A9DD23A-7482-406C-BD78-99AD31EAE5DB}
+		{A171FDC4-9B99-4477-A1B2-8E9EC1297BB0} = {C3807581-13F4-4019-8176-3499AF9F3154}
 	EndGlobalSection
 EndGlobal
