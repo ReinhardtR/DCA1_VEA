@@ -39,7 +39,6 @@ public class VeaEvent
         return Result.Success();
     }
 
-
     public Result SetVisibility(EventVisibility visibility)
     {
         visibility = visibility;
