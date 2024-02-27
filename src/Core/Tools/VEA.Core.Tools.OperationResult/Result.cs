@@ -9,20 +9,9 @@ public class Result
   public Result() { }
   public Result(List<Error> errors) => Errors = errors;
 
-  public static Result Success()
-  {
-    return new();
-  }
+  public static Result Success() => new();
 
-  public static Result Failure(List<Error> errors)
-  {
-    return new(errors);
-  }
-
-  public static Result<T> Success<T>(T payload)
-  {
-    return Result<T>.Success(payload);
-  }
+  public static Result Failure(List<Error> errors) => new(errors);
 }
 
 // Result with generic payload
