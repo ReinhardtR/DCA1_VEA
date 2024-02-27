@@ -1,4 +1,6 @@
-﻿namespace VEA.Core.Domain;
+﻿using VEA.Core.Tools.OperationResult;
+
+namespace VEA.Core.Domain;
 
 public class VeaEvent
 {
@@ -18,11 +20,15 @@ public class VeaEvent
         GuestLimit = guestLimit;
         DateRange = dateRange;
     }
-    
+
     public static VeaEvent Create(EventId id, EventTitle title, EventDescription description, EventStatus status, EventGuestLimit guestLimit, DateRange dateRange)
     {
         return new VeaEvent(id, title, description, status, guestLimit, dateRange);
     }
-    
-    
+
+    public Result SetVisibility(EventVisibility visibility)
+    {
+        visibility = visibility;
+        return Result.Success();
+    }
 }

@@ -42,6 +42,7 @@
   - [ ] S1 - depends on UC8
   - [ ] F1 - depends on UC8
 - [ ] UC6 - Event creator sets visibility of event to “private”
+  - [x] EventVisibility enum class
   - [ ] S1 - depends on UC8
   - [ ] S2 - depends on UC8
   - [ ] F1 - depends on UC8
