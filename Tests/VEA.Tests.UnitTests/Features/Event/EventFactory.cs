@@ -15,13 +15,17 @@ public class EventFactory
 
     public EventFactory WithId(Guid id)
     {
-        _id = EventId.Create(id).Payload;
+        _id = new EventId(id);
+        return this;
+    } 
+    public EventFactory WithId()
+    {
+        _id = EventId.New().Payload;
         return this;
     }
-
     public EventFactory WithTitle(string title)
     {
-        _title = EventTitle.Create(title).Payload;
+        _title = EventTitle.create(title).Payload;
         return this;
     }
     
