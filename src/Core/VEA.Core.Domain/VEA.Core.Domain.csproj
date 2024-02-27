@@ -12,4 +12,8 @@
       <_Parameter1>VEA.Tests.UnitTests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tools\VEA.Core.Tools.OperationResult\VEA.Core.Tools.OperationResult.csproj" />
+  </ItemGroup>
 </Project>
