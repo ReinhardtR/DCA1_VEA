@@ -2,5 +2,5 @@
 
 public class EventDescription
 {
-    
+    public string Value { get; set; }
 }

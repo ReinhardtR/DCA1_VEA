@@ -2,5 +2,5 @@
 
 public class EventGuestLimit
 {
-    
+    public int Value { get; set; }
 }

@@ -2,5 +2,5 @@
 
 public class EventId
 {
-    
+    public Guid Value { get; set; }
 }
