@@ -39,13 +39,13 @@
   - [ ] F10
   - [ ] F11
 - [ ] UC5 - Event creator sets visibility of event to “public”
-  - [ ] S1 - partially depends on UC8
-  - [ ] F1 - partially depends on UC8
+  - [ ] S1 - depends on UC8
+  - [ ] F1 - depends on UC8
 - [ ] UC6 - Event creator sets visibility of event to “private”
-  - [ ] S1
-  - [ ] S2
-  - [ ] F1
-  - [ ] F2
+  - [ ] S1 - depends on UC8
+  - [ ] S2 - depends on UC8
+  - [ ] F1 - depends on UC8
+  - [ ] F2 - depends on UC8
 - [ ] UC7 - Event creator sets maximum number of guests
   - [ ] S1
   - [ ] S2
