@@ -22,13 +22,10 @@ public class EventDescription : ValueObject<string>
     }
 
 
-    public Result Validate(string value)
+    private Result Validate(string value)
     {
         Result result = new Result();
         
-        if (string.IsNullOrWhiteSpace(value))
-            result.Errors.Add(EventErrors.DescriptionCannotBeEmpty());
-
         if (value.Length > MaxLength)
             result.Errors.Add(EventErrors.DescriptionCannotBeLongerThan250Characters());
 

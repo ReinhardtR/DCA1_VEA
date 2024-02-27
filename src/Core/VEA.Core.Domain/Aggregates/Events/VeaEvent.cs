@@ -1,5 +1,7 @@
 ﻿using VEA.Core.Tools.OperationResult;
 
+using VEA.Core.Tools.OperationResult;
+
 namespace VEA.Core.Domain;
 
 public class VeaEvent
@@ -11,24 +13,41 @@ public class VeaEvent
     internal EventGuestLimit GuestLimit;
     internal DateRange DateRange;
 
-    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventStatus status, EventGuestLimit guestLimit, DateRange dateRange)
+    private VeaEvent(EventId id, EventTitle title)
     {
         Id = id;
         Title = title;
-        Description = description;
-        Status = status;
-        GuestLimit = guestLimit;
-        DateRange = dateRange;
     }
 
-    public static VeaEvent Create(EventId id, EventTitle title, EventDescription description, EventStatus status, EventGuestLimit guestLimit, DateRange dateRange)
+    public static VeaEvent Create(EventId id, EventTitle title)
     {
-        return new VeaEvent(id, title, description, status, guestLimit, dateRange);
+        return new VeaEvent(id, title);
     }
+
+    public Result UpdateDescription(EventDescription description)
+    {
+        // Waiting for EventStatus implementation
+
+        // if (Status == EventStatus.Cancelled)
+        //     //Add error
+        //
+        // if (Status == EventStatus.Started)
+        //     //Add error
+
+        Description = description;
+
+        return Result.Success();
+    }
+
 
     public Result SetVisibility(EventVisibility visibility)
     {
         visibility = visibility;
         return Result.Success();
+    }
+
+    public void UpdateTitle(EventTitle title)
+    {
+        Title = title;
     }
 }
