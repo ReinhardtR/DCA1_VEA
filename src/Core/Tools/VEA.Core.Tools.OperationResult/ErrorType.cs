@@ -3,5 +3,6 @@
 public enum ErrorType
 {
     InvalidArgument,
-    NotFound
+    NotFound,
+    InvalidOperation
 }

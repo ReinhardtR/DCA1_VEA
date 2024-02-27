@@ -8,6 +8,18 @@ public class EventErrors
     public static Error InvalidName() =>
         new(ErrorType.InvalidArgument, 2, "Name is wrong");
     
+
+    //Description
+    public static Error DescriptionCannotBeLongerThan250Characters() =>
+        new(ErrorType.InvalidArgument, 3, "Description cannot be longer than 250 characters");
+    
+    public static Error DescriptionCannotBeModifiedForCanceledEvent() =>
+        new(ErrorType.InvalidOperation, 4, "Description cannot be modified for canceled event");
+
+    public static Error DescriptionCannotBeEmpty() => 
+        new(ErrorType.InvalidArgument, 5, "Description cannot be empty");
+    
+    //Title
     public static Error EmptyTitle() =>
         new(ErrorType.InvalidArgument, 3, "Title is empty");
     
@@ -25,4 +37,5 @@ public class EventErrors
     
     public static Error UpdateTitleWhenEventCancelled() =>
         new(ErrorType.InvalidArgument, 8, "Cannot update title when event is cancelled");
+
 }

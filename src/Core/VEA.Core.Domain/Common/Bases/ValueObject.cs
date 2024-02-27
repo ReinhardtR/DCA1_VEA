@@ -1,11 +1,14 @@
-﻿namespace VEA.Core.Domain;
+﻿using VEA.Core.Tools.OperationResult;
 
-public class ValueObject<T>
+namespace VEA.Core.Domain;
+
+public abstract class ValueObject<T>
 {
-    public T Value { get; }
-    
-    public ValueObject(T value)
-    {
-        Value = value;
-    }
+        protected T Value;
+
+        protected ValueObject(T value)
+        {
+            Value = value;
+        }
+        
 }
