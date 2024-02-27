@@ -10,7 +10,5 @@ public abstract class ValueObject<T>
         {
             Value = value;
         }
-
-        public abstract Result Validate(T value);
-
+        
 }

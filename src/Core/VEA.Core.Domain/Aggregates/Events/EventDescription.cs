@@ -22,7 +22,7 @@ public class EventDescription : ValueObject<string>
     }
 
 
-    public override Result Validate(string value)
+    public Result Validate(string value)
     {
         Result result = new Result();
         
