@@ -1,0 +1,105 @@
+# Completed Feature Status
+
+- [ ] UC1 - Event creator creates new event
+  - [ ] S1
+  - [ ] S2
+  - [ ] S3
+  - [ ] S4
+- [ ] UC2 - Event creator updates title of event
+  - [ ] S1
+  - [ ] S2
+  - [ ] F1
+  - [ ] F2
+  - [ ] F3
+  - [ ] F4
+  - [ ] F5
+  - [ ] F6
+- [ ] UC3 - Event creator updates description of event
+  - [ ] S1
+  - [ ] S2
+  - [ ] S3
+  - [ ] F1
+  - [ ] F2
+  - [ ] F3
+- [ ] UC4 - Event creator updates start-time and -date, and end-time and -date of event
+  - [ ] S1
+  - [ ] S2
+  - [ ] S3
+  - [ ] S4
+  - [ ] S5
+  - [ ] F1
+  - [ ] F2
+  - [ ] F3
+  - [ ] F4
+  - [ ] F5
+  - [ ] F6
+  - [ ] F7
+  - [ ] F8
+  - [ ] F9
+  - [ ] F10
+  - [ ] F11
+- [ ] UC5 - Event creator sets visibility of event to “public”
+  - [ ] S1
+  - [ ] F1
+- [ ] UC6 - Event creator sets visibility of event to “private”
+  - [ ] S1
+  - [ ] S2
+  - [ ] F1
+  - [ ] F2
+- [ ] UC7 - Event creator sets maximum number of guests
+  - [ ] S1
+  - [ ] S2
+  - [ ] S3
+  - [ ] F1
+  - [ ] F2
+  - [ ] F3
+  - [ ] F4
+  - [ ] F5
+- [ ] UC8 - Event creator readies event
+  - [ ] S1
+  - [ ] F1
+  - [ ] F2
+  - [ ] F3
+  - [ ] F4
+- [ ] UC9 - Event creator activates event
+  - [ ] S1
+  - [ ] S2
+  - [ ] S3
+  - [ ] F1
+  - [ ] F2
+- [ ] UC10 - Anonymous registers a new account
+  - [ ] S1
+  - [ ] F1
+  - [ ] F2
+  - [ ] F3
+  - [ ] F4
+  - [ ] F5
+  - [ ] F6
+  - [ ] F7
+- [ ] UC11 - Guest chooses to participate in a public event
+  - [ ] S1
+  - [ ] F1
+  - [ ] F2
+  - [ ] F3
+  - [ ] F4
+  - [ ] F5
+- [ ] UC12 - Guest removes their choice to participate in a public event
+  - [ ] S1
+  - [ ] S2
+  - [ ] F1
+- [ ] UC13 - Event creator extends invitation to guest to participate in an event
+  - [ ] S1
+  - [ ] F1
+  - [ ] F2
+- [ ] UC14 - Guest accepts invitation
+  - [ ] S1
+  - [ ] F1
+  - [ ] F2
+  - [ ] F3
+  - [ ] F4
+- [ ] UC15 - Guest declines invitation
+  - [ ] S1
+  - [ ] S2
+  - [ ] F1
+  - [ ] F2
+  - [ ] F3
