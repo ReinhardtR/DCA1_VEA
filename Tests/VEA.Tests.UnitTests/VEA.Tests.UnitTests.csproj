@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Tools\VEA.Core.Tools.OperationResult\VEA.Core.Tools.OperationResult.csproj" />
+    <ProjectReference Include="..\..\src\Core\VEA.Core.Domain\VEA.Core.Domain.csproj" />
   </ItemGroup>
 
 </Project>
