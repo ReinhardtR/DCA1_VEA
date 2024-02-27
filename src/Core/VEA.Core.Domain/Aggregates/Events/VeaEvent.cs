@@ -1,4 +1,6 @@
-﻿namespace VEA.Core.Domain;
+﻿using VEA.Core.Tools.OperationResult;
+
+namespace VEA.Core.Domain;
 
 public class VeaEvent
 {
@@ -18,6 +20,20 @@ public class VeaEvent
         GuestLimit = guestLimit;
         DateRange = dateRange;
     }
-    
-    
+
+
+    public Result UpdateDescription(EventDescription description)
+    {
+        // Waiting for EventStatus implementation
+
+        // if (Status == EventStatus.Cancelled)
+        //     //Add error
+        //
+        // if (Status == EventStatus.Started)
+        //     //Add error
+        
+        Description = description;
+
+        return Result.Success();
+    }
 }
