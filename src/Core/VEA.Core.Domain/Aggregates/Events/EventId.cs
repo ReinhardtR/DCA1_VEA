@@ -1,6 +1,18 @@
-﻿namespace VEA.Core.Domain;
+﻿using VEA.Core.Tools.OperationResult;
 
-public class EventId
+namespace VEA.Core.Domain;
+
+public class EventId : ValueObject<Guid>
 {
-    public Guid Value { get; set; }
+    private EventId(Guid value) : base(value)
+    {
+        
+    }
+    
+    public static Result<EventId> Create(Guid id)
+    {
+        return Result<EventId>.Success(new EventId(id));
+    }
+    
+    
 }

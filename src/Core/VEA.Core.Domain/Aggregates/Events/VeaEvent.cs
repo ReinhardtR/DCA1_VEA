@@ -9,20 +9,20 @@ public class VeaEvent
     internal EventGuestLimit GuestLimit;
     internal DateRange DateRange;
 
-    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventStatus status, EventGuestLimit guestLimit, DateRange dateRange)
+    private VeaEvent(EventId id, EventTitle title)
     {
         Id = id;
         Title = title;
-        Description = description;
-        Status = status;
-        GuestLimit = guestLimit;
-        DateRange = dateRange;
+
     }
     
-    public static VeaEvent Create(EventId id, EventTitle title, EventDescription description, EventStatus status, EventGuestLimit guestLimit, DateRange dateRange)
+    public static VeaEvent Create(EventId id, EventTitle title)
     {
-        return new VeaEvent(id, title, description, status, guestLimit, dateRange);
+        return new VeaEvent(id, title);
     }
     
-    
+    public void UpdateTitle(EventTitle title)
+    {
+        Title = title;
+    }
 }

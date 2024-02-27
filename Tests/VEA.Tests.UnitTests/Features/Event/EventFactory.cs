@@ -6,54 +6,28 @@ public class EventFactory
 {
     private EventId _id;
     private EventTitle _title;
-    private EventDescription _description;
-    private EventStatus _status;
-    private EventGuestLimit _guestLimit;
-    private DateRange _dateRange;
+
 
     public static EventFactory Create()
     {
         return new EventFactory();
     }
 
-    public EventFactory WithId(EventId id)
+    public EventFactory WithId(Guid id)
     {
-        _id = id;
+        _id = EventId.Create(id).Payload;
         return this;
     }
 
-    public EventFactory WithTitle(EventTitle title)
+    public EventFactory WithTitle(string title)
     {
-        _title = title;
+        _title = EventTitle.Create(title).Payload;
         return this;
     }
-
-    public EventFactory WithDescription(EventDescription description)
-    {
-        _description = description;
-        return this;
-    }
-
-    public EventFactory WithStatus(EventStatus status)
-    {
-        _status = status;
-        return this;
-    }
-
-    public EventFactory WithGuestLimit(EventGuestLimit guestLimit)
-    {
-        _guestLimit = guestLimit;
-        return this;
-    }
-
-    public EventFactory WithDateRange(DateRange dateRange)
-    {
-        _dateRange = dateRange;
-        return this;
-    }
+    
 
     public VeaEvent Build()
     {
-        return VeaEvent.Create(_id, _title, _description, _status, _guestLimit, _dateRange);
+        return VeaEvent.Create(_id, _title);
     }
 }
