@@ -11,14 +11,11 @@ public class VeaEvent
     internal EventGuestLimit GuestLimit;
     internal DateRange DateRange;
 
-    public VeaEvent(EventId id, EventTitle title, EventDescription description, EventStatus status, EventGuestLimit guestLimit, DateRange dateRange)
+    private VeaEvent(EventId id, EventTitle title)
     {
         Id = id;
         Title = title;
-        Description = description;
-        Status = status;
-        GuestLimit = guestLimit;
-        DateRange = dateRange;
+
     }
 
 
@@ -35,5 +32,14 @@ public class VeaEvent
         Description = description;
 
         return Result.Success();
+    }    
+    public static VeaEvent Create(EventId id, EventTitle title)
+    {
+        return new VeaEvent(id, title);
+    }
+    
+    public void UpdateTitle(EventTitle title)
+    {
+        Title = title;
     }
 }

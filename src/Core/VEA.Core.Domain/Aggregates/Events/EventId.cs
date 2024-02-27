@@ -4,7 +4,6 @@ namespace VEA.Core.Domain;
 
 public class EventId : ValueObject<Guid>
 {
-
     public EventId(Guid value) : base(value) 
         => Value = value;
 
