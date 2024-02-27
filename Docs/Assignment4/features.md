@@ -39,8 +39,8 @@
   - [ ] F10
   - [ ] F11
 - [ ] UC5 - Event creator sets visibility of event to “public”
-  - [ ] S1
-  - [ ] F1
+  - [ ] S1 - partially depends on UC8
+  - [ ] F1 - partially depends on UC8
 - [ ] UC6 - Event creator sets visibility of event to “private”
   - [ ] S1
   - [ ] S2
