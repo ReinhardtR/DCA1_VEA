@@ -9,7 +9,7 @@ public class VeaEvent
     internal EventGuestLimit GuestLimit;
     internal DateRange DateRange;
 
-    public VeaEvent(EventId id, EventTitle title, EventDescription description, EventStatus status, EventGuestLimit guestLimit, DateRange dateRange)
+    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventStatus status, EventGuestLimit guestLimit, DateRange dateRange)
     {
         Id = id;
         Title = title;
@@ -17,6 +17,11 @@ public class VeaEvent
         Status = status;
         GuestLimit = guestLimit;
         DateRange = dateRange;
+    }
+    
+    public static VeaEvent Create(EventId id, EventTitle title, EventDescription description, EventStatus status, EventGuestLimit guestLimit, DateRange dateRange)
+    {
+        return new VeaEvent(id, title, description, status, guestLimit, dateRange);
     }
     
     

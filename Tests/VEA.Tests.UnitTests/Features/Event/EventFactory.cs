@@ -54,6 +54,6 @@ public class EventFactory
 
     public VeaEvent Build()
     {
-        return new VeaEvent(_id, _title, _description, _status, _guestLimit, _dateRange);
+        return VeaEvent.Create(_id, _title, _description, _status, _guestLimit, _dateRange);
     }
 }
