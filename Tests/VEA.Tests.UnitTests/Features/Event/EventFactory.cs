@@ -25,7 +25,7 @@ public class EventFactory
     }
     public EventFactory WithTitle(string title)
     {
-        _title = EventTitle.create(title).Payload;
+        _title = EventTitle.Create(title).Payload;
         return this;
     }
     
