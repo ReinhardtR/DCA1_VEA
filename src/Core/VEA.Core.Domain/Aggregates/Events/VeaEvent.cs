@@ -17,6 +17,7 @@ public class VeaEvent
     {
         Id = id;
         Title = title;
+        Status = EventStatus.Draft;
     }
 
     public static VeaEvent Create(EventId id, EventTitle title)
@@ -78,6 +79,16 @@ public class VeaEvent
             return Result.Failure(errors);
 
         GuestLimit = guestLimit;
+        return Result.Success();
+    }
+    
+    public Result Ready()
+    {
+        List<Error> errors = new List<Error>();
+        if (Status != EventStatus.Draft)
+            errors.Add(EventErrors.EventMustBeDraft());
+        
+        Status = EventStatus.Active;
         return Result.Success();
     }
 }

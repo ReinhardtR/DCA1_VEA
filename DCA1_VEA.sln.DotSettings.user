@@ -8,6 +8,8 @@
       &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest.GivenEventExistWithId_WhenCreatorSetsTheNumberOfMaximumGuestsToNumberLessThan5_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest.GivenEventExistWithId_WhenCreatorSetsTheNumberOfMaximumGuestsToNumberMoreThan50_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatus_WhenCreatorReadiesTheEvent_ThenEventIsMadeReady&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
