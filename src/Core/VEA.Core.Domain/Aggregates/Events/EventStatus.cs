@@ -3,7 +3,7 @@
 public enum EventStatus
 {
     Draft,
+    Ready,
     Active,
-    Started,
     Cancelled
 }

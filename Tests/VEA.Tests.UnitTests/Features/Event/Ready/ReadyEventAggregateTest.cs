@@ -16,7 +16,7 @@ public class ReadyEventAggregateTest
         _event.Ready();
 
         // Assert
-        Assert.Equal(EventStatus.Active, _event.Status);
+        Assert.Equal(EventStatus.Ready, _event.Status);
     }
     
     //F1Given an existing event with ID And the event is in draft status And the any of the following is true: · Title is not set or remains default value · Description is not set or remains default value · Times are not set or remains default value · visibility is not set · maximum guests is not between 5 and 50 When creator readies the event Then a failure message is provided explaining what data is missing
@@ -35,6 +35,6 @@ public class ReadyEventAggregateTest
         _event.Ready();
 
         // Assert
-        Assert.Equal(EventStatus.Active, _event.Status);
+        Assert.Equal(EventStatus.Ready, _event.Status);
     }
 }

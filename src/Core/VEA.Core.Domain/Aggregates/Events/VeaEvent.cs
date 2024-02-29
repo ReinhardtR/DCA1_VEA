@@ -88,7 +88,7 @@ public class VeaEvent
         if (Status != EventStatus.Draft)
             errors.Add(EventErrors.EventMustBeDraft());
         
-        Status = EventStatus.Active;
+        Status = EventStatus.Ready;
         return Result.Success();
     }
 }
