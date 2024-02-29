@@ -29,4 +29,6 @@ public class EventErrors
     public static Error UpdateTitleWhenEventCancelled() =>
         new(ErrorType.InvalidArgument, 8, "Cannot update title when event is cancelled");
 
+    public static Error GuestLimitMustBeBetween5And50() =>
+        new(ErrorType.InvalidArgument, 9, "Guest limit must be between 5 and 50");
 }

@@ -48,12 +48,36 @@ public class VeaEvent
     public Result UpdateTitle(EventTitle title)
     {
         List<Error> errors = new List<Error>();
+        
+        // Waiting for EventStatus implementation
 
+        // if (Status == EventStatus.Active)
+        //     //Add error
+        //
+        // if (Status == EventStatus.Started)
+        //     //Add error
 
         if (errors.Count > 0)
             return Result.Failure(errors);
 
         Title = title;
+        return Result.Success();
+    }
+    
+    public Result UpdateGuestLimit(EventGuestLimit guestLimit)
+    {
+        List<Error> errors = new List<Error>();
+        
+        // Waiting for EventStatus implementation
+
+        // if (Status == EventStatus.Active)
+        //     //Add error
+        
+
+        if (errors.Count > 0)
+            return Result.Failure(errors);
+
+        GuestLimit = guestLimit;
         return Result.Success();
     }
 }

@@ -1,6 +1,25 @@
-﻿namespace VEA.Core.Domain;
+﻿using VEA.Core.Tools.OperationResult;
 
-public class EventGuestLimit
+namespace VEA.Core.Domain;
+
+public class EventGuestLimit : ValueObject<int>
 {
-    public int Value { get; set; }
+    private EventGuestLimit(int value) : base(value)
+    {
+    }
+    
+    public static Result<EventGuestLimit> Create(int value)
+    {
+        List<Error> errors = new List<Error>();
+        if (value <= 50)
+            errors.Add(EventErrors.GuestLimitMustBeBetween5And50());
+        
+        if (value >= 5)
+            errors.Add(EventErrors.GuestLimitMustBeBetween5And50());
+        
+        if (errors.Count > 0)
+            return Result<EventGuestLimit>.Failure(errors);
+        
+        return Result<EventGuestLimit>.Success(new EventGuestLimit(value));
+    }
 }
