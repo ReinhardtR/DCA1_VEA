@@ -12,4 +12,15 @@ public class Error
         ErrorCode = errorCode;
         ErrorMessage = errorMessage;
     }
+    
+    // override object.Equals
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+        Error e = (Error)obj;
+        return ErrorType == e.ErrorType && ErrorCode == e.ErrorCode && ErrorMessage == e.ErrorMessage;
+    }
 }

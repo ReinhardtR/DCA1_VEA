@@ -45,8 +45,15 @@ public class VeaEvent
         return Result.Success();
     }
 
-    public void UpdateTitle(EventTitle title)
+    public Result UpdateTitle(EventTitle title)
     {
+        List<Error> errors = new List<Error>();
+
+
+        if (errors.Count > 0)
+            return Result.Failure(errors);
+
         Title = title;
+        return Result.Success();
     }
 }
