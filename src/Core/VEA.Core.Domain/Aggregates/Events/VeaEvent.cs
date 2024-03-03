@@ -10,6 +10,7 @@ public class VeaEvent
     internal EventVisibility Visibility;
     internal EventStatus Status;
     internal EventGuestLimit GuestLimit;
+    internal EventDateRange? DateRange;
 
     private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit)
     {
@@ -45,6 +46,18 @@ public class VeaEvent
 
         Description = description;
 
+        return Result.Success();
+    }
+    
+    public Result UpdateDateRange(EventDateRange dateRange)
+    {
+        List<Error> errors = new List<Error>();
+
+        if (errors.Count > 0)
+            return Result.Failure(errors);
+
+        DateRange = dateRange;
+        Status = EventStatus.Draft;
         return Result.Success();
     }
 
