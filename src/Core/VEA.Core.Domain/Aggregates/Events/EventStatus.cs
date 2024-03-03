@@ -1,4 +1,4 @@
-﻿namespace VEA.Core.Domain;
+﻿namespace VEA.Core.Domain.Aggregates.Events;
 
 public enum EventStatus
 {

@@ -1,4 +1,4 @@
-﻿namespace VEA.Core.Domain;
+﻿namespace VEA.Core.Domain.Common.Values;
 
 public class DateRange
 {

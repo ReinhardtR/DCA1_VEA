@@ -1,4 +1,6 @@
-﻿namespace VEA.Core.Domain;
+﻿using VEA.Core.Domain.Common.Bases;
+
+namespace VEA.Core.Domain.Aggregates.Events;
 
 public class EventVisibility(int id, string name) : Enumeration(id, name)
 {

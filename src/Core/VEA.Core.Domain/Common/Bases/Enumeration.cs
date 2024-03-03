@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace VEA.Core.Domain;
+namespace VEA.Core.Domain.Common.Bases;
 
 public abstract class Enumeration(int id, string name) : IComparable
 {

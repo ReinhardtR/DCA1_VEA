@@ -1,6 +1,6 @@
 ﻿using VEA.Core.Tools.OperationResult;
 
-namespace VEA.Core.Domain;
+namespace VEA.Core.Domain.Aggregates.Events;
 
 public class VeaEvent
 {

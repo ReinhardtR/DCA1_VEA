@@ -1,4 +1,4 @@
-﻿namespace VEA.Tests.UnitTests;
+﻿namespace VEA.Tests.UnitTests.Common;
 
 public class Class1
 {

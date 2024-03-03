@@ -38,10 +38,10 @@
   - [ ] F9
   - [ ] F10
   - [ ] F11
-- [ ] UC5 - Event creator sets visibility of event to “public”
+- [x] UC5 - Event creator sets visibility of event to “public”
   - [x] S1
   - [x] F1
-- [ ] UC6 - Event creator sets visibility of event to “private”
+- [x] UC6 - Event creator sets visibility of event to “private”
   - [x] EventVisibility enum class
   - [x] S1
   - [x] S2
@@ -53,7 +53,7 @@
   - [ ] S3
   - [ ] F1
   - [ ] F2
-  - [ ] F3
+  - [ ] F3 - depends on UC16-20
   - [ ] F4
   - [ ] F5
 - [ ] UC8 - Event creator readies event

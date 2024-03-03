@@ -1,7 +1,7 @@
-﻿using VEA.Core.Domain;
+﻿using VEA.Core.Domain.Aggregates.Events;
 using VEA.Core.Tools.OperationResult;
 
-namespace VEA.Tests.UnitTests.UpdateGuestLimit;
+namespace VEA.Tests.UnitTests.Features.Event.UpdateGuestLimit;
 
 public class UpdateGuestLimitAggregateTest
 {

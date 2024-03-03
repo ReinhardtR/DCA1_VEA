@@ -1,7 +1,8 @@
 ﻿using VEA.Core.Domain;
+using VEA.Core.Domain.Aggregates.Events;
 using VEA.Core.Tools.OperationResult;
 
-namespace VEA.Tests.UnitTests.UpdateTitleAggregateTest;
+namespace VEA.Tests.UnitTests.Features.Event.UpdateTitle;
 
 public class UpdateTitleAggregateTest
 {

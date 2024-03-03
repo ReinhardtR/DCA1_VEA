@@ -1,6 +1,7 @@
 ﻿using VEA.Core.Domain;
+using VEA.Core.Domain.Aggregates.Events;
 
-namespace VEA.Tests.UnitTests;
+namespace VEA.Tests.UnitTests.Features.Event.Ready;
 
 public class ReadyEventAggregateTest
 {
