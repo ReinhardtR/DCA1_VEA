@@ -114,6 +114,9 @@ public class VeaEvent
         List<Error> errors = new List<Error>();
         if (Status != EventStatus.Draft)
             errors.Add(EventErrors.EventMustBeDraft());
+        
+        if (errors.Count > 0)
+            return Result.Failure(errors);
 
         Status = EventStatus.Ready;
         return Result.Success();
