@@ -39,14 +39,14 @@
   - [ ] F10
   - [ ] F11
 - [ ] UC5 - Event creator sets visibility of event to “public”
-  - [ ] S1 - depends on UC8
-  - [ ] F1 - depends on UC8
+  - [x] S1
+  - [x] F1
 - [ ] UC6 - Event creator sets visibility of event to “private”
   - [x] EventVisibility enum class
-  - [ ] S1 - depends on UC8
-  - [ ] S2 - depends on UC8
-  - [ ] F1 - depends on UC8
-  - [ ] F2 - depends on UC8
+  - [x] S1
+  - [x] S2
+  - [x] F1
+  - [x] F2
 - [ ] UC7 - Event creator sets maximum number of guests
   - [ ] S1
   - [ ] S2

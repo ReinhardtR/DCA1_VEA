@@ -15,7 +15,7 @@ public class UpdateGuestLimitAggregateTest
     {
         // Arrange
         var newGuestLimit = EventGuestLimit.Create(input).Payload;
-        var _event = EventFactory.Create().WithId().WithTitle("Event").Build();
+        var _event = EventFactory.Create().Build();
 
         // Act
         _event.UpdateGuestLimit(newGuestLimit);
@@ -33,7 +33,7 @@ public class UpdateGuestLimitAggregateTest
     {
         // Arrange
         var newGuestLimit = EventGuestLimit.Create(input).Payload;
-        var _event = EventFactory.Create().WithId().WithTitle("Event").Build();
+        var _event = EventFactory.Create().Build();
 
         // Act
         _event.UpdateGuestLimit(newGuestLimit);
@@ -42,10 +42,10 @@ public class UpdateGuestLimitAggregateTest
         Assert.Equal(newGuestLimit, _event.GuestLimit);
 
     }
-    
+
     //S3 TODO - depends on UC 8
-    
-    
+
+
     //F1 Given an existing event with ID And the event is in active status When creator reduces the number of maximum guests Then a failure message is provided explaining the maximum number of guests of an active cannot be reduced (it may only be increased)
     // TODO - depends on UC 8
     [Fact]
@@ -66,14 +66,14 @@ public class UpdateGuestLimitAggregateTest
         */
         Assert.True(false);
     }
-    
+
     //F2 Given an existing event with ID And the event is in cancelled status When creator sets the number of maximum guests Then a failure message is provided explaining a cancelled event cannot be modified
     // TODO - depends on UC 8
-    
+
     //F3 TODO - depends on UC 16-20
-    
+
     //F4 Given an existing event with ID When creator sets the number of maximum guests to number < 5 Then a failure message is provided explaining the maximum number of guests cannot be negative
-    
+
     [Fact]
     public void GivenEventExistWithId_WhenCreatorSetsTheNumberOfMaximumGuestsToNumberLessThan5_ThenFailureMessageIsProvided()
     {
@@ -86,7 +86,7 @@ public class UpdateGuestLimitAggregateTest
         Assert.True(result.IsFailure);
         Assert.Contains(EventErrors.GuestLimitMustBeBetween5And50(), result.Errors);
     }
-    
+
     //F5 Given an existing event with ID When creator sets the number of maximum guests to a number > 50 Then a failure message is provided explaining the maximum number of guests cannot exceed 50
     [Fact]
     public void GivenEventExistWithId_WhenCreatorSetsTheNumberOfMaximumGuestsToNumberMoreThan50_ThenFailureMessageIsProvided()
