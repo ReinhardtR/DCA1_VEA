@@ -61,11 +61,9 @@ public class VeaEvent
         if (errors.Count > 0)
             return Result.Failure(errors);
 
-        if (
-            Status == EventStatus.Ready &&
-            Visibility == EventVisibility.Public &&
-            newVisibility == EventVisibility.Private
-        )
+        if (Status == EventStatus.Ready &&
+            Visibility.Equals(EventVisibility.Public) &&
+            newVisibility.Equals(EventVisibility.Private))
         {
             Status = EventStatus.Draft;
         }

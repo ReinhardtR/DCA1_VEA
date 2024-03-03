@@ -12,15 +12,14 @@ public class UpdateTitleAggregateTest
     public void EventExistWithIdIsDraftValidTitle_UpdatesTitle_TitleIsUpdated()
     {
         // Arrange
-        EventFactory eventFactory = EventFactory.Create();
-        EventTitle title = EventTitle.Create("title").Payload;
-        VeaEvent veaEvent = eventFactory.WithId(new Guid()).Build();
+        var veaEvent = EventFactory.Create().Build();
+        var newTitle = EventTitle.Create("title").Payload;
         
         // Act
-        veaEvent.UpdateTitle(title);
+        veaEvent.UpdateTitle(newTitle);
 
         // Assert
-        Assert.Equal(title, veaEvent.Title);
+        Assert.Equal(newTitle, veaEvent.Title);
     }
     
     //S2
@@ -32,15 +31,14 @@ public class UpdateTitleAggregateTest
     public void GivenEventExistWithIdAndIsReadyStatusAndTitleLengthIsBetween3And75Characters_WhenUpdatingTitle_ThenTitleIsUpdated(string input)
     {
         // Arrange
-        EventFactory eventFactory = EventFactory.Create();
-        EventTitle title = EventTitle.Create(input).Payload;
-        VeaEvent veaEvent = eventFactory.WithId(new Guid()).Build();
+        var veaEvent = EventFactory.Create().Build();
+        var newTitle = EventTitle.Create(input).Payload;
         
         // Act
-        veaEvent.UpdateTitle(title);
+        veaEvent.UpdateTitle(newTitle);
 
         // Assert
-        Assert.Equal(title, veaEvent.Title);
+        Assert.Equal(newTitle, veaEvent.Title);
     }
     
     //F1 Given an existing event with ID When creator selects to set the title of the event And the title is 0 characters Then a failure message is returned explaining that the title must be between 3 and 75 characters
@@ -105,13 +103,12 @@ public class UpdateTitleAggregateTest
     public void GivenEventExistWithIdAndIsActiveStatus_WhenUpdatingTitle_ThenFailureMessageIsReturned()
     {
         // Arrange
-        EventFactory eventFactory = EventFactory.Create();
-        EventTitle title = EventTitle.Create("title").Payload;
-        VeaEvent veaEvent = eventFactory.WithId(new Guid()).Build();
+        var veaEvent = EventFactory.Create().Build();
+        var newTitle = EventTitle.Create("title").Payload;
         //veaEvent.ReadyToStart();
         
         // Act
-        Result result = veaEvent.UpdateTitle(title);
+        var result = veaEvent.UpdateTitle(newTitle);
 
         // Assert
         Assert.True(result.IsFailure);
@@ -124,13 +121,12 @@ public class UpdateTitleAggregateTest
     public void GivenEventExistWithIdAndIsCancelledStatus_WhenUpdatingTitle_ThenFailureMessageIsReturned()
     {
         // Arrange
-        EventFactory eventFactory = EventFactory.Create();
-        EventTitle title = EventTitle.Create("title").Payload;
-        VeaEvent veaEvent = eventFactory.WithId(new Guid()).Build();
+        var veaEvent = EventFactory.Create().Build();
+        var newTitle = EventTitle.Create("title").Payload;
         //veaEvent.Cancel();
         
         // Act
-        Result result = veaEvent.UpdateTitle(title);
+        var result = veaEvent.UpdateTitle(newTitle);
 
         // Assert
         Assert.True(result.IsFailure);
