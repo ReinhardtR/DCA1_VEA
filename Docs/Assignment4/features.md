@@ -14,13 +14,13 @@
   - [ ] F4
   - [ ] F5
   - [ ] F6
-- [ ] UC3 - Event creator updates description of event
-  - [ ] S1
-  - [ ] S2
-  - [ ] S3
-  - [ ] F1
-  - [ ] F2
-  - [ ] F3
+- [x] UC3 - Event creator updates description of event **Needs look after event status impementation**
+  - [x] S1
+  - [x] S2
+  - [x] S3
+  - [x] F1
+  - [x] F2
+  - [x] F3
 - [ ] UC4 - Event creator updates start-time and -date, and end-time and -date of event
   - [ ] S1
   - [ ] S2
