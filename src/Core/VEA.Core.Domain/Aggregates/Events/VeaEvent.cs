@@ -52,7 +52,10 @@ public class VeaEvent
     public Result UpdateDateRange(EventDateRange dateRange)
     {
         List<Error> errors = new List<Error>();
-
+        
+        if (Status == EventStatus.Active)
+            errors.Add(EventErrors.UpdateDateRangeWhenEventActive());
+        
         if (errors.Count > 0)
             return Result.Failure(errors);
 
