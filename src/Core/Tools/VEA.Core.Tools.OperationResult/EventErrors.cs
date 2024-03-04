@@ -40,4 +40,10 @@ public class EventErrors
 
     public static Error SetVisibilityToPrivateWhenEventActive() =>
     new(ErrorType.InvalidOperation, 12, "Cannot set visibility when event is active");
+    
+    public static Error EventMustHaveValidTitle() =>
+        new(ErrorType.InvalidOperation, 13, "Event must have a valid title");
+
+    public static Error VisibilityMustBeSet() =>
+        new(ErrorType.InvalidOperation, 14, "Visibility must be set");
 }

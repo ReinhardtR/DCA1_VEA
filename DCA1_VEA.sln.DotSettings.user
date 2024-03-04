@@ -1,5 +1,18 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=69cd895b_002Dc8cd_002D4875_002D9280_002D6821a1f05922/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="OperationResultUnitTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=063c796e_002D7b17_002D42af_002Dae8c_002D014939cef478/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.Ready.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.Ready.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatus_WhenCreatorReadiesTheEvent_ThenEventIsMadeReady&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.Ready.ReadyEventAggregateTest.GivenEventExistWithIdAndIsCancelledStatus_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.Ready.ReadyEventAggregateTest.GivenEventExistWithIdAndTitleIsDefault_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2d79f2af_002D5ccf_002D477a_002D9d3c_002Df7a84269af97/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.Ready.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=69cd895b_002Dc8cd_002D4875_002D9280_002D6821a1f05922/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="OperationResultUnitTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Or&gt;&#xD;
     &lt;ProjectFile&gt;A171FDC4-9B99-4477-A1B2-8E9EC1297BB0/d:Features/d:Event/d:UpdateTitle/f:UpdateTitleAggregateTest.cs&lt;/ProjectFile&gt;&#xD;
     &lt;ProjectFile&gt;A171FDC4-9B99-4477-A1B2-8E9EC1297BB0/d:Features/d:Event/d:UpdateDescription/f:UpdateDescriptionAggregateTest.cs&lt;/ProjectFile&gt;&#xD;
@@ -11,6 +24,12 @@
       &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatus_WhenCreatorReadiesTheEvent_ThenEventIsMadeReady&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.Ready.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatus_WhenCreatorReadiesTheEvent_ThenEventIsMadeReady&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.Ready.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
   &lt;/Or&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d2a3d297_002D3720_002D412c_002Dbdca_002D11de8812303f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.Ready.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

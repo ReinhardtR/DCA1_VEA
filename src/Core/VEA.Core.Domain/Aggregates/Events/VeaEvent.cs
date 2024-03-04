@@ -128,6 +128,17 @@ public class VeaEvent
         if (Status != EventStatus.Draft)
             errors.Add(EventErrors.EventMustBeDraft());
         
+        if (Title.Value.Equals("Working Title"))
+            errors.Add(EventErrors.EventMustHaveValidTitle());
+        
+        if (Description.Value.Equals(""))
+            errors.Add(EventErrors.DescriptionCannotBeEmpty());
+        
+        // Waiting for EventDateRange implementation
+        
+        if (GuestLimit.Value is <= 5 or >= 50)
+            errors.Add(EventErrors.GuestLimitMustBeBetween5And50());
+
         if (errors.Count > 0)
             return Result.Failure(errors);
 

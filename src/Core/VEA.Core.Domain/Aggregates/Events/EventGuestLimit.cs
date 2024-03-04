@@ -5,7 +5,8 @@ namespace VEA.Core.Domain.Aggregates.Events;
 
 public class EventGuestLimit : ValueObject<int>
 {
-    private EventGuestLimit(int value) : base(value) { }
+    private EventGuestLimit(int value) : base(value) 
+        => Value = value;
     
     public static Result<EventGuestLimit> Create(int value)
     {
@@ -19,10 +20,10 @@ public class EventGuestLimit : ValueObject<int>
     {
         List<Error> errors = [];
         
-        if (value <= 50)
+        if (value > 50)
             errors.Add(EventErrors.GuestLimitMustBeBetween5And50());
         
-        if (value >= 5)
+        if (value < 5)
             errors.Add(EventErrors.GuestLimitMustBeBetween5And50());
         
         return errors.Count > 0 ? Result.Failure(errors) : Result.Success();

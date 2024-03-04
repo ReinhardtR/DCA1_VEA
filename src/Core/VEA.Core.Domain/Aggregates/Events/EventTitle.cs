@@ -20,7 +20,7 @@ public class EventTitle : ValueObject<string>
             return Result<EventTitle>.Failure(validation.Errors);
 
         //If there are no errors return a success
-        return Result<EventTitle>.Success(new EventTitle(title));
+        return Result<EventTitle>.Success(instance);
     }
     
     private Result Validate(string value)
@@ -30,7 +30,7 @@ public class EventTitle : ValueObject<string>
             errors.Add(EventErrors.TitleMustBeBetween3And75Characters());
         
         //Title has to be between 3 and 75 characters
-        if (MinLength < value?.Length && value?.Length < MaxLength)
+        if (MinLength > value?.Length || value?.Length > MaxLength)
             errors.Add(EventErrors.TitleMustBeBetween3And75Characters());
         
         //If there are errors return a failure
