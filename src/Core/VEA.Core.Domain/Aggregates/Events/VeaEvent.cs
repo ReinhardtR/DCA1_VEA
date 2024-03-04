@@ -46,6 +46,7 @@ public class VeaEvent
 
         Description = description;
 
+        // Should set event status to draft.
         return Result.Success();
     }
     
