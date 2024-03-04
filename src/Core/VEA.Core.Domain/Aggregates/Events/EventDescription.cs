@@ -16,6 +16,7 @@ public class EventDescription : ValueObject<string>
         var instance = new EventDescription(description);
 
         Result validation = instance.Validate(description);
+        
         if (validation.IsFailure)
             return Result<EventDescription>.Failure(validation.Errors);
         
