@@ -12,25 +12,25 @@
     &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.Ready.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=69cd895b_002Dc8cd_002D4875_002D9280_002D6821a1f05922/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="1" Name="OperationResultUnitTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Or&gt;
-    &lt;ProjectFile&gt;A171FDC4-9B99-4477-A1B2-8E9EC1297BB0/d:Features/d:Event/d:UpdateTitle/f:UpdateTitleAggregateTest.cs&lt;/ProjectFile&gt;
-    &lt;ProjectFile&gt;A171FDC4-9B99-4477-A1B2-8E9EC1297BB0/d:Features/d:Event/d:UpdateDescription/f:UpdateDescriptionAggregateTest.cs&lt;/ProjectFile&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest.UpdateGuestLimit_WhenGuestLimitIsUpdated_ShouldUpdateGuestLimit&lt;/TestId&gt;
-      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest.GivenEventExistWithId_WhenCreatorSetsTheNumberOfMaximumGuestsToNumberLessThan5_ThenFailureMessageIsProvided&lt;/TestId&gt;
-      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest.GivenEventExistWithId_WhenCreatorSetsTheNumberOfMaximumGuestsToNumberMoreThan50_ThenFailureMessageIsProvided&lt;/TestId&gt;
-      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest&lt;/TestId&gt;
-      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatus_WhenCreatorReadiesTheEvent_ThenEventIsMadeReady&lt;/TestId&gt;
-      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-    &lt;ProjectFile&gt;A171FDC4-9B99-4477-A1B2-8E9EC1297BB0/d:Features/d:Event/d:MakePrivate/f:MakePrivateAggregateTests.cs&lt;/ProjectFile&gt;
-  &lt;/Or&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=69cd895b_002Dc8cd_002D4875_002D9280_002D6821a1f05922/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="1" Name="OperationResultUnitTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;ProjectFile&gt;A171FDC4-9B99-4477-A1B2-8E9EC1297BB0/d:Features/d:Event/d:UpdateTitle/f:UpdateTitleAggregateTest.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;A171FDC4-9B99-4477-A1B2-8E9EC1297BB0/d:Features/d:Event/d:UpdateDescription/f:UpdateDescriptionAggregateTest.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest.UpdateGuestLimit_WhenGuestLimitIsUpdated_ShouldUpdateGuestLimit&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest.GivenEventExistWithId_WhenCreatorSetsTheNumberOfMaximumGuestsToNumberLessThan5_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest.GivenEventExistWithId_WhenCreatorSetsTheNumberOfMaximumGuestsToNumberMoreThan50_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.UpdateGuestLimit.UpdateGuestLimitAggregateTest&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatus_WhenCreatorReadiesTheEvent_ThenEventIsMadeReady&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.ReadyEventAggregateTest.GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;ProjectFile&gt;A171FDC4-9B99-4477-A1B2-8E9EC1297BB0/d:Features/d:Event/d:MakePrivate/f:MakePrivateAggregateTests.cs&lt;/ProjectFile&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bd9c5ba7_002Dc4eb_002D420e_002D968b_002D6c64aca0a9f8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="MakePublicAggregateTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.MakePublic.MakePublicAggregateTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bd9c5ba7_002Dc4eb_002D420e_002D968b_002D6c64aca0a9f8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="MakePublicAggregateTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A171FDC4-9B99-4477-A1B2-8E9EC1297BB0::net8.0::VEA.Tests.UnitTests.Features.Event.MakePublic.MakePublicAggregateTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d2a3d297_002D3720_002D412c_002Dbdca_002D11de8812303f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingIsTrue_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
