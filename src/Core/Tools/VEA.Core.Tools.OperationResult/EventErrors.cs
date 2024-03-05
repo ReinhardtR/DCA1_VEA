@@ -8,7 +8,8 @@ public static class EventErrors
         new(ErrorType.InvalidOperation, 14, "Visibility must be set");
     public static Error EventMustBeDraft() =>
         new(ErrorType.InvalidOperation, 10, "Event must be in draft status");
-    
+    public static Error EventCannotBeActivatedWhenCancelled() =>
+        new(ErrorType.InvalidOperation, 24, "Event cannot be activated when cancelled");
     public static class Title
     {
         public static Error TitleMustBeBetween3And75Characters() =>

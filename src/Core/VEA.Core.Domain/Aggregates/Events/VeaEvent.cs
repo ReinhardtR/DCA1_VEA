@@ -144,14 +144,32 @@ public class VeaEvent
             errors.Add(EventErrors.Description.DescriptionCannotBeEmpty());
         
         // Waiting for EventDateRange implementation
-        
-        if (GuestLimit.Value is <= 5 or >= 50)
-            errors.Add(EventErrors.GuestLimit.GuestLimitMustBeBetween5And50());
 
         if (errors.Count > 0)
             return Result.Failure(errors);
 
         Status = EventStatus.Ready;
+        return Result.Success();
+    }
+
+    public Result Activate()
+    {
+        List<Error> errors = new List<Error>();
+
+        if (Status == EventStatus.Draft)
+        {
+            Result result = Ready();
+            if (result.IsFailure)
+                return Result.Failure(result.Errors);
+        }
+        
+        if (Status == EventStatus.Cancelled)
+            errors.Add(EventErrors.EventCannotBeActivatedWhenCancelled());
+        
+        if (errors.Count > 0)
+            return Result.Failure(errors);
+        
+        Status = EventStatus.Active;
         return Result.Success();
     }
 }
