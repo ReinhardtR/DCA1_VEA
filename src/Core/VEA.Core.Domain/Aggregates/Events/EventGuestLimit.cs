@@ -20,10 +20,10 @@ public class EventGuestLimit : ValueObject<int>
         List<Error> errors = [];
         
         if (value > 50)
-            errors.Add(EventErrors.GuestLimitMustBeBetween5And50());
+            errors.Add(EventErrors.GuestLimit.GuestLimitMustBeBetween5And50());
         
         if (value < 5)
-            errors.Add(EventErrors.GuestLimitMustBeBetween5And50());
+            errors.Add(EventErrors.GuestLimit.GuestLimitMustBeBetween5And50());
         
         return errors.Count > 0 ? Result.Failure(errors) : Result.Success();
     }

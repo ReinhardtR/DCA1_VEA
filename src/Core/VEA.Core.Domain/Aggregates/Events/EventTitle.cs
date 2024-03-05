@@ -26,11 +26,11 @@ public class EventTitle : ValueObject<string>
     {
         List<Error> errors = new List<Error>();
         if (string.IsNullOrWhiteSpace(value))
-            errors.Add(EventErrors.TitleMustBeBetween3And75Characters());
+            errors.Add(EventErrors.Title.TitleMustBeBetween3And75Characters());
         
         //Title has to be between 3 and 75 characters
         if (MinLength > value?.Length || value?.Length > MaxLength)
-            errors.Add(EventErrors.TitleMustBeBetween3And75Characters());
+            errors.Add(EventErrors.Title.TitleMustBeBetween3And75Characters());
         
         //If there are errors return a failure
         if (errors.Count > 0)
