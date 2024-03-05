@@ -27,6 +27,12 @@ public static class EventErrors
             new(ErrorType.InvalidOperation, 4, "Description cannot be modified for canceled event");
         public static Error DescriptionCannotBeEmpty() =>
             new(ErrorType.InvalidArgument, 5, "Description cannot be empty");
+
+        public static Error CannotUpdateCancelledEvent() =>
+            new(ErrorType.InvalidOperation, 24, "Cannot update cancelled event");
+
+        public static Error CannotUpdateActiveEvent() => 
+            new(ErrorType.InvalidOperation, 25, "Cannot update started event");
     }
 
     public static class GuestLimit

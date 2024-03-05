@@ -11,7 +11,21 @@ public class UpdateDescriptionAggregateTest
     
     
     //Success 1
-    
+    [Theory]
+    [InlineData("This is a completely valid description")]
+    public void GivenValidString_WhenEventIsDraft_ThenSuccess(string input)
+    {
+        //Arrange
+        VeaEvent veaEvent = EventFactory.Create().WithStatus(EventStatus.Draft).Build();
+        EventDescription description = EventDescription.Create(input).Payload;
+
+        //Act
+        Result result = veaEvent.UpdateDescription(description);
+
+        //Assert
+        Assert.False(result.IsFailure);
+        Assert.True(result.Errors.Count == 0);
+    }
     
     //Success 2
     [Theory]
@@ -28,6 +42,7 @@ public class UpdateDescriptionAggregateTest
         Result result = veaEvent.UpdateDescription(description);
 
         //Assert
+        Assert.True(veaEvent.Description.Value == "");
         Assert.False(result.IsFailure);
         Assert.True(result.Errors.Count == 0);
     }
@@ -38,7 +53,7 @@ public class UpdateDescriptionAggregateTest
     public void GivenValidString_WhenUpdatingDescription_ThenEventStatusIsSetToDraft(string input)
     {
         //Arrange
-        VeaEvent veaEvent = EventFactory.Create().Build();
+        VeaEvent veaEvent = EventFactory.Create().WithStatus(EventStatus.Ready).Build();
         EventDescription description = EventDescription.Create(input).Payload;
 
         //Act
@@ -46,7 +61,7 @@ public class UpdateDescriptionAggregateTest
 
         //Assert
         Assert.False(result.IsFailure);
-        // Assert that event status it now draft
+        Assert.True(veaEvent.Status == EventStatus.Draft);
         Assert.True(result.Errors.Count == 0);
     }
     
@@ -68,7 +83,7 @@ public class UpdateDescriptionAggregateTest
         Assert.Contains(EventErrors.Description.DescriptionCannotBeLongerThan250Characters(), result.Errors);
     }
 
-    /*
+    
     // Failure 2
     [Theory]
     [InlineData("This is a completely valid description")]
@@ -83,7 +98,7 @@ public class UpdateDescriptionAggregateTest
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.CannotUpdateCancelledEvent(), result.Errors);
+        Assert.Contains(EventErrors.Description.CannotUpdateCancelledEvent(), result.Errors);
     }
     
     // Failure 3
@@ -92,7 +107,7 @@ public class UpdateDescriptionAggregateTest
     public void GivenValidString_WhenEventStatusIsActive_ThenFailure(string input)
     {
         //Arrange
-        VeaEvent veaEvent = EventFactory.Create().WithStatus(EventStatus.Started).Build();
+        VeaEvent veaEvent = EventFactory.Create().WithStatus(EventStatus.Active).Build();
         EventDescription description = EventDescription.Create(input).Payload;
 
         //Act
@@ -100,7 +115,7 @@ public class UpdateDescriptionAggregateTest
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.CannotUpdateStartedEvent(), result.Errors);
+        Assert.Contains(EventErrors.Description.CannotUpdateActiveEvent(), result.Errors);
     }
-    */
+    
 }
