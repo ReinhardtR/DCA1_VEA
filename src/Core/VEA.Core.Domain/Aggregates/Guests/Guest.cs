@@ -28,7 +28,4 @@ public class Guest
             email ?? ViaEmail.Create("JohnDoe@mail.com").Payload,
             profilePicture ?? GuestProfilePicture.Create(Url.Create("https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50").Payload).Payload);
     }
-    
-    
-    
 }

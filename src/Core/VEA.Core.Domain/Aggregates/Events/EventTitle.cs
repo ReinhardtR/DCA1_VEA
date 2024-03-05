@@ -5,17 +5,16 @@ namespace VEA.Core.Domain.Aggregates.Events;
 
 public class EventTitle : ValueObject<string>
 {
-    private EventTitle(string value) : base(value) 
-        => Value = value;
-    
-    private static readonly int MaxLength = 75;
-    private static readonly int MinLength = 3;
+    private EventTitle(string value) : base(value) { }
+
+    private const int MinLength = 3;
+    private const int MaxLength = 75;
 
     public static Result<EventTitle> Create(string title)
     {
         var instance = new EventTitle(title);
         
-        Result validation = instance.Validate(title);
+        Result validation = Validate(title);
         if (validation.IsFailure)
             return Result<EventTitle>.Failure(validation.Errors);
 
@@ -23,7 +22,7 @@ public class EventTitle : ValueObject<string>
         return Result<EventTitle>.Success(instance);
     }
     
-    private Result Validate(string value)
+    public static Result Validate(string value)
     {
         List<Error> errors = new List<Error>();
         if (string.IsNullOrWhiteSpace(value))
@@ -49,8 +48,4 @@ public class EventTitle : ValueObject<string>
         if (obj.GetType() != this.GetType()) return false;
         return Equals((EventTitle) obj);
     }
-
-    
-    
-    
 }

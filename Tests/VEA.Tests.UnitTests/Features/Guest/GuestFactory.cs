@@ -47,7 +47,6 @@ public class GuestFactory
         return this;
     }
 
-    //todo What the fuck? Hvorfor gider den ikke være ordentlig
     public Core.Domain.Aggregates.Guests.Guest Build()
     {
         return Core.Domain.Aggregates.Guests.Guest.Create(
@@ -55,7 +54,8 @@ public class GuestFactory
             _firstName,
             _lastName,
             _email,
-            _profilePicture);
+            _profilePicture
+        );
     }
     
 }

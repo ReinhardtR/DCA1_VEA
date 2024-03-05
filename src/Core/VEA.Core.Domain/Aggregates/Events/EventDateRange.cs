@@ -6,12 +6,12 @@ namespace VEA.Core.Domain.Aggregates.Events;
 
 public class EventDateRange : ValueObject<DateRange>
 {
-    private EventDateRange(DateRange value) : base(value) => Value = value;
-    
-    private static readonly int MinDurationMinutes = 60;
-    private static readonly int MaxDurationMinutes = 600;
-    private static readonly TimeOnly EarliestStartTime = new TimeOnly(8, 0);
-    private static readonly TimeOnly LatestEndTime = new TimeOnly(1, 0);
+    private EventDateRange(DateRange value) : base(value) { }
+
+    private const int MinDurationMinutes = 60;
+    private const int MaxDurationMinutes = 600;
+    private static readonly TimeOnly EarliestStartTime = new(8, 0);
+    private static readonly TimeOnly LatestEndTime = new(1, 0);
     
     public static Result<EventDateRange> Create(DateRange value)
     {

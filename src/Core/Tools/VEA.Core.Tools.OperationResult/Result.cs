@@ -7,7 +7,7 @@ public class Result
   public bool IsFailure => Errors.Count != 0;
 
   public Result() { }
-  public Result(List<Error> errors) => Errors = errors;
+  protected Result(List<Error> errors) => Errors = errors;
 
   public static Result Success() => new();
 
@@ -19,9 +19,9 @@ public class Result<T> : Result
 {
   public T Payload { get; } = default!;
 
-  private Result(T payload) : base() => Payload = payload;
+  private Result(T payload) => Payload = payload;
   private Result(List<Error> errors) : base(errors) { }
 
   public static Result<T> Success(T payload) => new(payload);
-  public static new Result<T> Failure(List<Error> errors) => new(errors);
+  public new static Result<T> Failure(List<Error> errors) => new(errors);
 }

@@ -55,7 +55,7 @@ public class VeaEvent
         List<Error> errors = new List<Error>();
         
         if (Status == EventStatus.Active)
-            errors.Add(EventErrors.UpdateDateRangeWhenEventActive());
+            errors.Add(EventErrors.DateRange.UpdateDateRangeWhenEventActive());
         
         if (errors.Count > 0)
             return Result.Failure(errors);
@@ -70,10 +70,10 @@ public class VeaEvent
         List<Error> errors = [];
 
         if (Status == EventStatus.Cancelled)
-            errors.Add(EventErrors.SetVisibilityWhenEventCancelled());
+            errors.Add(EventErrors.Visibility.SetVisibilityWhenEventCancelled());
 
         if (Status == EventStatus.Active)
-            errors.Add(EventErrors.SetVisibilityToPrivateWhenEventActive());
+            errors.Add(EventErrors.Visibility.SetVisibilityToPrivateWhenEventActive());
 
         if (errors.Count > 0)
             return Result.Failure(errors);
@@ -92,7 +92,7 @@ public class VeaEvent
 
     public Result UpdateTitle(EventTitle title)
     {
-        List<Error> errors = new List<Error>();
+        List<Error> errors = new();
 
         // Waiting for EventStatus implementation
 
@@ -136,12 +136,12 @@ public class VeaEvent
             errors.Add(EventErrors.EventMustHaveValidTitle());
         
         if (Description.Value.Equals(""))
-            errors.Add(EventErrors.DescriptionCannotBeEmpty());
+            errors.Add(EventErrors.Description.DescriptionCannotBeEmpty());
         
         // Waiting for EventDateRange implementation
         
         if (GuestLimit.Value is <= 5 or >= 50)
-            errors.Add(EventErrors.GuestLimitMustBeBetween5And50());
+            errors.Add(EventErrors.GuestLimit.GuestLimitMustBeBetween5And50());
 
         if (errors.Count > 0)
             return Result.Failure(errors);

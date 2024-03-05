@@ -31,4 +31,13 @@ public abstract class Enumeration(int id, string name) : IComparable
   {
     return Id.GetHashCode();
   }
+  
+  public static bool operator ==(Enumeration a, Enumeration b)
+  {
+    if (a is null && b is null) return true;
+    if (a is null || b is null) return false;
+    return a.Equals(b);
+  }
+  
+  public static bool operator !=(Enumeration a, Enumeration b) => !(a == b);
 }

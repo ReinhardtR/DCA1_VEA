@@ -2,7 +2,7 @@
 
 public abstract class ValueObject<T>
 {
-        public T Value;
+        public T Value { get; }
 
         protected ValueObject(T value)
         {

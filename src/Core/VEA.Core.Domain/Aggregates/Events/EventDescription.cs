@@ -5,9 +5,7 @@ namespace VEA.Core.Domain.Aggregates.Events;
 
 public class EventDescription : ValueObject<string>
 {
-
-    private EventDescription(string value) : base(value) 
-        => Value = value;
+    private EventDescription(string value) : base(value) { }
     
     private static int MaxLength => 250;
 
@@ -15,7 +13,7 @@ public class EventDescription : ValueObject<string>
     {
         var instance = new EventDescription(description);
 
-        Result validation = instance.Validate(description);
+        Result validation = Validate(description);
         
         if (validation.IsFailure)
             return Result<EventDescription>.Failure(validation.Errors);
@@ -23,8 +21,7 @@ public class EventDescription : ValueObject<string>
         return Result<EventDescription>.Success(instance);
     }
 
-
-    private Result Validate(string value)
+    public static Result Validate(string value)
     {
         Result result = new Result();
         
@@ -33,6 +30,4 @@ public class EventDescription : ValueObject<string>
 
         return Result.Success();
     }
-    
-    
 }

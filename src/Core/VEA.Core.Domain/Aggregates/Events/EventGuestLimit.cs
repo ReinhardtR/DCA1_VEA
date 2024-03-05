@@ -5,8 +5,7 @@ namespace VEA.Core.Domain.Aggregates.Events;
 
 public class EventGuestLimit : ValueObject<int>
 {
-    private EventGuestLimit(int value) : base(value) 
-        => Value = value;
+    private EventGuestLimit(int value) : base(value) { }
     
     public static Result<EventGuestLimit> Create(int value)
     {

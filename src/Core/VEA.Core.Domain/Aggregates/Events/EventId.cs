@@ -5,8 +5,7 @@ namespace VEA.Core.Domain.Aggregates.Events;
 
 public class EventId : ValueObject<Guid>
 {
-    public EventId(Guid value) : base(value) 
-        => Value = value;
+    public EventId(Guid value) : base(value) { }
 
     public static Result<EventId> New()
     {
