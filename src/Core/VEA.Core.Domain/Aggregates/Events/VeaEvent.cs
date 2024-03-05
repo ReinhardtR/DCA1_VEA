@@ -36,16 +36,21 @@ public class VeaEvent
 
     public Result UpdateDescription(EventDescription description)
     {
-        // Waiting for EventStatus implementation
+        List<Error> errors = new List<Error>();
+        if (Status == EventStatus.Active)
+            errors.Add(EventErrors.Description.CannotUpdateActiveEvent());
 
-        // if (Status == EventStatus.Cancelled)
-        //     //Add error
-        //
-        // if (Status == EventStatus.Started)
-        //     //Add error
-
+        if (Status == EventStatus.Cancelled) 
+            errors.Add(EventErrors.Description.CannotUpdateCancelledEvent());
+        
+        if (errors.Count > 0)
+            return Result.Failure(errors);
+        
+        //Else succeed
         Description = description;
-
+        if (Status == EventStatus.Ready)
+            Status = EventStatus.Draft;
+        
         // Should set event status to draft.
         return Result.Success();
     }

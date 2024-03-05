@@ -26,7 +26,7 @@ public class EventDescription : ValueObject<string>
         Result result = new Result();
         
         if (value.Length > MaxLength)
-            result.Errors.Add(EventErrors.DescriptionCannotBeLongerThan250Characters());
+            result.Errors.Add(EventErrors.Description.DescriptionCannotBeLongerThan250Characters());
 
         return Result.Success();
     }
