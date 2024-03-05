@@ -17,11 +17,12 @@ public class CreateAggregateTest
   public void GivenWrongEmail_WhenCreatingAccount_ShouldFailure(string wrongEmail)
   {
     // Arrange
-    
+    Result<ViaEmail> result;
     // Act
-    
+    result = ViaEmail.Create(wrongEmail);
     // Assert;
-    
+    Assert.True(result.IsFailure);
+    Assert.Contains(ViaEmail.Errors.EmailDomainNotValid(), result.Errors);
   }
   
   // Failure 2
