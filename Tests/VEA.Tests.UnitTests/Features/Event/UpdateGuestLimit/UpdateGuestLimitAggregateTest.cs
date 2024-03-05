@@ -84,7 +84,7 @@ public class UpdateGuestLimitAggregateTest
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.GuestLimitMustBeBetween5And50(), result.Errors);
+        Assert.Contains(EventErrors.GuestLimit.GuestLimitMustBeBetween5And50(), result.Errors);
     }
 
     //F5 Given an existing event with ID When creator sets the number of maximum guests to a number > 50 Then a failure message is provided explaining the maximum number of guests cannot exceed 50
@@ -98,6 +98,6 @@ public class UpdateGuestLimitAggregateTest
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.GuestLimitMustBeBetween5And50(), result.Errors);
+        Assert.Contains(EventErrors.GuestLimit.GuestLimitMustBeBetween5And50(), result.Errors);
     }
 }
