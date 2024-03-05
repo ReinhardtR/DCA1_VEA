@@ -51,7 +51,7 @@ public class UpdateTitleAggregateTest
         
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.TitleMustBeBetween3And75Characters(), result.Errors);
+        Assert.Contains(EventErrors.Title.TitleMustBeBetween3And75Characters(), result.Errors);
     }
     
     //F2 Given an existing event with ID When creator selects to set the title of the event | XY | | a | And the title is less than 3 characters Then a failure message is returned explaining that the title must be between 3 and 75 characters
@@ -66,7 +66,7 @@ public class UpdateTitleAggregateTest
         
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.TitleMustBeBetween3And75Characters(), result.Errors);
+        Assert.Contains(EventErrors.Title.TitleMustBeBetween3And75Characters(), result.Errors);
     }
     
     //F3 Given an existing event with ID When creator selects to set the title of the event And the title is more than 75 characters Then a failure message is returned explaining that the title must be between 3 and 75 characters
@@ -81,7 +81,7 @@ public class UpdateTitleAggregateTest
         
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.TitleMustBeBetween3And75Characters(), result.Errors);
+        Assert.Contains(EventErrors.Title.TitleMustBeBetween3And75Characters(), result.Errors);
     }
     
     //F4 Given an existing event with ID When creator selects to set the title of the event And the title is non-existing (null) Then a failure message is returned explaining that the title must be between 3 and 75 characters
@@ -94,7 +94,7 @@ public class UpdateTitleAggregateTest
         
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.TitleMustBeBetween3And75Characters(), result.Errors);
+        Assert.Contains(EventErrors.Title.TitleMustBeBetween3And75Characters(), result.Errors);
     }
     
     //F5 Given an existing event with ID When creator selects to set the title of the event And the event is in active status Then a failure message is returned explaining an active event cannot be modified
@@ -112,7 +112,7 @@ public class UpdateTitleAggregateTest
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.UpdateTitleWhenEventActive(), result.Errors);
+        Assert.Contains(EventErrors.Title.UpdateTitleWhenEventActive(), result.Errors);
     }
     
     //F6 Given an existing event with ID When creator selects to set the title of the event And the event is in cancelled status Then a failure message is returned explaining a cancelled event cannot be modified
@@ -130,6 +130,6 @@ public class UpdateTitleAggregateTest
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.UpdateTitleWhenEventCancelled(), result.Errors);
+        Assert.Contains(EventErrors.Title.UpdateTitleWhenEventCancelled(), result.Errors);
     }
 }
