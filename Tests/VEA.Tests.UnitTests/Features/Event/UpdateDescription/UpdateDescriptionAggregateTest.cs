@@ -65,7 +65,7 @@ public class UpdateDescriptionAggregateTest
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DescriptionCannotBeLongerThan250Characters(), result.Errors);
+        Assert.Contains(EventErrors.Description.DescriptionCannotBeLongerThan250Characters(), result.Errors);
     }
 
     /*
