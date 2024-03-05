@@ -7,9 +7,6 @@ namespace VEA.Tests.UnitTests.Features.Event.UpdateDescription;
 public class UpdateDescriptionAggregateTest
 {
     //UseCase 3
-    
-    
-    
     //Success 1
     [Theory]
     [InlineData("This is a completely valid description")]
