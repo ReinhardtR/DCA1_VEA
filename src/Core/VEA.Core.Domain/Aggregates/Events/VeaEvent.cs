@@ -1,4 +1,5 @@
-﻿using VEA.Core.Tools.OperationResult;
+﻿using VEA.Core.Domain.Aggregates.Guests;
+using VEA.Core.Tools.OperationResult;
 
 namespace VEA.Core.Domain.Aggregates.Events;
 
@@ -165,6 +166,13 @@ public class VeaEvent
             return Result.Failure(errors);
         
         Status = EventStatus.Active;
+        return Result.Success();
+    }
+
+    public Result Participate(Guest guest)
+    {
+
+
         return Result.Success();
     }
 }
