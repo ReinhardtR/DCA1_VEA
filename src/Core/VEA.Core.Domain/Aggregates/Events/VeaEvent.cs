@@ -13,8 +13,9 @@ public class VeaEvent
     internal EventGuestLimit GuestLimit;
     internal EventDateRange? DateRange;
     internal List<Invitation> Invitations;
-
-    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit)
+    internal List<Participation> Participations;
+    
+    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit, EventDateRange? dateRange)
     {
         Id = id;
         Title = title;
@@ -23,9 +24,11 @@ public class VeaEvent
         Status = status;
         GuestLimit = guestLimit;
         Invitations = new List<Invitation>();
+        DateRange = dateRange;
+        Participations = new List<Participation>();
     }
 
-    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit)
+    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit,EventDateRange? eventDateRange)
     {
         return new VeaEvent(
             id,
@@ -33,7 +36,8 @@ public class VeaEvent
             eventDescription ?? EventDescription.Create("").Payload,
             eventVisibility ?? EventVisibility.Private,
             eventStatus ?? EventStatus.Draft,
-            eventGuestLimit ?? EventGuestLimit.Create(5).Payload
+            eventGuestLimit ?? EventGuestLimit.Create(5).Payload,
+            eventDateRange ?? null
         );
     }
 
@@ -172,10 +176,38 @@ public class VeaEvent
     }
 
 
-    public Result Participate(Guest guest)
+    public Result Participate(Participation participation)
     {
+        
+        var validation = Result.Validator()
+            .Assert(Status == EventStatus.Active, Errors.Participation.EventIsNotActive())
+            //.Assert(Invitations.Count < GuestLimit.Value, Errors.Participation.GuestLimitReached())
+            .Assert(() => EventHasNotStated(participation), Errors.Participation.EventAlreadyStarted())
+            .Assert(Visibility == EventVisibility.Public, Errors.Participation.EventNotPublic())
+            .Assert(() => GuestAlreadyAttends(participation), Errors.Participation.GuestAlreadyParticipated())
+            .Validate();
 
+        if (validation.IsFailure)
+        {
+            return Result.Failure(validation.Errors);
+        }
+        
+        Participations.Add(participation);
+        
         return Result.Success();
+    }
+
+    private bool EventHasNotStated(Participation participation)
+    {
+        if (DateRange == null)
+            return true;
+        
+        return DateRange.Value.Start > DateTime.Now;
+    }
+
+    private bool GuestAlreadyAttends(Participation participation)
+    {
+        return !Participations.Exists(p => p.GuestId == participation.GuestId);
     }
 
     public Result ExtendInvitation(Invitation invitation)
@@ -190,5 +222,26 @@ public class VeaEvent
         
         Invitations.Add(invitation);
         return Result.Success();
+    }
+
+    public class Errors
+    {
+        public class Participation
+        {
+             public static Error EventIsNotActive() =>
+                new(ErrorType.InvalidOperation, 1, "Event must be active to participate in it");
+
+             public static Error GuestLimitReached() =>
+                new(ErrorType.InvalidOperation, 2, "Guest limit has been reached, cannot participate");
+
+             public static Error EventAlreadyStarted() => 
+                new(ErrorType.InvalidOperation, 3, "Event has already started, cannot participate");
+
+             public static Error EventNotPublic() => 
+                new(ErrorType.InvalidOperation, 4, "Event is not public, cannot participate");
+
+             public static Error GuestAlreadyParticipated() =>
+                new(ErrorType.InvalidOperation, 5, "Guest has already participated in the event");
+        }
     }
 }

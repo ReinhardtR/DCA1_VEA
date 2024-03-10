@@ -10,6 +10,7 @@ public class EventFactory
     private EventVisibility? _visibility;
     private EventStatus? _status;
     private EventGuestLimit? _guestLimit;
+    private EventDateRange _daterange;
 
     public static EventFactory Create()
     {
@@ -51,6 +52,12 @@ public class EventFactory
         _guestLimit = EventGuestLimit.Create(limit).Payload;
         return this;
     }
+    
+    public EventFactory WithDateRange(EventDateRange dateRange)
+    {
+        _daterange = dateRange;
+        return this;
+    }
 
     public VeaEvent Build()
     {
@@ -60,7 +67,8 @@ public class EventFactory
             _description,
             _visibility,
             _status,
-            _guestLimit
+            _guestLimit,
+            _daterange
         );
     }
 }
