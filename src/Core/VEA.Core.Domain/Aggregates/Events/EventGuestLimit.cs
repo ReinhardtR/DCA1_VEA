@@ -10,8 +10,8 @@ public class EventGuestLimit : ValueObject<int>
     public static Result<EventGuestLimit> Create(int value)
     {
         var validation = Result.Validator()
-            .Assert(value > 50, EventErrors.GuestLimit.GuestLimitMustBeBetween5And50())
-            .Assert(value < 5, EventErrors.GuestLimit.GuestLimitMustBeBetween5And50())
+            .Assert(value <= 50, EventErrors.GuestLimit.GuestLimitMustBeBetween5And50())
+            .Assert(value >= 5, EventErrors.GuestLimit.GuestLimitMustBeBetween5And50())
             .Validate();
         return validation.IsFailure
             ? Result.Failure<EventGuestLimit>(validation.Errors)
