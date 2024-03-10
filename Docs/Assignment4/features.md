@@ -68,15 +68,15 @@
   - [ ] S3
   - [ ] F1
   - [ ] F2
-- [ ] UC10 - Anonymous registers a new account
-  - [ ] S1
-  - [ ] F1
-  - [ ] F2
-  - [ ] F3
-  - [ ] F4
-  - [ ] F5
-  - [ ] F6
-  - [ ] F7
+- [x] UC10 - Anonymous registers a new account
+  - [x] S1
+  - [x] F1
+  - [x] F2
+  - [x] F3
+  - [x] F4
+  - [x] F5
+  - [x] F6
+  - [x] F7
 - [ ] UC11 - Guest chooses to participate in a public event
   - [ ] S1
   - [ ] F1
