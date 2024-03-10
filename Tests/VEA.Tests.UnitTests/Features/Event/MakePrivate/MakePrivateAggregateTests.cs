@@ -5,41 +5,69 @@ namespace VEA.Tests.UnitTests.Features.Event.MakePrivate;
 
 public class MakePrivateAggregateTests
 {
-  // S1
-  [Theory]
-  [InlineData(EventStatus.Draft)]
-  [InlineData(EventStatus.Ready)]
-  public void GivenExistingEventIdAndPrivateAndDraftOrReady_WhenCreatorMakesEventPrivate_ThenSucceedWithNoChange(EventStatus status)
-  {
-    var veaEvent = EventFactory.Create()
-      .WithStatus(status)
-      .WithVisibility(EventVisibility.Private)
-      .Build();
+    // S1 - Draft
+    [Fact]
+    public void GivenExistingEventIdAndPrivateAndDraft_WhenCreatorMakesEventPrivate_ThenSucceedWithNoChange_Draft()
+    {
+        var veaEvent = EventFactory.Create()
+            .WithStatus(EventStatus.Draft)
+            .WithVisibility(EventVisibility.Private)
+            .Build();
 
-    var result = veaEvent.SetVisibility(EventVisibility.Private);
+        var result = veaEvent.SetVisibility(EventVisibility.Private);
 
-    Assert.False(result.IsFailure);
-    Assert.Equal(status, veaEvent.Status);
-    Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
-  }
+        Assert.False(result.IsFailure);
+        Assert.Equal(EventStatus.Draft, veaEvent.Status);
+        Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
+    }
 
-  // S2
-  [Theory]
-  [InlineData(EventStatus.Draft)]
-  [InlineData(EventStatus.Ready)]
-  public void GivenExistingEventIdAndPublicAndDraft_WhenCreatorMakesEventPrivate_ThenEventPrivateAndDraft(EventStatus status)
-  {
-    var veaEvent = EventFactory.Create()
-      .WithStatus(status)
-      .WithVisibility(EventVisibility.Public)
-      .Build();
+    // S1 - Ready
+    [Fact]
+    public void GivenExistingEventIdAndPrivateAndReady_WhenCreatorMakesEventPrivate_ThenSucceedWithNoChange_Ready()
+    {
+        var veaEvent = EventFactory.Create()
+            .WithStatus(EventStatus.Ready)
+            .WithVisibility(EventVisibility.Private)
+            .Build();
 
-    var result = veaEvent.SetVisibility(EventVisibility.Private);
+        var result = veaEvent.SetVisibility(EventVisibility.Private);
 
-    Assert.False(result.IsFailure);
-    Assert.Equal(EventStatus.Draft, veaEvent.Status);
-    Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
-  }
+        Assert.False(result.IsFailure);
+        Assert.Equal(EventStatus.Ready, veaEvent.Status);
+        Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
+    }
+
+    // S2 - Draft
+    [Fact]
+    public void GivenExistingEventIdAndPublicAndDraft_WhenCreatorMakesEventPrivate_ThenEventPrivateAndDraft_Draft()
+    {
+        var veaEvent = EventFactory.Create()
+            .WithStatus(EventStatus.Draft)
+            .WithVisibility(EventVisibility.Public)
+            .Build();
+
+        var result = veaEvent.SetVisibility(EventVisibility.Private);
+
+        Assert.False(result.IsFailure);
+        Assert.Equal(EventStatus.Draft, veaEvent.Status);
+        Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
+    }
+
+    // S2 - Ready
+    [Fact]
+    public void GivenExistingEventIdAndPublicAndDraft_WhenCreatorMakesEventPrivate_ThenEventPrivateAndDraft_Ready()
+    {
+        var veaEvent = EventFactory.Create()
+            .WithStatus(EventStatus.Ready)
+            .WithVisibility(EventVisibility.Public)
+            .Build();
+
+        var result = veaEvent.SetVisibility(EventVisibility.Private);
+
+        Assert.False(result.IsFailure);
+        Assert.Equal(EventStatus.Ready, veaEvent.Status);
+        Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
+    }
 
   // F1
   [Fact]

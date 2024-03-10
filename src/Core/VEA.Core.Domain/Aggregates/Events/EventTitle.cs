@@ -10,34 +10,15 @@ public class EventTitle : ValueObject<string>
     private const int MinLength = 3;
     private const int MaxLength = 75;
 
-    public static Result<EventTitle> Create(string title)
+    public static Result<EventTitle> Create(string value)
     {
-        var instance = new EventTitle(title);
-        
-        Result validation = Validate(title);
-        if (validation.IsFailure)
-            return Result<EventTitle>.Failure(validation.Errors);
-
-        //If there are no errors return a success
-        return Result<EventTitle>.Success(instance);
-    }
-    
-    public static Result Validate(string value)
-    {
-        List<Error> errors = new List<Error>();
-        if (string.IsNullOrWhiteSpace(value))
-            errors.Add(EventErrors.Title.TitleMustBeBetween3And75Characters());
-        
-        //Title has to be between 3 and 75 characters
-        if (MinLength > value?.Length || value?.Length > MaxLength)
-            errors.Add(EventErrors.Title.TitleMustBeBetween3And75Characters());
-        
-        //If there are errors return a failure
-        if (errors.Count > 0)
-            return Result.Failure(errors);
-        
-        //If there are no errors return a success
-        return Result.Success();
+        var validation = Result.Validator()
+            .Assert(string.IsNullOrWhiteSpace(value), EventErrors.Title.TitleMustBeBetween3And75Characters())
+            .Assert(value?.Length is < MinLength or > MaxLength, EventErrors.Title.TitleMustBeBetween3And75Characters())
+            .Validate();
+        return validation.IsFailure
+            ? Result.Failure<EventTitle>(validation.Errors)
+            : Result.Success(new EventTitle(value!));
     }
     
    //overide Object.equals

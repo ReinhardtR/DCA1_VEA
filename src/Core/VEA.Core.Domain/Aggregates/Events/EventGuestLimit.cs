@@ -9,22 +9,12 @@ public class EventGuestLimit : ValueObject<int>
     
     public static Result<EventGuestLimit> Create(int value)
     {
-        var validation = Validate(value);
-        return validation.IsFailure 
-            ? Result<EventGuestLimit>.Failure(validation.Errors)
-            : Result<EventGuestLimit>.Success(new EventGuestLimit(value));
-    }
-    
-    public static Result Validate(int value)
-    {
-        List<Error> errors = [];
-        
-        if (value > 50)
-            errors.Add(EventErrors.GuestLimit.GuestLimitMustBeBetween5And50());
-        
-        if (value < 5)
-            errors.Add(EventErrors.GuestLimit.GuestLimitMustBeBetween5And50());
-        
-        return errors.Count > 0 ? Result.Failure(errors) : Result.Success();
+        var validation = Result.Validator()
+            .Assert(value > 50, EventErrors.GuestLimit.GuestLimitMustBeBetween5And50())
+            .Assert(value < 5, EventErrors.GuestLimit.GuestLimitMustBeBetween5And50())
+            .Validate();
+        return validation.IsFailure
+            ? Result.Failure<EventGuestLimit>(validation.Errors)
+            : Result.Success(new EventGuestLimit(value));
     }
 }

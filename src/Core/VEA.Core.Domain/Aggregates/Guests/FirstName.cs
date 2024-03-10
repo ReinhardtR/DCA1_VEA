@@ -9,10 +9,10 @@ public class FirstName : ValueObject<string>
     
     public static Result<FirstName> Create(string value)
     {
-        var validation = Validate(value);
-        return validation.IsFailure 
-            ? Result<FirstName>.Failure(validation.Errors)
-            : Result<FirstName>.Success(new FirstName(value));
+        var validation = Result.Validator().Validate();
+        return validation.IsFailure
+            ? Result.Failure<FirstName>(validation.Errors)
+            : Result.Success(new FirstName(value));
     }
     
     private static Result Validate(string value)

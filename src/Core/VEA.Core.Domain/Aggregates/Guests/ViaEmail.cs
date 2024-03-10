@@ -14,24 +14,14 @@ public class ViaEmail : ValueObject<string>
 
     public static Result<ViaEmail> Create(string value)
     {
-        var validation = Validate(value);
+        var validation = Result.Validator()
+            .Assert(!value.Contains(Domainname), Errors.EmailDomainNotValid())
+            .Validate();
         return validation.IsFailure
-            ? Result<ViaEmail>.Failure(validation.Errors)
-            : Result<ViaEmail>.Success(new ViaEmail(value));
+            ? Result.Failure<ViaEmail>(validation.Errors)
+            : Result.Success(new ViaEmail(value));
     }
-
-    private static Result Validate(string value)
-    {
-        List<Error> errors = [];
-
-        //Split value by "@" and check if the second part is "via.dk
-        if (!value.Contains(Domainname))
-            errors.Add(Errors.EmailDomainNotValid());
-        
-        return errors.Count > 0 ? Result.Failure(errors) : Result.Success();
-    }
-
-
+    
     public static class Errors
     {
         public static Error EmailDomainNotValid() =>

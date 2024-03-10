@@ -149,7 +149,7 @@ public class UpdateDateRangeAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRangeStartDateMustBeBeforeEndDate(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.DateRangeStartMustBeBeforeEnd(), result.Errors);
     }
 
     // UC4.F2
@@ -171,7 +171,7 @@ public class UpdateDateRangeAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRangeStartTimeMustBeBeforeEndTimeWhenSameDate(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.DateRangeStartMustBeBeforeEnd(), result.Errors);
     }
     
     // UC4.F3
@@ -192,7 +192,7 @@ public class UpdateDateRangeAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRangeStartTimeMustBeMinimumDurationBeforeEndTime(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.DateRangeStartTimeMustBeMinimumDurationBeforeEndTime(), result.Errors);
     }
     
     // UC4.F4
@@ -212,7 +212,7 @@ public class UpdateDateRangeAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRangeStartTimeMustBeMinimumDurationBeforeEndTime(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.DateRangeStartTimeMustBeMinimumDurationBeforeEndTime(), result.Errors);
     }
     
     // UC4.F5
@@ -234,7 +234,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRangeStartTimeMustBeAfterEarliestTime(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.DateRangeStartTimeMustBeAfterEarliestTime(), result.Errors);
     }
     
     // UC4.F6
@@ -254,7 +254,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRangeEndTimeMustBeBeforeLatestTime(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.DateRangeEndTimeMustBeBeforeLatestTime(), result.Errors);
     }
     
     // UC4.F7
@@ -275,7 +275,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.UpdateDateRangeWhenEventActive(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.UpdateDateRangeWhenEventActive(), result.Errors);
     }
     
     // UC4.F8
@@ -289,14 +289,14 @@ public class UpdateDateRangeAggregateTests
         var endDate = DateTime.Parse("2023/08/25 10:00");
         var dateRange = new DateRange(startDate, endDate);
         EventDateRange eventDateRange = EventDateRange.Create(dateRange).Payload;
-        //veaEvent.Cancel();
+        // veaEvent.Cancel();
 
         //Act
         Result result = veaEvent.UpdateDateRange(eventDateRange);
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.UpdateDateRangeWhenEventActive(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.UpdateDateRangeWhenEventActive(), result.Errors);
     }
     
     // UC4.F9
@@ -317,7 +317,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRangeDurationExceedsMaximum(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.DateRangeDurationExceedsMaximum(), result.Errors);
     }
     
     // UC4.F10
@@ -335,7 +335,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.EventStartTimeCannotBeInPast(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.EventStartTimeCannotBeInPast(), result.Errors);
     }
     
     // UC4.F11
@@ -355,6 +355,6 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRangeSpansBetweenLatestAndEarliestTime(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.DateRangeSpansBetweenLatestAndEarliestTime(), result.Errors);
     }
 }
