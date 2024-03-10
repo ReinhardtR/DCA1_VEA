@@ -12,6 +12,7 @@ public class VeaEvent
     internal EventStatus Status;
     internal EventGuestLimit GuestLimit;
     internal EventDateRange? DateRange;
+    internal List<Invitation> Invitations;
 
     private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit)
     {
@@ -21,6 +22,7 @@ public class VeaEvent
         Visibility = visibility;
         Status = status;
         GuestLimit = guestLimit;
+        Invitations = new List<Invitation>();
     }
 
     public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit)
@@ -169,10 +171,24 @@ public class VeaEvent
         return Result.Success();
     }
 
+
     public Result Participate(Guest guest)
     {
 
+        return Result.Success();
+    }
 
+    public Result ExtendInvitation(Invitation invitation)
+    {
+        List<Error> errors = new List<Error>();
+        
+        if (Status == EventStatus.Draft | Status == EventStatus.Cancelled)
+            errors.Add(EventErrors.Invitation.ExtendInvitationWhenEventDraftOrCancelled());
+        
+        if (errors.Count > 0)
+            return Result.Failure(errors);
+        
+        Invitations.Add(invitation);
         return Result.Success();
     }
 }

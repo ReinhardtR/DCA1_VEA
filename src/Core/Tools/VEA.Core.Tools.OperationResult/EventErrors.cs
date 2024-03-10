@@ -69,4 +69,10 @@ public static class EventErrors
         public static Error DateRangeSpansBetweenLatestAndEarliestTime() =>
             new(ErrorType.InvalidArgument, 22, "DateRange cannot span between the latest and earliest time");
     }
+    
+    public static class Invitation
+    {
+        public static Error ExtendInvitationWhenEventDraftOrCancelled() =>
+            new(ErrorType.InvalidArgument, 23, "Cannot invite guest when event status is draft or cancelled");
+    }
 }
