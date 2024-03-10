@@ -13,8 +13,8 @@ public class EventTitle : ValueObject<string>
     public static Result<EventTitle> Create(string value)
     {
         var validation = Result.Validator()
-            .Assert(string.IsNullOrWhiteSpace(value), EventErrors.Title.TitleMustBeBetween3And75Characters())
-            .Assert(value?.Length is < MinLength or > MaxLength, EventErrors.Title.TitleMustBeBetween3And75Characters())
+            .Assert(!string.IsNullOrWhiteSpace(value), EventErrors.Title.TitleMustBeBetween3And75Characters())
+            .Assert(value.Length is > MinLength and < MaxLength, EventErrors.Title.TitleMustBeBetween3And75Characters())
             .Validate();
         return validation.IsFailure
             ? Result.Failure<EventTitle>(validation.Errors)

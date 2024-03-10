@@ -12,7 +12,7 @@ public class EventDescription : ValueObject<string>
     public static Result<EventDescription> Create(string value)
     {
         var validation = Result.Validator()
-            .Assert(value.Length > MaxLength, EventErrors.Description.DescriptionCannotBeLongerThan250Characters())
+            .Assert(value.Length < MaxLength, EventErrors.Description.DescriptionCannotBeLongerThan250Characters())
             .Validate();
         return validation.IsFailure
             ? Result.Failure<EventDescription>(validation.Errors)

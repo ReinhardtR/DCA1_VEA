@@ -38,7 +38,7 @@ public class VeaEvent
             eventStatus ?? EventStatus.Draft,
             eventGuestLimit ?? EventGuestLimit.Create(5).Payload,
             eventDateRange ?? null,
-            invitations ?? []
+            invitations ?? new List<Invitation>()
         );
     }
 
