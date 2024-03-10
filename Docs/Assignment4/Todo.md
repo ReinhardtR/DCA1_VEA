@@ -2,4 +2,4 @@
 
 ## Domain Model
 
-1. ADd "URL" to the Guest entity as a value object
+- [ ] Add "URL" to the Guest entity as a value object
