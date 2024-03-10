@@ -6,31 +6,31 @@ namespace VEA.Core.Domain.Aggregates.Events;
 public class Invitation
 {
     internal InvitationId Id;
-    internal InvitationsStatus InvitationsStatus;
+    internal InvitationStatus InvitationStatus;
     internal GuestId GuestId;
     
-    private Invitation(InvitationId id, InvitationsStatus invitationsStatus, GuestId guestId)
+    private Invitation(InvitationId id, InvitationStatus invitationStatus, GuestId guestId)
     {
         Id = id;
-        InvitationsStatus = invitationsStatus;
+        InvitationStatus = invitationStatus;
         GuestId = guestId;
     }
     
-    public static Invitation Create(InvitationId id, InvitationsStatus? status, GuestId guestId)
+    public static Invitation Create(InvitationId id, InvitationStatus? status, GuestId guestId)
     {
         return new Invitation(
             id,
-            status ?? InvitationsStatus.Pending,
+            status ?? InvitationStatus.Pending,
             guestId);
     }
 
     public void Accept()
     {
-        InvitationsStatus = InvitationsStatus.Accepted;
+        InvitationStatus = InvitationStatus.Accepted;
     }
 
     public void Decline()
     {
-        InvitationsStatus = InvitationsStatus.Declined;
+        InvitationStatus = InvitationStatus.Declined;
     }
 }

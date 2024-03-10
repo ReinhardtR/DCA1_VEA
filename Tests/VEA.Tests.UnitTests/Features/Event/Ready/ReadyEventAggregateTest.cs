@@ -61,7 +61,7 @@ public class ReadyEventAggregateTest
             .WithGuestLimit(25)
             .WithVisibility(EventVisibility.Private)
             .Build();
-
+        
         // Act
         Result result = veaEvent.Ready();
 

@@ -15,7 +15,7 @@ public class VeaEvent
     internal List<Invitation> Invitations;
     internal List<Participation> Participations;
     
-    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit, EventDateRange? dateRange)
+    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit, EventDateRange? dateRange, List<Invitation> invitations)
     {
         Id = id;
         Title = title;
@@ -23,12 +23,12 @@ public class VeaEvent
         Visibility = visibility;
         Status = status;
         GuestLimit = guestLimit;
-        Invitations = new List<Invitation>();
+        Invitations = invitations;
         DateRange = dateRange;
         Participations = new List<Participation>();
     }
 
-    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit,EventDateRange? eventDateRange)
+    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit,EventDateRange? eventDateRange, List<Invitation>? invitations)
     {
         return new VeaEvent(
             id,
@@ -37,7 +37,8 @@ public class VeaEvent
             eventVisibility ?? EventVisibility.Private,
             eventStatus ?? EventStatus.Draft,
             eventGuestLimit ?? EventGuestLimit.Create(5).Payload,
-            eventDateRange ?? null
+            eventDateRange ?? null,
+            invitations ?? []
         );
     }
 
@@ -181,8 +182,8 @@ public class VeaEvent
         
         var validation = Result.Validator()
             .Assert(Status == EventStatus.Active, Errors.Participation.EventIsNotActive())
-            //.Assert(Invitations.Count < GuestLimit.Value, Errors.Participation.GuestLimitReached())
-            .Assert(() => EventHasNotStated(participation), Errors.Participation.EventAlreadyStarted())
+            .Assert(() => GuestLimitReached(GuestLimit), Errors.Participation.GuestLimitReached())
+            .Assert(() => EventHasNotStarted(participation), Errors.Participation.EventAlreadyStarted())
             .Assert(Visibility == EventVisibility.Public, Errors.Participation.EventNotPublic())
             .Assert(() => GuestAlreadyAttends(participation), Errors.Participation.GuestAlreadyParticipated())
             .Validate();
@@ -197,7 +198,7 @@ public class VeaEvent
         return Result.Success();
     }
 
-    private bool EventHasNotStated(Participation participation)
+    private bool EventHasNotStarted(Participation participation)
     {
         if (DateRange == null)
             return true;
@@ -223,7 +224,42 @@ public class VeaEvent
         Invitations.Add(invitation);
         return Result.Success();
     }
+    
+    public Result AcceptInvitation(GuestId guestId)
+    {
+        var invitationsForGuest = Invitations.FirstOrDefault(inv => inv.GuestId == guestId);
 
+        var validation = Result.Validator()
+            .Assert(invitationsForGuest != null, Errors.Invitation.GuestHasNoInvitation())
+            .Assert(() => GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
+            .Assert(Status != EventStatus.Cancelled, Errors.Invitation.EventIsCancelled())
+            .Assert(Status != EventStatus.Ready, Errors.Invitation.EventIsNotActive())
+            .Validate();
+       
+        if (validation.IsFailure)
+        {
+            return Result.Failure(validation.Errors);
+        }
+        
+        invitationsForGuest!.Accept();
+        
+        return Result.Success();
+    }
+
+    private bool GuestLimitReached(EventGuestLimit guestLimit)
+    {
+        var actualGuests = 0;
+        actualGuests += Participations.Count;
+        foreach(Invitation invitation in Invitations)
+        {
+            if (invitation.InvitationStatus == InvitationStatus.Accepted)
+            {
+                actualGuests++;
+            }
+        }
+        return actualGuests > guestLimit.Value;
+    }
+    
     public class Errors
     {
         public class Participation
@@ -242,6 +278,21 @@ public class VeaEvent
 
              public static Error GuestAlreadyParticipated() =>
                 new(ErrorType.InvalidOperation, 5, "Guest has already participated in the event");
+        }
+
+        public class Invitation
+        {
+            public static Error GuestHasNoInvitation() =>
+                new(ErrorType.InvalidOperation, 6, "This guest has no pending invitation");
+
+            public static Error EventIsCancelled() =>
+                new(ErrorType.InvalidOperation, 7, "The invitation can not be accepted as the event is cancelled");
+            
+            public static Error EventIsNotActive() =>
+                new(ErrorType.InvalidOperation, 8, "The invitation can not be accepted as the event is not yet active");
+            
+            public static Error GuestLimitReached() =>
+                new(ErrorType.InvalidOperation, 9, "The invitation cannot be accepted as the event has reached its guest limit");
         }
     }
 }

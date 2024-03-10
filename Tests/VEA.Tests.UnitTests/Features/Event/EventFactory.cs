@@ -11,6 +11,7 @@ public class EventFactory
     private EventStatus? _status;
     private EventGuestLimit? _guestLimit;
     private EventDateRange _daterange;
+    private List<Invitation>? _invitations;
 
     public static EventFactory Create()
     {
@@ -58,6 +59,12 @@ public class EventFactory
         _daterange = dateRange;
         return this;
     }
+    
+    public EventFactory WithInvitations(List<Invitation> invitations)
+    {
+        _invitations = invitations;
+        return this;
+    }
 
     public VeaEvent Build()
     {
@@ -68,7 +75,8 @@ public class EventFactory
             _visibility,
             _status,
             _guestLimit,
-            _daterange
+            _daterange,
+            _invitations
         );
     }
 }
