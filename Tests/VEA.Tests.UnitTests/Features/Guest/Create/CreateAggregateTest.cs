@@ -7,14 +7,25 @@ namespace VEA.Tests.UnitTests.Features.Guest.Create;
 public class CreateAggregateTest
 {
   // Success 1
+  [Fact]
   public void GivenValidData_WhenCreatingAccount_ShouldSuccess()
   {
-    // Arrange
-    // Testing our default GuestFactory creation
-    var guestFactory = GuestFactory.Create();
-    // Act
-    var guest = guestFactory.Build();
-    // Assert
+    //Create all the Valueobject necessary for the Guest
+    FirstName firstName = FirstName.Create("John").Payload;
+    LastName lastName = LastName.Create("Doe").Payload;
+    ViaEmail email = ViaEmail.Create("John@via.dk").Payload;
+    Url profilePicture = Url.Create("https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50").Payload;
+    
+    //Create the Guest
+    Core.Domain.Aggregates.Guests.Guest guest = Core.Domain.Aggregates.Guests.Guest.Create(
+      GuestId.New().Payload,
+      firstName,
+      lastName,
+      email,
+      profilePicture
+    );
+    
+    //Assert
     Assert.NotNull(guest);
   }
   
