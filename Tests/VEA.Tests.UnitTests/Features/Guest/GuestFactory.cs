@@ -10,7 +10,7 @@ public class GuestFactory
     private FirstName? _firstName;
     private LastName? _lastName;
     private ViaEmail? _email;
-    private GuestProfilePicture? _profilePicture;
+    private Url? _profilePicture;
     
     public static GuestFactory Create()
     {
@@ -43,7 +43,7 @@ public class GuestFactory
     
     public GuestFactory WithProfilePicture(string url)
     {
-        _profilePicture = GuestProfilePicture.Create(Url.Create(url).Payload).Payload;
+        _profilePicture = Url.Create(url).Payload;
         return this;
     }
 

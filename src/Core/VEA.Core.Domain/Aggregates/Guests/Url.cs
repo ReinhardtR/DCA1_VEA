@@ -1,7 +1,7 @@
 ﻿using VEA.Core.Domain.Common.Bases;
 using VEA.Core.Tools.OperationResult;
 
-namespace VEA.Core.Domain.Common.Values;
+namespace VEA.Core.Domain.Aggregates.Guests;
 
 public class Url : ValueObject<string>
 {
@@ -11,8 +11,8 @@ public class Url : ValueObject<string>
     {
         var validation = Validate(value);
         return validation.IsFailure 
-            ? Result<Url>.Failure(validation.Errors)
-            : Result<Url>.Success(new Url(value));
+            ? Result.Failure<Url>(validation.Errors)
+            : Result.Success<Url>(new Url(value));
     }
     
     private static Result Validate(string value)
