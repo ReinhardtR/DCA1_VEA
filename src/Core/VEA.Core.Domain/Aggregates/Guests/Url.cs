@@ -10,6 +10,8 @@ public class Url : ValueObject<string>
     public static Result<Url> Create(string value)
     {
         var validation = Validate(value);
+        
+        
         return validation.IsFailure 
             ? Result.Failure<Url>(validation.Errors)
             : Result.Success<Url>(new Url(value));
