@@ -277,7 +277,6 @@ public class UpdateDateRangeAggregateTests
     }
     
     // UC4.F8
-    // Todo - depends on UC 24
     [Fact]
     public void GivenExistingEventCancelled_WhenSettingTimes_ThenFailure()
     {
