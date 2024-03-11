@@ -162,11 +162,9 @@ public class ParticipateAggregateTests
         DateTime startTime = DateTime.Now.AddDays(-1);
         DateRange dateRange = new DateRange(startTime, DateTime.Now.AddDays(1));
 
-        EventDateRange eventDateRange = EventDateRange.Create(dateRange).Payload;
-        
         VeaEvent veaEvent = EventFactory.Create()
             .WithStatus(EventStatus.Active)
-            .WithDateRange(eventDateRange)
+            .WithDateRange(dateRange)
             .Build();
         
         Core.Domain.Aggregates.Guests.Guest guest = GuestFactory.Create().Build();

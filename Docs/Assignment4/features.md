@@ -85,9 +85,9 @@
   - [ ] F4
   - [ ] F5
 - [ ] UC12 - Guest removes their choice to participate in a public event
-  - [ ] S1
-  - [ ] S2
-  - [ ] F1
+  - [x] S1
+  - [ ] S2 - doesn't make sense with current participation implementation
+  - [x] F1
 - [ ] UC13 - Event creator extends invitation to guest to participate in an event
   - [ ] S1
   - [ ] F1

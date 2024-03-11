@@ -1,4 +1,5 @@
 ﻿using VEA.Core.Domain.Aggregates.Events;
+using VEA.Core.Domain.Common.Values;
 
 namespace VEA.Tests.UnitTests.Features.Event;
 
@@ -10,8 +11,9 @@ public class EventFactory
     private EventVisibility? _visibility;
     private EventStatus? _status;
     private EventGuestLimit? _guestLimit;
-    private EventDateRange _daterange;
+    private EventDateRange _dateRange;
     private List<Invitation>? _invitations;
+    private List<Participation>? _participations;
 
     public static EventFactory Create()
     {
@@ -54,15 +56,21 @@ public class EventFactory
         return this;
     }
     
-    public EventFactory WithDateRange(EventDateRange dateRange)
+    public EventFactory WithDateRange(DateRange dateRange)
     {
-        _daterange = dateRange;
+        _dateRange = EventDateRange.Create(dateRange).Payload;
         return this;
     }
     
     public EventFactory WithInvitations(List<Invitation> invitations)
     {
         _invitations = invitations;
+        return this;
+    }
+    
+    public EventFactory WithParticipations(List<Participation> participations)
+    {
+        _participations = participations;
         return this;
     }
 
@@ -75,8 +83,9 @@ public class EventFactory
             _visibility,
             _status,
             _guestLimit,
-            _daterange,
-            _invitations
+            _dateRange,
+            _invitations,
+            _participations
         );
     }
 }

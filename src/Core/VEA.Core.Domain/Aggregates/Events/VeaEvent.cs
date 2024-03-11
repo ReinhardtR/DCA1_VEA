@@ -15,7 +15,7 @@ public class VeaEvent
     internal List<Invitation> Invitations;
     internal List<Participation> Participations;
     
-    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit, EventDateRange? dateRange, List<Invitation> invitations)
+    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit, EventDateRange? dateRange, List<Invitation> invitations, List<Participation> participations)
     {
         Id = id;
         Title = title;
@@ -25,10 +25,10 @@ public class VeaEvent
         GuestLimit = guestLimit;
         Invitations = invitations;
         DateRange = dateRange;
-        Participations = new List<Participation>();
+        Participations = participations;
     }
 
-    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit,EventDateRange? eventDateRange, List<Invitation>? invitations)
+    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit,EventDateRange? eventDateRange, List<Invitation>? invitations, List<Participation>? participations)
     {
         return new VeaEvent(
             id,
@@ -38,7 +38,8 @@ public class VeaEvent
             eventStatus ?? EventStatus.Draft,
             eventGuestLimit ?? EventGuestLimit.Create(5).Payload,
             eventDateRange ?? null,
-            invitations ?? new List<Invitation>()
+            invitations ?? [],
+            participations ?? []
         );
     }
 
@@ -183,7 +184,7 @@ public class VeaEvent
         var validation = Result.Validator()
             .Assert(Status == EventStatus.Active, Errors.Participation.EventIsNotActive())
             .Assert(() => GuestLimitReached(GuestLimit), Errors.Participation.GuestLimitReached())
-            .Assert(() => EventHasNotStarted(participation), Errors.Participation.EventAlreadyStarted())
+            .Assert(EventHasNotStarted, Errors.Participation.EventAlreadyStarted())
             .Assert(Visibility == EventVisibility.Public, Errors.Participation.EventNotPublic())
             .Assert(() => GuestAlreadyAttends(participation), Errors.Participation.GuestAlreadyParticipated())
             .Validate();
@@ -198,7 +199,19 @@ public class VeaEvent
         return Result.Success();
     }
 
-    private bool EventHasNotStarted(Participation participation)
+    public Result CancelParticipation(Participation participation)
+    {
+        var validation = Result.Validator()
+            .Assert(() => EventHasNotStarted(), Errors.Participation.EventAlreadyStarted())
+            .Validate();
+        if (validation.IsFailure) return validation;
+        
+        Participations.Remove(participation);
+        
+        return Result.Success();
+    }
+
+    private bool EventHasNotStarted()
     {
         if (DateRange == null)
             return true;
