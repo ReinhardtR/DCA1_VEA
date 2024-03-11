@@ -280,9 +280,9 @@ public class VeaEvent
         return actualGuests > guestLimit.Value;
     }
     
-    public class Errors
+    public static class Errors
     {
-        public class Participation
+        public static class Participation
         {
              public static Error EventIsNotActive() =>
                 new(ErrorType.InvalidOperation, 1, "Event must be active to participate in it");
@@ -300,7 +300,7 @@ public class VeaEvent
                 new(ErrorType.InvalidOperation, 5, "Guest has already participated in the event");
         }
 
-        public class Invitation
+        public static class Invitation
         {
             public static Error GuestHasNoInvitation() =>
                 new(ErrorType.InvalidOperation, 6, "This guest has no pending invitation");
