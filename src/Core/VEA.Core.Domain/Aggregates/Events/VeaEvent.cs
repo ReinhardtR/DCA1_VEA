@@ -71,6 +71,9 @@ public class VeaEvent
         if (Status == EventStatus.Active)
             errors.Add(EventErrors.DateRange.UpdateDateRangeWhenEventActive());
         
+        if (Status == EventStatus.Cancelled)
+            errors.Add(EventErrors.DateRange.UpdateDateRangeWhenEventCancelled());
+        
         if (errors.Count > 0)
             return Result.Failure(errors);
 
@@ -228,6 +231,9 @@ public class VeaEvent
     {
         List<Error> errors = new List<Error>();
         
+        if(GuestLimitReached(GuestLimit))
+            errors.Add(Errors.Invitation.GuestLimitReached());
+        
         if (Status == EventStatus.Draft | Status == EventStatus.Cancelled)
             errors.Add(EventErrors.Invitation.ExtendInvitationWhenEventDraftOrCancelled());
         
@@ -242,9 +248,11 @@ public class VeaEvent
     {
         var invitationForGuest = Invitations.FirstOrDefault(inv => inv.GuestId == guestId);
 
+        var guestLimitReached = GuestLimitReached(GuestLimit);
+        
         var validation = Result.Validator()
             .Assert(invitationForGuest != null, Errors.Invitation.GuestHasNoInvitation())
-            .Assert(() => GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
+            .Assert(() => !GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
             .Assert(Status != EventStatus.Cancelled, Errors.Invitation.EventIsCancelled())
             .Assert(Status != EventStatus.Ready, Errors.Invitation.EventIsNotActive())
             .Validate();
@@ -290,7 +298,7 @@ public class VeaEvent
                 actualGuests++;
             }
         }
-        return actualGuests > guestLimit.Value;
+        return actualGuests >= guestLimit.Value;
     }
     
     public static class Errors

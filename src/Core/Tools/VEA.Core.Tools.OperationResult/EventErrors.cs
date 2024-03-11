@@ -62,17 +62,19 @@ public static class EventErrors
             new(ErrorType.InvalidArgument, 18, "DateRange start time must be before latest time");
         public static Error UpdateDateRangeWhenEventActive() =>
             new(ErrorType.InvalidArgument, 19, "Cannot update DateRange when event is active");
+        public static Error UpdateDateRangeWhenEventCancelled() =>
+            new(ErrorType.InvalidArgument, 20, "Cannot update DateRange when event is cancelled");
         public static Error DateRangeDurationExceedsMaximum() =>
-            new(ErrorType.InvalidArgument, 20, "DateRange duration exceeds the maximum duration");
+            new(ErrorType.InvalidArgument, 21, "DateRange duration exceeds the maximum duration");
         public static Error EventStartTimeCannotBeInPast() =>
-            new(ErrorType.InvalidArgument, 21, "Event start time cannot be in past");
+            new(ErrorType.InvalidArgument, 22, "Event start time cannot be in past");
         public static Error DateRangeSpansBetweenLatestAndEarliestTime() =>
-            new(ErrorType.InvalidArgument, 22, "DateRange cannot span between the latest and earliest time");
+            new(ErrorType.InvalidArgument, 23, "DateRange cannot span between the latest and earliest time");
     }
     
     public static class Invitation
     {
         public static Error ExtendInvitationWhenEventDraftOrCancelled() =>
-            new(ErrorType.InvalidArgument, 23, "Cannot invite guest when event status is draft or cancelled");
+            new(ErrorType.InvalidArgument, 24, "Cannot invite guest when event status is draft or cancelled");
     }
 }

@@ -48,8 +48,11 @@ public class ExtendInvitationAggregateTests
     public void GivenExistingEventIdAndReadyOrActiveAndRegisteredGuestAndMaximumNumberOfGuestsIsMet_WhenCreatorInvitesGuest_ThenFailure()
     {
         //Arrange
+        List<Invitation> invitations = [Invitation.Create(InvitationId.New().Payload, InvitationStatus.Accepted, GuestId.New().Payload), Invitation.Create(InvitationId.New().Payload, InvitationStatus.Accepted, GuestId.New().Payload), Invitation.Create(InvitationId.New().Payload, InvitationStatus.Accepted, GuestId.New().Payload), Invitation.Create(InvitationId.New().Payload, InvitationStatus.Accepted, GuestId.New().Payload), Invitation.Create(InvitationId.New().Payload, InvitationStatus.Accepted, GuestId.New().Payload)];
         var veaEvent = EventFactory.Create()
             .WithStatus(EventStatus.Ready)
+            .WithInvitations(invitations)
+            .WithGuestLimit(5)
             .Build();
         var invitation = Invitation.Create(InvitationId.New().Payload, null, GuestId.New().Payload);
 
@@ -58,6 +61,6 @@ public class ExtendInvitationAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.Invitation.ExtendInvitationWhenEventDraftOrCancelled(), result.Errors);
+        Assert.Contains(VeaEvent.Errors.Invitation.GuestLimitReached(), result.Errors);
     }
 }

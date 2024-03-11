@@ -23,7 +23,6 @@ public class EventDateRange : ValueObject<DateRange>
             .Assert(difference.TotalMinutes<=MaxDurationMinutes, EventErrors.DateRange.DateRangeDurationExceedsMaximum())
             .Assert(value.Start.Hour >= EarliestStartTimeHours, EventErrors.DateRange.DateRangeStartTimeMustBeAfterEarliestTime())
             .Assert(value.End.Hour is > EarliestStartTimeHours or < LatestEndTimeHours, EventErrors.DateRange.DateRangeEndTimeMustBeBeforeLatestTime())
-            // TODO: @sebastian i added an "!" in front of this method, i think this is the intended behaviour? - Reinahrdt
             .Assert(!EventSpansBetweenLatestAndEarliestTimes(value.Start, value.End), EventErrors.DateRange.DateRangeSpansBetweenLatestAndEarliestTime())
             .Validate();
         return validation.IsFailure
@@ -32,6 +31,14 @@ public class EventDateRange : ValueObject<DateRange>
     }
 
     private static bool EventSpansBetweenLatestAndEarliestTimes(DateTime start, DateTime end)
-    => (start.Date != end.Date && end.Hour > EarliestStartTimeHours) ||
-       (start.Date == end.Date && start.Hour < LatestEndTimeHours && end.Hour < LatestEndTimeHours);
+    {
+        var latestTimeSpan = new TimeSpan(1, 0, 0);
+        var earliestTimeSpan = new TimeSpan(8, 0, 0);
+        if (start.Date != end.Date)
+        {
+            return end.TimeOfDay >= latestTimeSpan;
+        }
+
+        return start.TimeOfDay <= earliestTimeSpan && latestTimeSpan <= end.TimeOfDay;
+    }
 }

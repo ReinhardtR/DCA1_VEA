@@ -258,17 +258,15 @@ public class UpdateDateRangeAggregateTests
     }
     
     // UC4.F7
-    // Todo - depends on UC 9
     [Fact]
     public void GivenExistingEventActive_WhenSettingTimes_ThenFailure()
     {
         //Arrange
-        VeaEvent veaEvent = EventFactory.Create().Build();
+        VeaEvent veaEvent = EventFactory.Create().WithStatus(EventStatus.Active).Build();
         var startDate = DateTime.Parse("2023/08/25 08:00");
         var endDate = DateTime.Parse("2023/08/25 10:00");
         var dateRange = new DateRange(startDate, endDate);
         EventDateRange eventDateRange = EventDateRange.Create(dateRange).Payload;
-        // veaEvent.Activate();
 
         //Act
         Result result = veaEvent.UpdateDateRange(eventDateRange);
@@ -284,19 +282,18 @@ public class UpdateDateRangeAggregateTests
     public void GivenExistingEventCancelled_WhenSettingTimes_ThenFailure()
     {
         //Arrange
-        VeaEvent veaEvent = EventFactory.Create().Build();
+        VeaEvent veaEvent = EventFactory.Create().WithStatus(EventStatus.Cancelled).Build();
         var startDate = DateTime.Parse("2023/08/25 08:00");
         var endDate = DateTime.Parse("2023/08/25 10:00");
         var dateRange = new DateRange(startDate, endDate);
         EventDateRange eventDateRange = EventDateRange.Create(dateRange).Payload;
-        // veaEvent.Cancel();
 
         //Act
         Result result = veaEvent.UpdateDateRange(eventDateRange);
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.UpdateDateRangeWhenEventActive(), result.Errors);
+        Assert.Contains(EventErrors.DateRange.UpdateDateRangeWhenEventCancelled(), result.Errors);
     }
     
     // UC4.F9
@@ -320,7 +317,7 @@ public class UpdateDateRangeAggregateTests
         Assert.Contains(EventErrors.DateRange.DateRangeDurationExceedsMaximum(), result.Errors);
     }
     
-    // UC4.F10
+    // UC4.F10 - Should be changed when ISystemTime is implemented
     [Fact]
     public void GivenExistingEvent_WhenSettingStartTimeInPast_ThenFailure()
     {
