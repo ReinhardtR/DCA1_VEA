@@ -98,9 +98,9 @@
   - [ ] F2
   - [ ] F3
   - [ ] F4
-- [ ] UC15 - Guest declines invitation
-  - [ ] S1
-  - [ ] S2
-  - [ ] F1
-  - [ ] F2
-  - [ ] F3
+- [x] UC15 - Guest declines invitation
+  - [x] S1
+  - [x] S2
+  - [x] F1
+  - [x] F2
+  - [x] F3

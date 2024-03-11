@@ -227,10 +227,10 @@ public class VeaEvent
     
     public Result AcceptInvitation(GuestId guestId)
     {
-        var invitationsForGuest = Invitations.FirstOrDefault(inv => inv.GuestId == guestId);
+        var invitationForGuest = Invitations.FirstOrDefault(inv => inv.GuestId == guestId);
 
         var validation = Result.Validator()
-            .Assert(invitationsForGuest != null, Errors.Invitation.GuestHasNoInvitation())
+            .Assert(invitationForGuest != null, Errors.Invitation.GuestHasNoInvitation())
             .Assert(() => GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
             .Assert(Status != EventStatus.Cancelled, Errors.Invitation.EventIsCancelled())
             .Assert(Status != EventStatus.Ready, Errors.Invitation.EventIsNotActive())
@@ -241,7 +241,27 @@ public class VeaEvent
             return Result.Failure(validation.Errors);
         }
         
-        invitationsForGuest!.Accept();
+        invitationForGuest!.Accept();
+        
+        return Result.Success();
+    }
+    
+    public Result DeclineInvitation(GuestId guestId)
+    {
+        var invitationForGuest = Invitations.FirstOrDefault(inv => inv.GuestId == guestId);
+
+        var validation = Result.Validator()
+            .Assert(invitationForGuest != null, Errors.Invitation.GuestHasNoInvitation())
+            .Assert(Status != EventStatus.Cancelled, Errors.Invitation.EventIsCancelled())
+            .Assert(Status == EventStatus.Active, Errors.Invitation.EventIsNotActive())
+            .Validate();
+       
+        if (validation.IsFailure)
+        {
+            return Result.Failure(validation.Errors);
+        }
+        
+        invitationForGuest!.Decline();
         
         return Result.Success();
     }
