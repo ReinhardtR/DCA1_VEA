@@ -7,11 +7,11 @@
   - [ ] S4
 - [ ] UC2 - Event creator updates title of event
   - [ ] S1
-  - [ ] S2
-  - [ ] F1
-  - [ ] F2
-  - [ ] F3
-  - [ ] F4
+  - [x] S2
+  - [x] F1
+  - [x] F2
+  - [x] F3
+  - [x] F4
   - [ ] F5
   - [ ] F6
 - [x] UC3 - Event creator updates description of event **Needs look after event status impementation**
@@ -21,7 +21,7 @@
   - [x] F1
   - [x] F2
   - [x] F3
-- [x] UC4 - Event creator updates start-time and -date, and end-time and -date of event **F7 and F8 depend on Event status**
+- [x] UC4 - Event creator updates start-time and -date, and end-time and -date of event
   - [x] S1
   - [x] S2
   - [x] S3
@@ -33,11 +33,11 @@
   - [x] F4
   - [x] F5
   - [x] F6
-  - [ ] F7
-  - [ ] F8
+  - [x] F7
+  - [x] F8
   - [x] F9
   - [x] F10
-  - [x] F11
+  - [ ] F11 **Waiting on ISystemTime implementation**
 - [x] UC5 - Event creator sets visibility of event to “public”
   - [x] S1
   - [x] F1
@@ -47,27 +47,27 @@
   - [x] S2
   - [x] F1
   - [x] F2
-- [ ] UC7 - Event creator sets maximum number of guests
-  - [ ] S1
-  - [ ] S2
-  - [ ] S3
-  - [ ] F1
-  - [ ] F2
+- [x] UC7 - Event creator sets maximum number of guests
+  - [x] S1
+  - [x] S2
+  - [x] S3
+  - [x] F1
+  - [x] F2
   - [ ] F3 - depends on UC16-20
-  - [ ] F4
-  - [ ] F5
-- [ ] UC8 - Event creator readies event
-  - [ ] S1
-  - [ ] F1
-  - [ ] F2
+  - [x] F4
+  - [x] F5
+- [x] UC8 - Event creator readies event
+  - [x] S1
+  - [x] F1
+  - [x] F2
   - [ ] F3
-  - [ ] F4
-- [ ] UC9 - Event creator activates event
-  - [ ] S1
-  - [ ] S2
-  - [ ] S3
-  - [ ] F1
-  - [ ] F2
+  - [x] F4
+- [x] UC9 - Event creator activates event
+  - [x] S1
+  - [x] S2
+  - [x] S3
+  - [x] F1
+  - [x] F2
 - [x] UC10 - Anonymous registers a new account
   - [x] S1
   - [x] F1
@@ -88,16 +88,16 @@
   - [x] S1
   - [ ] S2 - doesn't make sense with current participation implementation
   - [x] F1
-- [ ] UC13 - Event creator extends invitation to guest to participate in an event
-  - [ ] S1
-  - [ ] F1
-  - [ ] F2
-- [ ] UC14 - Guest accepts invitation
-  - [ ] S1
-  - [ ] F1
-  - [ ] F2
-  - [ ] F3
-  - [ ] F4
+- [x] UC13 - Event creator extends invitation to guest to participate in an event
+  - [x] S1
+  - [x] F1
+  - [x] F2
+- [x] UC14 - Guest accepts invitation
+  - [x] S1
+  - [x] F1
+  - [x] F2
+  - [x] F3
+  - [x] F4
 - [x] UC15 - Guest declines invitation
   - [x] S1
   - [x] S2

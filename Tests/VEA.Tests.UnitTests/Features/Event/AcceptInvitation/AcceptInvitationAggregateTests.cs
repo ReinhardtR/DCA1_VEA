@@ -54,10 +54,10 @@ public class AcceptInvitationAggregateTests
     {
         //Arrange
         var guest = GuestId.New().Payload;
-        List<Invitation> invitations = [Invitation.Create(InvitationId.New().Payload, null, guest)];
+        List<Invitation> invitations = [Invitation.Create(InvitationId.New().Payload, null, guest), Invitation.Create(InvitationId.New().Payload, InvitationStatus.Accepted, GuestId.New().Payload), Invitation.Create(InvitationId.New().Payload, InvitationStatus.Accepted, GuestId.New().Payload), Invitation.Create(InvitationId.New().Payload, InvitationStatus.Accepted, GuestId.New().Payload), Invitation.Create(InvitationId.New().Payload, InvitationStatus.Accepted, GuestId.New().Payload), Invitation.Create(InvitationId.New().Payload, InvitationStatus.Accepted, GuestId.New().Payload)];
         var veaEvent = EventFactory.Create()
             .WithStatus(EventStatus.Active)
-            .WithGuestLimit(10)
+            .WithGuestLimit(5)
             .WithInvitations(invitations)
             .Build();
 
@@ -66,6 +66,6 @@ public class AcceptInvitationAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(VeaEvent.Errors.Invitation.GuestHasNoInvitation(), result.Errors);
+        Assert.Contains(VeaEvent.Errors.Invitation.GuestLimitReached(), result.Errors);
     }
 }
