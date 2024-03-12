@@ -14,7 +14,7 @@ public class VeaEvent
     internal EventDateRange? DateRange;
     internal List<Invitation> Invitations;
     internal List<GuestId> Participants;
-    
+
     private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit, EventDateRange? dateRange, List<Invitation> invitations, List<GuestId> participants)
     {
         Id = id;
@@ -28,7 +28,7 @@ public class VeaEvent
         Participants = participants;
     }
 
-    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit,EventDateRange? eventDateRange, List<Invitation>? invitations, List<GuestId>? participants)
+    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit, EventDateRange? eventDateRange, List<Invitation>? invitations, List<GuestId>? participants)
     {
         return new VeaEvent(
             id,
@@ -49,34 +49,34 @@ public class VeaEvent
         if (Status == EventStatus.Active)
             errors.Add(EventErrors.Description.CannotUpdateActiveEvent());
 
-        if (Status == EventStatus.Cancelled) 
+        if (Status == EventStatus.Cancelled)
             errors.Add(EventErrors.Description.CannotUpdateCancelledEvent());
-        
+
         if (errors.Count > 0)
             return Result.Failure(errors);
-        
+
         //Else succeed
         Description = description;
         if (Status == EventStatus.Ready)
             Status = EventStatus.Draft;
-        
+
         // Should set event status to draft.
         return Result.Success();
     }
-    
+
     public Result UpdateDateRange(EventDateRange dateRange)
     {
         var validation = Result.Validator()
             .Assert(Status != EventStatus.Active, EventErrors.DateRange.UpdateDateRangeWhenEventActive())
             .Assert(Status != EventStatus.Cancelled, EventErrors.DateRange.UpdateDateRangeWhenEventCancelled())
             .Validate();
-        
+
         if (validation.IsFailure)
             return Result.Failure(validation.Errors);
-        
+
         DateRange = dateRange;
         Status = EventStatus.Draft;
-        
+
         return Result.Success();
     }
 
@@ -141,13 +141,13 @@ public class VeaEvent
         List<Error> errors = new List<Error>();
         if (Status != EventStatus.Draft)
             errors.Add(EventErrors.EventMustBeDraft());
-        
+
         if (Title.Value.Equals("Working Title"))
             errors.Add(EventErrors.EventMustHaveValidTitle());
-        
+
         if (Description.Value.Equals(""))
             errors.Add(EventErrors.Description.DescriptionCannotBeEmpty());
-        
+
         // Waiting for EventDateRange implementation
 
         if (errors.Count > 0)
@@ -167,13 +167,13 @@ public class VeaEvent
             if (result.IsFailure)
                 return Result.Failure(result.Errors);
         }
-        
+
         if (Status == EventStatus.Cancelled)
             errors.Add(EventErrors.EventCannotBeActivatedWhenCancelled());
-        
+
         if (errors.Count > 0)
             return Result.Failure(errors);
-        
+
         Status = EventStatus.Active;
         return Result.Success();
     }
@@ -189,9 +189,9 @@ public class VeaEvent
             .Assert(!Participants.Contains(guestId), Errors.Participation.GuestAlreadyParticipated())
             .Validate();
         if (validation.IsFailure) return validation;
-        
+
         Participants.Add(guestId);
-        
+
         return Result.Success();
     }
 
@@ -201,9 +201,9 @@ public class VeaEvent
             .Assert(EventHasNotStarted, Errors.Participation.EventAlreadyStarted())
             .Validate();
         if (validation.IsFailure) return validation;
-        
+
         Participants.Remove(guestId);
-        
+
         return Result.Success();
     }
 
@@ -211,7 +211,7 @@ public class VeaEvent
     {
         if (DateRange == null)
             return true;
-        
+
         return DateRange.Value.Start > DateTime.Now;
     }
 
@@ -221,34 +221,34 @@ public class VeaEvent
             .Assert(!GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
             .Assert(Status != EventStatus.Cancelled && Status != EventStatus.Draft, EventErrors.Invitation.ExtendInvitationWhenEventDraftOrCancelled())
             .Validate();
-        
+
         if (validation.IsFailure)
             return Result.Failure(validation.Errors);
-        
+
         Invitations.Add(invitation);
-        
+
         return Result.Success();
     }
-    
+
     public Result AcceptInvitation(GuestId guestId)
     {
         var invitationForGuest = Invitations.FirstOrDefault(inv => inv.GuestId == guestId);
-        
+
         var validation = Result.Validator()
             .Assert(invitationForGuest != null, Errors.Invitation.GuestHasNoInvitation())
             .Assert(!GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
             .Assert(Status != EventStatus.Cancelled, Errors.Invitation.EventIsCancelled())
             .Assert(Status != EventStatus.Ready, Errors.Invitation.EventIsNotActive())
             .Validate();
-       
-        if (validation.IsFailure) 
+
+        if (validation.IsFailure)
             return Result.Failure(validation.Errors);
-        
+
         invitationForGuest!.Accept();
-        
+
         return Result.Success();
     }
-    
+
     public Result DeclineInvitation(GuestId guestId)
     {
         var invitationForGuest = Invitations.FirstOrDefault(inv => inv.GuestId == guestId);
@@ -258,14 +258,14 @@ public class VeaEvent
             .Assert(Status != EventStatus.Cancelled, Errors.Invitation.EventIsCancelled())
             .Assert(Status == EventStatus.Active, Errors.Invitation.EventIsNotActive())
             .Validate();
-       
+
         if (validation.IsFailure)
         {
             return Result.Failure(validation.Errors);
         }
-        
+
         invitationForGuest!.Decline();
-        
+
         return Result.Success();
     }
 
@@ -275,25 +275,25 @@ public class VeaEvent
             + Invitations.Count(i => i.InvitationStatus == InvitationStatus.Accepted);
         return actualGuests >= guestLimit.Value;
     }
-    
+
     public static class Errors
     {
         public static class Participation
         {
-             public static Error EventIsNotActive() =>
-                new(ErrorType.InvalidOperation, 1, "Event must be active to participate in it");
+            public static Error EventIsNotActive() =>
+               new(ErrorType.InvalidOperation, 1, "Event must be active to participate in it");
 
-             public static Error GuestLimitReached() =>
-                new(ErrorType.InvalidOperation, 2, "Guest limit has been reached, cannot participate");
+            public static Error GuestLimitReached() =>
+               new(ErrorType.InvalidOperation, 2, "Guest limit has been reached, cannot participate");
 
-             public static Error EventAlreadyStarted() => 
-                new(ErrorType.InvalidOperation, 3, "Event has already started, cannot participate");
+            public static Error EventAlreadyStarted() =>
+               new(ErrorType.InvalidOperation, 3, "Event has already started, cannot participate");
 
-             public static Error EventNotPublic() => 
-                new(ErrorType.InvalidOperation, 4, "Event is not public, cannot participate");
+            public static Error EventNotPublic() =>
+               new(ErrorType.InvalidOperation, 4, "Event is not public, cannot participate");
 
-             public static Error GuestAlreadyParticipated() =>
-                new(ErrorType.InvalidOperation, 5, "Guest has already participated in the event");
+            public static Error GuestAlreadyParticipated() =>
+               new(ErrorType.InvalidOperation, 5, "Guest has already participated in the event");
         }
 
         public static class Invitation
@@ -303,10 +303,10 @@ public class VeaEvent
 
             public static Error EventIsCancelled() =>
                 new(ErrorType.InvalidOperation, 7, "The invitation can not be accepted as the event is cancelled");
-            
+
             public static Error EventIsNotActive() =>
                 new(ErrorType.InvalidOperation, 8, "The invitation can not be accepted as the event is not yet active");
-            
+
             public static Error GuestLimitReached() =>
                 new(ErrorType.InvalidOperation, 9, "The invitation cannot be accepted as the event has reached its guest limit");
         }
