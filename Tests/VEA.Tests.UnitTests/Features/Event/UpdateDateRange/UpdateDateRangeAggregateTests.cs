@@ -149,7 +149,7 @@ public class UpdateDateRangeAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.DateRangeStartMustBeBeforeEnd(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.DateRangeStartMustBeBeforeEnd(), result.Errors);
     }
 
     // UC4.F2
@@ -171,7 +171,7 @@ public class UpdateDateRangeAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.DateRangeStartMustBeBeforeEnd(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.DateRangeStartMustBeBeforeEnd(), result.Errors);
     }
     
     // UC4.F3
@@ -192,7 +192,7 @@ public class UpdateDateRangeAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.DateRangeStartTimeMustBeMinimumDurationBeforeEndTime(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.DateRangeStartTimeMustBeMinimumDurationBeforeEndTime(), result.Errors);
     }
     
     // UC4.F4
@@ -212,7 +212,7 @@ public class UpdateDateRangeAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.DateRangeStartTimeMustBeMinimumDurationBeforeEndTime(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.DateRangeStartTimeMustBeMinimumDurationBeforeEndTime(), result.Errors);
     }
     
     // UC4.F5
@@ -234,7 +234,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.DateRangeStartTimeMustBeAfterEarliestTime(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.DateRangeStartTimeMustBeAfterEarliestTime(), result.Errors);
     }
     
     // UC4.F6
@@ -254,7 +254,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.DateRangeEndTimeMustBeBeforeLatestTime(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.DateRangeEndTimeMustBeBeforeLatestTime(), result.Errors);
     }
     
     // UC4.F7
@@ -273,7 +273,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.UpdateDateRangeWhenEventActive(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.UpdateDateRangeWhenEventActive(), result.Errors);
     }
     
     // UC4.F8
@@ -292,7 +292,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.UpdateDateRangeWhenEventCancelled(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.UpdateDateRangeWhenEventCancelled(), result.Errors);
     }
     
     // UC4.F9
@@ -313,7 +313,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.DateRangeDurationExceedsMaximum(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.DateRangeDurationExceedsMaximum(), result.Errors);
     }
     
     // UC4.F10 - Should be changed when ISystemTime is implemented
@@ -331,7 +331,7 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.EventStartTimeCannotBeInPast(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.EventStartTimeCannotBeInPast(), result.Errors);
     }
     
     // UC4.F11
@@ -351,6 +351,6 @@ public class UpdateDateRangeAggregateTests
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.DateRange.DateRangeSpansBetweenLatestAndEarliestTime(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.DateRangeSpansBetweenLatestAndEarliestTime(), result.Errors);
     }
 }

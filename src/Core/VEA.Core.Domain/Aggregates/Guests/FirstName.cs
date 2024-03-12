@@ -18,8 +18,6 @@ public class FirstName : ValueObject<string>
             ? Result.Failure<FirstName>(validation.Errors)
             : Result.Success(new FirstName(value));
     }
-    
-    
 
     public class Errors
     {
