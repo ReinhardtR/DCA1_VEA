@@ -36,7 +36,7 @@
   - [x] F7
   - [x] F8
   - [x] F9
-  - [x] F10
+  - [ ] F10 **Waiting on ISystemTime implementation**
   - [ ] F11 **Waiting on ISystemTime implementation**
 - [x] UC5 - Event creator sets visibility of event to “public”
   - [x] S1

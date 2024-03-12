@@ -317,22 +317,22 @@ public class UpdateDateRangeAggregateTests
     }
     
     // UC4.F10 - Should be changed when ISystemTime is implemented
-    [Fact]
-    public void GivenExistingEvent_WhenSettingStartTimeInPast_ThenFailure()
-    {
-        // Arrange
-        var currentDate = DateTime.Now;
-        var pastStartDate = currentDate.AddDays(-1); 
-        var endDate = currentDate.AddHours(1); 
-        var dateRange = new DateRange(pastStartDate, endDate);
-
-        // Act
-        var result = EventDateRange.Create(dateRange);
-
-        // Assert
-        Assert.True(result.IsFailure);
-        Assert.Contains(EventDateRange.Errors.EventStartTimeCannotBeInPast(), result.Errors);
-    }
+    // [Fact]
+    // public void GivenExistingEvent_WhenSettingStartTimeInPast_ThenFailure()
+    // {
+    //     // Arrange
+    //     var currentDate = DateTime.Now;
+    //     var pastStartDate = currentDate.AddDays(-1); 
+    //     var endDate = currentDate.AddHours(1); 
+    //     var dateRange = new DateRange(pastStartDate, endDate);
+    //
+    //     // Act
+    //     var result = EventDateRange.Create(dateRange);
+    //
+    //     // Assert
+    //     Assert.True(result.IsFailure);
+    //     Assert.Contains(EventDateRange.Errors.EventStartTimeCannotBeInPast(), result.Errors);
+    // }
     
     // UC4.F11
     [Theory]
