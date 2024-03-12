@@ -19,22 +19,6 @@ public static class EventErrors
         public static Error UpdateTitleWhenEventCancelled() =>
             new(ErrorType.InvalidArgument, 8, "Cannot update title when event is cancelled");
     }
-    
-    public static class Description
-    {
-        public static Error DescriptionCannotBeLongerThan250Characters() =>
-            new(ErrorType.InvalidArgument, 3, "Description cannot be longer than 250 characters");
-        public static Error DescriptionCannotBeModifiedForCanceledEvent() =>
-            new(ErrorType.InvalidOperation, 4, "Description cannot be modified for canceled event");
-        public static Error DescriptionCannotBeEmpty() =>
-            new(ErrorType.InvalidArgument, 5, "Description cannot be empty");
-
-        public static Error CannotUpdateCancelledEvent() =>
-            new(ErrorType.InvalidOperation, 24, "Cannot update cancelled event");
-
-        public static Error CannotUpdateActiveEvent() => 
-            new(ErrorType.InvalidOperation, 25, "Cannot update started event");
-    }
 
     public static class GuestLimit
     {

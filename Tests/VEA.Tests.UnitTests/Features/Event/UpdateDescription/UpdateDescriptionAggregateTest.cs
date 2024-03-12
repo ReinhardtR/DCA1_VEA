@@ -32,14 +32,13 @@ public class UpdateDescriptionAggregateTest
     public void GivenEmptyString_WhenUpdatingDescription_ThenSuccess(string input)
     {
         //Arrange
-        VeaEvent veaEvent = EventFactory.Create().Build();
-        EventDescription description = EventDescription.Create(input).Payload;
-
+        Result<EventDescription> result;
+        
         //Act
-        Result result = veaEvent.UpdateDescription(description);
+        result = EventDescription.Create(input);
 
         //Assert
-        Assert.True(veaEvent.Description.Value == "");
+        Assert.True(result.Payload.Value == "");
         Assert.False(result.IsFailure);
         Assert.True(result.Errors.Count == 0);
     }
@@ -69,15 +68,14 @@ public class UpdateDescriptionAggregateTest
     public void GivenTooLongString_WhenUpdatingDescription_ThenFailure(string input)
     {
         //Arrange
-        VeaEvent veaEvent = EventFactory.Create().Build();
-        EventDescription description = EventDescription.Create(input).Payload;
+        Result<EventDescription> result;
 
         //Act
-        Result result = veaEvent.UpdateDescription(description);
-
+        result = EventDescription.Create(input);
+        
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.Description.DescriptionCannotBeLongerThan250Characters(), result.Errors);
+        Assert.Contains(EventDescription.Errors.DescriptionCannotBeLongerThan250Characters(), result.Errors);
     }
 
     
@@ -95,7 +93,7 @@ public class UpdateDescriptionAggregateTest
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.Description.CannotUpdateCancelledEvent(), result.Errors);
+        Assert.Contains(EventDescription.Errors.CannotUpdateCancelledEvent(), result.Errors);
     }
     
     // Failure 3
@@ -112,7 +110,7 @@ public class UpdateDescriptionAggregateTest
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.Description.CannotUpdateActiveEvent(), result.Errors);
+        Assert.Contains(EventDescription.Errors.CannotUpdateActiveEvent(), result.Errors);
     }
     
 }

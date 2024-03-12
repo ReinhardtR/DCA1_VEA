@@ -47,10 +47,10 @@ public class VeaEvent
     {
         List<Error> errors = new List<Error>();
         if (Status == EventStatus.Active)
-            errors.Add(EventErrors.Description.CannotUpdateActiveEvent());
+            errors.Add(EventDescription.Errors.CannotUpdateActiveEvent());
 
         if (Status == EventStatus.Cancelled)
-            errors.Add(EventErrors.Description.CannotUpdateCancelledEvent());
+            errors.Add(EventDescription.Errors.CannotUpdateCancelledEvent());
 
         if (errors.Count > 0)
             return Result.Failure(errors);
@@ -146,7 +146,7 @@ public class VeaEvent
             errors.Add(EventErrors.EventMustHaveValidTitle());
 
         if (Description.Value.Equals(""))
-            errors.Add(EventErrors.Description.DescriptionCannotBeEmpty());
+            errors.Add(EventDescription.Errors.DescriptionCannotBeEmpty());
         
         if (DateRange?.Value.Start > DateRange?.Value.End)
             errors.Add(EventErrors.DateRange.DateRangeStartMustBeBeforeEnd());

@@ -44,7 +44,7 @@ public class ReadyEventAggregateTest
 
         // Assert
         Assert.Contains(EventErrors.EventMustHaveValidTitle(), result.Errors);
-        Assert.Contains(EventErrors.Description.DescriptionCannotBeEmpty(), result.Errors);
+        Assert.Contains(EventDescription.Errors.DescriptionCannotBeEmpty(), result.Errors);
     }
     
     //F2Given an existing event with ID And the event is in cancelled status When creator readies the event Then a failure message is provided explaining a cancelled event cannot be readied

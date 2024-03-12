@@ -100,7 +100,7 @@ public class ActivateEventAggregateTest
             
             // Assert
             Assert.Contains(EventErrors.EventMustHaveValidTitle(), result.Errors);
-            Assert.Contains(EventErrors.Description.DescriptionCannotBeEmpty(), result.Errors);
+            Assert.Contains(EventDescription.Errors.DescriptionCannotBeEmpty(), result.Errors);
         }
 
     }
