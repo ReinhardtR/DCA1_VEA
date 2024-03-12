@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using VEA.Core.Domain.Aggregates.Events;
+using VEA.Core.Domain.Aggregates.Guests;
 using VEA.Core.Domain.Common.Values;
 using VEA.Core.Tools.OperationResult;
 using VEA.Tests.UnitTests.Features.Guest;
@@ -13,23 +14,16 @@ public class ParticipateAggregateTests
     [Fact]
     public void GivenValidData_WhenParticipatingEvent_ShouldSuccess()
     {
-        //Arrange  
-        VeaEvent veaEvent = EventFactory.Create()
+        var veaEvent = EventFactory.Create()
             .WithStatus(EventStatus.Active)
             .WithVisibility(EventVisibility.Public)
             .WithGuestLimit(5)
             .Build();
-        //Create a guest
-        Core.Domain.Aggregates.Guests.Guest guest = GuestFactory.Create().Build();
         
-        //Create a participation
-        Participation participation = Participation.Create(
-            ParticipationId.New(),
-            guest.Id,
-            null // ParticipationStatus.Participating
-        );
+        var guest = GuestFactory.Create().Build();
+        
         //Act 
-        var result = veaEvent.Participate(participation);
+        var result = veaEvent.Participate(guest.Id);
         
         
         //Assert
@@ -41,25 +35,16 @@ public class ParticipateAggregateTests
     public void GivenEventStatusIsDraft_WhenParticipatingEvent_ShouldFailure()
     {
         //Arrange
-        EventStatus eventStatus = EventStatus.Draft;
+        var eventStatus = EventStatus.Draft;
         
-       
-        VeaEvent veaEvent = EventFactory.Create()
+        var veaEvent = EventFactory.Create()
             .WithStatus(eventStatus)
             .Build();
         
-        
-        Core.Domain.Aggregates.Guests.Guest guest = GuestFactory.Create().Build();
-        
-       
-        Participation participation = Participation.Create(
-            ParticipationId.New(),
-            guest.Id,
-            null // ParticipationStatus.Participating
-        );
+        var guest = GuestFactory.Create().Build();
         
         //Act
-        var result = veaEvent.Participate(participation);
+        var result = veaEvent.Participate(guest.Id);
         
         //Assert
         Assert.True(result.IsFailure);
@@ -70,22 +55,16 @@ public class ParticipateAggregateTests
     public void GivenEventStatusIsReady_WhenParticipatingEvent_ShouldFailure()
     {
         //Arrange
-        EventStatus eventStatus = EventStatus.Ready;
+        var eventStatus = EventStatus.Ready;
         
-        VeaEvent veaEvent = EventFactory.Create()
+        var veaEvent = EventFactory.Create()
             .WithStatus(eventStatus)
             .Build();
         
-        Core.Domain.Aggregates.Guests.Guest guest = GuestFactory.Create().Build();
-        
-        Participation participation = Participation.Create(
-            ParticipationId.New(),
-            guest.Id,
-            null // ParticipationStatus.Participating
-        );
+        var guest = GuestFactory.Create().Build();
         
         //Act
-        var result = veaEvent.Participate(participation);
+        var result = veaEvent.Participate(guest.Id);
         
         //Assert
         Assert.True(result.IsFailure);
@@ -96,22 +75,16 @@ public class ParticipateAggregateTests
     public void GivenEventStatusIsCancelled_WhenParticipatingEvent_ShouldFailure()
     {
         //Arrange
-        EventStatus eventStatus = EventStatus.Cancelled;
+        var eventStatus = EventStatus.Cancelled;
         
-        VeaEvent veaEvent = EventFactory.Create()
+        var veaEvent = EventFactory.Create()
             .WithStatus(eventStatus)
             .Build();
         
-        Core.Domain.Aggregates.Guests.Guest guest = GuestFactory.Create().Build();
-        
-        Participation participation = Participation.Create(
-            ParticipationId.New(),
-            guest.Id,
-            null // ParticipationStatus.Participating
-        );
+        var guest = GuestFactory.Create().Build();
         
         //Act
-        var result = veaEvent.Participate(participation);
+        var result = veaEvent.Participate(guest.Id);
         
         //Assert
         Assert.True(result.IsFailure);
@@ -123,34 +96,26 @@ public class ParticipateAggregateTests
     public void GivenGuestLimitReached_WhenParticipatingEvent_ShouldFailure()
     {
         //Arrange
+        const int guestLimit = 10;
         
-        VeaEvent veaEvent = EventFactory.Create()
+        List<GuestId> guestIds = Enumerable.Range(0, guestLimit)
+            .Select(_ => GuestFactory.Create().Build().Id)
+            .ToList();
+        
+        var veaEvent = EventFactory.Create()
             .WithStatus(EventStatus.Active)
-            .WithGuestLimit(1)
+            .WithParticipants(guestIds)
+            .WithGuestLimit(guestLimit)
             .Build();
         
-        Core.Domain.Aggregates.Guests.Guest guest1 = GuestFactory.Create().Build();
-        Core.Domain.Aggregates.Guests.Guest guest2 = GuestFactory.Create().Build();
-        
-        Participation participation = Participation.Create(
-            ParticipationId.New(),
-            guest1.Id,
-            null // ParticipationStatus.Participating
-        );
-        
-        Participation participation2 = Participation.Create(
-            ParticipationId.New(),
-            guest2.Id,
-            null // ParticipationStatus.Participating
-        );
+        var guest = GuestFactory.Create().Build();
         
         //Act
-        var result = veaEvent.Participate(participation);
-        var result2 = veaEvent.Participate(participation2);
+        var result = veaEvent.Participate(guest.Id);
         
         //Assert
-        Assert.True(result2.IsFailure);
-        Assert.Contains(VeaEvent.Errors.Participation.GuestLimitReached(), result2.Errors);
+        Assert.True(result.IsFailure);
+        Assert.Contains(VeaEvent.Errors.Participation.GuestLimitReached(), result.Errors);
     }
     
     
@@ -159,24 +124,20 @@ public class ParticipateAggregateTests
     public void GivenStartTimeIsBeforeNow_WhenParticipatingEvent_ShouldFailure()
     {
         //Arrange
-        DateTime startTime = DateTime.Now.AddDays(-1);
-        DateRange dateRange = new DateRange(startTime, DateTime.Now.AddDays(1));
-
-        VeaEvent veaEvent = EventFactory.Create()
+        var dateRange = new DateRange(
+            DateTime.Today.AddDays(-1).AddHours(9),
+            DateTime.Today.AddDays(-1).AddHours(10)
+        );
+        
+        var veaEvent = EventFactory.Create()
             .WithStatus(EventStatus.Active)
             .WithDateRange(dateRange)
             .Build();
         
-        Core.Domain.Aggregates.Guests.Guest guest = GuestFactory.Create().Build();
-        
-        Participation participation = Participation.Create(
-            ParticipationId.New(),
-            guest.Id,
-            null // ParticipationStatus.Participating
-        );
+        var guest = GuestFactory.Create().Build();
         
         //Act
-        var result = veaEvent.Participate(participation);
+        var result = veaEvent.Participate(guest.Id);
         
         //Assert
         Assert.True(result.IsFailure);
@@ -188,23 +149,17 @@ public class ParticipateAggregateTests
     public void GivenPrivateEvent_WhenParticipatingEvent_ShouldFailure()
     {
         //Arrange
-        EventVisibility eventVisibility = EventVisibility.Private;
+        var eventVisibility = EventVisibility.Private;
         
-        VeaEvent veaEvent = EventFactory.Create()
+        var veaEvent = EventFactory.Create()
             .WithStatus(EventStatus.Active)
             .WithVisibility(eventVisibility)
             .Build();
         
-        Core.Domain.Aggregates.Guests.Guest guest = GuestFactory.Create().Build();
-        
-        Participation participation = Participation.Create(
-            ParticipationId.New(),
-            guest.Id,
-            null // ParticipationStatus.Participating
-        );
+        var guest = GuestFactory.Create().Build();
         
         //Act
-        var result = veaEvent.Participate(participation);
+        var result = veaEvent.Participate(guest.Id);
         
         //Assert
         Assert.True(result.IsFailure);
@@ -216,22 +171,15 @@ public class ParticipateAggregateTests
     public void GivenGuestAlreadyParticipated_WhenParticipatingEvent_ShouldFailure()
     {
         //Arrange
-        VeaEvent veaEvent = EventFactory.Create()
+        var guest = GuestFactory.Create().Build();
+        
+        var veaEvent = EventFactory.Create()
+            .WithParticipants([guest.Id])
             .WithStatus(EventStatus.Active)
             .Build();
         
-        Core.Domain.Aggregates.Guests.Guest guest = GuestFactory.Create().Build();
-        
-        Participation participation = Participation.Create(
-            ParticipationId.New(),
-            guest.Id,
-            null // ParticipationStatus.Participating
-        );
-        
-        veaEvent.Participate(participation);
-        
         //Act
-        var result = veaEvent.Participate(participation);
+        var result = veaEvent.Participate(guest.Id);
         
         //Assert
         Assert.True(result.IsFailure);

@@ -13,9 +13,9 @@ public class VeaEvent
     internal EventGuestLimit GuestLimit;
     internal EventDateRange? DateRange;
     internal List<Invitation> Invitations;
-    internal List<Participation> Participations;
+    internal List<GuestId> Participants;
     
-    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit, EventDateRange? dateRange, List<Invitation> invitations, List<Participation> participations)
+    private VeaEvent(EventId id, EventTitle title, EventDescription description, EventVisibility visibility, EventStatus status, EventGuestLimit guestLimit, EventDateRange? dateRange, List<Invitation> invitations, List<GuestId> participants)
     {
         Id = id;
         Title = title;
@@ -25,10 +25,10 @@ public class VeaEvent
         GuestLimit = guestLimit;
         Invitations = invitations;
         DateRange = dateRange;
-        Participations = participations;
+        Participants = participants;
     }
 
-    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit,EventDateRange? eventDateRange, List<Invitation>? invitations, List<Participation>? participations)
+    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit,EventDateRange? eventDateRange, List<Invitation>? invitations, List<GuestId>? participants)
     {
         return new VeaEvent(
             id,
@@ -39,7 +39,7 @@ public class VeaEvent
             eventGuestLimit ?? EventGuestLimit.Create(5).Payload,
             eventDateRange ?? null,
             invitations ?? [],
-            participations ?? []
+            participants ?? []
         );
     }
 
@@ -179,35 +179,30 @@ public class VeaEvent
     }
 
 
-    public Result Participate(Participation participation)
+    public Result Participate(GuestId guestId)
     {
-        
         var validation = Result.Validator()
             .Assert(Status == EventStatus.Active, Errors.Participation.EventIsNotActive())
-            .Assert(() => GuestLimitReached(GuestLimit), Errors.Participation.GuestLimitReached())
+            .Assert(!GuestLimitReached(GuestLimit), Errors.Participation.GuestLimitReached())
             .Assert(EventHasNotStarted, Errors.Participation.EventAlreadyStarted())
             .Assert(Visibility == EventVisibility.Public, Errors.Participation.EventNotPublic())
-            .Assert(() => GuestAlreadyAttends(participation), Errors.Participation.GuestAlreadyParticipated())
+            .Assert(!Participants.Contains(guestId), Errors.Participation.GuestAlreadyParticipated())
             .Validate();
-
-        if (validation.IsFailure)
-        {
-            return Result.Failure(validation.Errors);
-        }
+        if (validation.IsFailure) return validation;
         
-        Participations.Add(participation);
+        Participants.Add(guestId);
         
         return Result.Success();
     }
 
-    public Result CancelParticipation(Participation participation)
+    public Result CancelParticipation(GuestId guestId)
     {
         var validation = Result.Validator()
             .Assert(EventHasNotStarted, Errors.Participation.EventAlreadyStarted())
             .Validate();
         if (validation.IsFailure) return validation;
         
-        Participations.Remove(participation);
+        Participants.Remove(guestId);
         
         return Result.Success();
     }
@@ -220,15 +215,10 @@ public class VeaEvent
         return DateRange.Value.Start > DateTime.Now;
     }
 
-    private bool GuestAlreadyAttends(Participation participation)
-    {
-        return !Participations.Exists(p => p.GuestId == participation.GuestId);
-    }
-
     public Result ExtendInvitation(Invitation invitation)
     {
         var validation = Result.Validator()
-            .Assert(() => !GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
+            .Assert(!GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
             .Assert(Status != EventStatus.Cancelled && Status != EventStatus.Draft, EventErrors.Invitation.ExtendInvitationWhenEventDraftOrCancelled())
             .Validate();
         
@@ -246,7 +236,7 @@ public class VeaEvent
         
         var validation = Result.Validator()
             .Assert(invitationForGuest != null, Errors.Invitation.GuestHasNoInvitation())
-            .Assert(() => !GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
+            .Assert(!GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
             .Assert(Status != EventStatus.Cancelled, Errors.Invitation.EventIsCancelled())
             .Assert(Status != EventStatus.Ready, Errors.Invitation.EventIsNotActive())
             .Validate();
@@ -281,15 +271,8 @@ public class VeaEvent
 
     private bool GuestLimitReached(EventGuestLimit guestLimit)
     {
-        var actualGuests = 0;
-        actualGuests += Participations.Count;
-        foreach(Invitation invitation in Invitations)
-        {
-            if (invitation.InvitationStatus == InvitationStatus.Accepted)
-            {
-                actualGuests++;
-            }
-        }
+        int actualGuests = Participants.Count
+            + Invitations.Count(i => i.InvitationStatus == InvitationStatus.Accepted);
         return actualGuests >= guestLimit.Value;
     }
     

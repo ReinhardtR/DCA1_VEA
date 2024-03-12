@@ -13,34 +13,34 @@ public class CancelParticipationAggregateTests
     {
         // Arrange
         var guestId = GuestId.New().Payload;
-        var participation = Participation.Create(ParticipationId.New(), guestId, ParticipationStatus.Participating);
         var veaEvent = EventFactory.Create()
-            .WithParticipations([participation])
+            .WithParticipants([guestId])
             .Build();
 
         // Act
-        var result = veaEvent.CancelParticipation(participation);
+        var result = veaEvent.CancelParticipation(guestId);
         
         // Assert
         Assert.False(result.IsFailure);
-        Assert.DoesNotContain(participation, veaEvent.Participations);
+        Assert.DoesNotContain(guestId, veaEvent.Participants);
     }
     
-    // S2 - doesn't make sense with current participation implementation
-    // [Fact]
-    // public void GivenExistingEventAndRegisteredGuestAndGuestNotParticipating_WhenGuestCancelsParticipation_ThenNothingChanges()
-    // {
-    //     // Arrange
-    //     var veaEvent = EventFactory.Create().Build();
-    //
-    //     // Act
-    //     List<Participation> previousParticipations = veaEvent.Participations.ToList();
-    //     var result = veaEvent.CancelParticipation(participation);
-    //     
-    //     // Assert
-    //     Assert.True(result.IsFailure);
-    //     Assert.Contains(participation, veaEvent.Participations);
-    // }
+    // S2 
+    [Fact]
+    public void GivenExistingEventAndRegisteredGuestAndGuestNotParticipating_WhenGuestCancelsParticipation_ThenNothingChanges()
+    {
+        // Arrange
+        var guestId = GuestId.New().Payload;
+        var veaEvent = EventFactory.Create().Build();
+    
+        // Act
+        List<GuestId> previousParticipants = veaEvent.Participants.ToList();
+        var result = veaEvent.CancelParticipation(guestId);
+        
+        // Assert
+        Assert.True(!result.IsFailure);
+        Assert.Equal(previousParticipants, veaEvent.Participants);
+    }
     
     // F1
     [Fact]
@@ -49,7 +49,6 @@ public class CancelParticipationAggregateTests
     {
         // Arrange
         var guestId = GuestId.New().Payload;
-        var participation = Participation.Create(ParticipationId.New(), guestId, ParticipationStatus.Participating);
         
         var dateRange = new DateRange(
             DateTime.Today.AddDays(-1).AddHours(9),
@@ -57,12 +56,12 @@ public class CancelParticipationAggregateTests
         );
         
         var veaEvent = EventFactory.Create()
-            .WithParticipations([participation])
+            .WithParticipants([guestId])
             .WithDateRange(dateRange)
             .Build();
 
         // Act
-        var result = veaEvent.CancelParticipation(participation);
+        var result = veaEvent.CancelParticipation(guestId);
         
         // Assert
         Assert.True(result.IsFailure);
