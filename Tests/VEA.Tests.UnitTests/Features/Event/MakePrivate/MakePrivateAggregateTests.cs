@@ -65,7 +65,7 @@ public class MakePrivateAggregateTests
         var result = veaEvent.SetVisibility(EventVisibility.Private);
 
         Assert.False(result.IsFailure);
-        Assert.Equal(EventStatus.Ready, veaEvent.Status);
+        Assert.Equal(EventStatus.Draft, veaEvent.Status);
         Assert.Equal(EventVisibility.Private, veaEvent.Visibility);
     }
 
