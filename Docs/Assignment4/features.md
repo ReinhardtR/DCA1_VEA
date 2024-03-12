@@ -72,9 +72,9 @@
   - [x] S1
   - [x] F1
   - [x] F2
-  - [x] F3
+  - [x] F3 
   - [x] F4
-  - [x] F5
+  - [x] F5 this test depends on Persistence, which we do not yet have
   - [x] F6
   - [x] F7
 - [x] UC11 - Guest chooses to participate in a public event
