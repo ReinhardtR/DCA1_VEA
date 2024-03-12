@@ -18,12 +18,12 @@ public class EventDateRange : ValueObject<DateRange>
     {
         var difference = (value.End - value.Start);
         var validation = Result.Validator()
-            .Assert(value.Start.CompareTo(value.End)<=0, EventErrors.DateRange.DateRangeStartMustBeBeforeEnd())
-            .Assert(difference.TotalMinutes>=MinDurationMinutes, EventErrors.DateRange.DateRangeStartTimeMustBeMinimumDurationBeforeEndTime())
-            .Assert(difference.TotalMinutes<=MaxDurationMinutes, EventErrors.DateRange.DateRangeDurationExceedsMaximum())
-            .Assert(value.Start.Hour >= EarliestStartTimeHours, EventErrors.DateRange.DateRangeStartTimeMustBeAfterEarliestTime())
-            .Assert(value.End.Hour is > EarliestStartTimeHours or < LatestEndTimeHours, EventErrors.DateRange.DateRangeEndTimeMustBeBeforeLatestTime())
-            .Assert(!EventSpansBetweenLatestAndEarliestTimes(value.Start, value.End), EventErrors.DateRange.DateRangeSpansBetweenLatestAndEarliestTime())
+            .Assert(value.Start.CompareTo(value.End)<=0, Errors.DateRangeStartMustBeBeforeEnd())
+            .Assert(difference.TotalMinutes>=MinDurationMinutes, Errors.DateRangeStartTimeMustBeMinimumDurationBeforeEndTime())
+            .Assert(difference.TotalMinutes<=MaxDurationMinutes, Errors.DateRangeDurationExceedsMaximum())
+            .Assert(value.Start.Hour >= EarliestStartTimeHours, Errors.DateRangeStartTimeMustBeAfterEarliestTime())
+            .Assert(value.End.Hour is > EarliestStartTimeHours or < LatestEndTimeHours, Errors.DateRangeEndTimeMustBeBeforeLatestTime())
+            .Assert(!EventSpansBetweenLatestAndEarliestTimes(value.Start, value.End), Errors.DateRangeSpansBetweenLatestAndEarliestTime())
             .Validate();
         return validation.IsFailure
             ? Result.Failure<EventDateRange>(validation.Errors)
@@ -40,5 +40,27 @@ public class EventDateRange : ValueObject<DateRange>
         }
 
         return start.TimeOfDay <= earliestTimeSpan && latestTimeSpan <= end.TimeOfDay;
+    }
+    
+    public static class Errors
+    {
+        public static Error DateRangeStartMustBeBeforeEnd() =>
+            new(ErrorType.InvalidArgument, 1, "DateRange start date must be before end date");
+        public static Error DateRangeStartTimeMustBeMinimumDurationBeforeEndTime() =>
+            new(ErrorType.InvalidArgument, 2, "DateRange start time must be minimum duration before end time");
+        public static Error DateRangeStartTimeMustBeAfterEarliestTime() =>
+            new(ErrorType.InvalidArgument, 3, "DateRange start time must be after earliest time");
+        public static Error DateRangeEndTimeMustBeBeforeLatestTime() =>
+            new(ErrorType.InvalidArgument, 4, "DateRange start time must be before latest time");
+        public static Error UpdateDateRangeWhenEventActive() =>
+            new(ErrorType.InvalidArgument, 5, "Cannot update DateRange when event is active");
+        public static Error UpdateDateRangeWhenEventCancelled() =>
+            new(ErrorType.InvalidArgument, 6, "Cannot update DateRange when event is cancelled");
+        public static Error DateRangeDurationExceedsMaximum() =>
+            new(ErrorType.InvalidArgument, 7, "DateRange duration exceeds the maximum duration");
+        public static Error EventStartTimeCannotBeInPast() =>
+            new(ErrorType.InvalidArgument, 8, "Event start time cannot be in past");
+        public static Error DateRangeSpansBetweenLatestAndEarliestTime() =>
+            new(ErrorType.InvalidArgument, 9, "DateRange cannot span between the latest and earliest time");
     }
 }

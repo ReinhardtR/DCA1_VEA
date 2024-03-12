@@ -96,7 +96,8 @@ public class CreateAggregateTest
     Assert.Contains(LastName.Errors.LastNameNotValid(), result.Errors);
   }
   
-  // Failure 5
+  // Failure 5 todo this test depends on Persistence, which we do not yet have
+  /*
   [Theory]
   [InlineData("Milo@via.dk")]
   public void GivenEmailAlreadyInUse_WhenCreatingAccount_ShouldFailure(string emailInUse)
@@ -109,6 +110,7 @@ public class CreateAggregateTest
     Assert.True(result.IsFailure);
     Assert.Contains(ViaEmail.Errors.EmailAlreadyInUse(), result.Errors);
   }
+  */
   
   // Failure 6
   [Theory]

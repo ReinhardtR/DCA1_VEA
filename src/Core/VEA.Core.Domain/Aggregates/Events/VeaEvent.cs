@@ -57,10 +57,10 @@ public class VeaEvent
     {
         List<Error> errors = new List<Error>();
         if (Status == EventStatus.Active)
-            errors.Add(EventErrors.Description.CannotUpdateActiveEvent());
+            errors.Add(EventDescription.Errors.CannotUpdateActiveEvent());
 
         if (Status == EventStatus.Cancelled)
-            errors.Add(EventErrors.Description.CannotUpdateCancelledEvent());
+            errors.Add(EventDescription.Errors.CannotUpdateCancelledEvent());
 
         if (errors.Count > 0)
             return Result.Failure(errors);
@@ -77,8 +77,8 @@ public class VeaEvent
     public Result UpdateDateRange(EventDateRange dateRange)
     {
         var validation = Result.Validator()
-            .Assert(Status != EventStatus.Active, EventErrors.DateRange.UpdateDateRangeWhenEventActive())
-            .Assert(Status != EventStatus.Cancelled, EventErrors.DateRange.UpdateDateRangeWhenEventCancelled())
+            .Assert(Status != EventStatus.Active, EventDateRange.Errors.UpdateDateRangeWhenEventActive())
+            .Assert(Status != EventStatus.Cancelled, EventDateRange.Errors.UpdateDateRangeWhenEventCancelled())
             .Validate();
 
         if (validation.IsFailure)
@@ -156,13 +156,13 @@ public class VeaEvent
             errors.Add(EventErrors.EventMustHaveValidTitle());
 
         if (Description.Value.Equals(""))
-            errors.Add(EventErrors.Description.DescriptionCannotBeEmpty());
+            errors.Add(EventDescription.Errors.DescriptionCannotBeEmpty());
         
         if (DateRange?.Value.Start > DateRange?.Value.End)
-            errors.Add(EventErrors.DateRange.DateRangeStartMustBeBeforeEnd());
+            errors.Add(EventDateRange.Errors.DateRangeStartMustBeBeforeEnd());
         
         if (DateRange?.Value.Start < DateTime.Now)
-            errors.Add(EventErrors.DateRange.EventStartTimeCannotBeInPast());
+            errors.Add(EventDateRange.Errors.EventStartTimeCannotBeInPast());
         
         Result guestLimitValidation = EventGuestLimit.Validate(GuestLimit.Value);
         if (guestLimitValidation.IsFailure)
