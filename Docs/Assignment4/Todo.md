@@ -2,11 +2,11 @@
 
 ## Domain Model
 
-- [ ] Add "URL" to the Guest entity as a value object
-- [ ] Add InvitationId as a value object
-- [ ] Add RequestId as a value object
+- [x] Add "URL" to the Guest entity as a value object
+- [x] Add InvitationId as a value object
+- [x] Add RequestId as a value object
 - [x] Add UpdateDateRange method on Event
-- [ ] Go through domain model and make sure return types and parameters are the same
+- [x] Go through domain model and make sure return types and parameters are the same
 
 ## General
 - [ ] Make DateRange non-nullable and add default value
