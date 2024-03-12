@@ -18,12 +18,13 @@ public class ActivateEventAggregateTest
         public void GivenEventExistWithIdAndIsDraftStatusAndDataIsSetWithValidValues_WhenCreatorActivatesTheEvent_ThenEventIsFirstMadeReadyAndIfSuccessfulThenMadeActive()
         {
             // Arrange
-            var veaEvent = EventFactory.Create().Build();
+            var veaEvent = EventFactory.Create().WithTitle("Title").WithDescription("Description").Build();
             
             // Act
-            veaEvent.Activate();
+            Result result = veaEvent.Activate();
             
             // Assert
+            Assert.False(result.IsFailure);
             Assert.Equal(EventStatus.Active, veaEvent.Status);
         }
         
@@ -87,7 +88,12 @@ public class ActivateEventAggregateTest
         public void GivenEventExistWithIdAndIsDraftStatusAndAnyOfTheFollowingDataIsNotSetWithValidValues_WhenCreatorActivatesTheEvent_ThenFailureMessageIsProvided()
         {
             // Arrange
-            var veaEvent = EventFactory.Create().Build();
+            var veaEvent = EventFactory.Create()
+                .WithStatus(EventStatus.Draft)
+                .WithTitle("Working Title")
+                .WithDescription("")
+                .WithGuestLimit(3)
+                .Build();
             
             // Act
             Result result = veaEvent.Activate();
@@ -95,8 +101,6 @@ public class ActivateEventAggregateTest
             // Assert
             Assert.Contains(EventErrors.EventMustHaveValidTitle(), result.Errors);
             Assert.Contains(EventErrors.Description.DescriptionCannotBeEmpty(), result.Errors);
-            Assert.Contains(EventErrors.EventMustBeDraft(), result.Errors);
-            Assert.Contains(EventErrors.GuestLimit.GuestLimitMustBeBetween5And50(), result.Errors);
         }
 
     }

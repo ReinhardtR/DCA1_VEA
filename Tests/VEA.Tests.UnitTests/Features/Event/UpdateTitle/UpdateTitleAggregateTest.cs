@@ -7,7 +7,6 @@ namespace VEA.Tests.UnitTests.Features.Event.UpdateTitle;
 public class UpdateTitleAggregateTest
 {
     //S1
-    //TODO - depends on UC 8
     [Fact]
     public void EventExistWithIdIsDraftValidTitle_UpdatesTitle_TitleIsUpdated()
     {
@@ -98,12 +97,11 @@ public class UpdateTitleAggregateTest
     }
     
     //F5 Given an existing event with ID When creator selects to set the title of the event And the event is in active status Then a failure message is returned explaining an active event cannot be modified
-    // Todo - depends on UC 8
     [Fact]
     public void GivenEventExistWithIdAndIsActiveStatus_WhenUpdatingTitle_ThenFailureMessageIsReturned()
     {
         // Arrange
-        var veaEvent = EventFactory.Create().Build();
+        var veaEvent = EventFactory.Create().WithStatus(EventStatus.Active).Build();
         var newTitle = EventTitle.Create("title").Payload;
         //veaEvent.ReadyToStart();
         
@@ -116,12 +114,11 @@ public class UpdateTitleAggregateTest
     }
     
     //F6 Given an existing event with ID When creator selects to set the title of the event And the event is in cancelled status Then a failure message is returned explaining a cancelled event cannot be modified
-    // Todo - depends on UC 8
     [Fact]
     public void GivenEventExistWithIdAndIsCancelledStatus_WhenUpdatingTitle_ThenFailureMessageIsReturned()
     {
         // Arrange
-        var veaEvent = EventFactory.Create().Build();
+        var veaEvent = EventFactory.Create().WithStatus(EventStatus.Cancelled).Build();
         var newTitle = EventTitle.Create("title").Payload;
         //veaEvent.Cancel();
         

@@ -103,15 +103,13 @@ public class VeaEvent
     public Result UpdateTitle(EventTitle title)
     {
         List<Error> errors = new();
-
-        // Waiting for EventStatus implementation
-
-        // if (Status == EventStatus.Active)
-        //     //Add error
-        //
-        // if (Status == EventStatus.Started)
-        //     //Add error
-
+        
+        if (Status == EventStatus.Active)
+            errors.Add(EventErrors.Title.UpdateTitleWhenEventActive());
+        
+        if (Status == EventStatus.Cancelled)
+            errors.Add(EventErrors.Title.UpdateTitleWhenEventCancelled());
+        
         if (errors.Count > 0)
             return Result.Failure(errors);
 
@@ -123,10 +121,12 @@ public class VeaEvent
     {
         List<Error> errors = new List<Error>();
 
-        // Waiting for EventStatus implementation
 
-        // if (Status == EventStatus.Active)
-        //     //Add error
+        if (Status == EventStatus.Active && GuestLimit.Value > guestLimit.Value)
+            errors.Add(EventGuestLimit.Errors.CannotUpdateGuestLimitWhenEventActive());
+        
+        if (Status == EventStatus.Cancelled)
+            errors.Add(EventGuestLimit.Errors.CannotUpdateGuestLimitWhenEventCancelled());
 
 
         if (errors.Count > 0)
@@ -147,9 +147,22 @@ public class VeaEvent
 
         if (Description.Value.Equals(""))
             errors.Add(EventErrors.Description.DescriptionCannotBeEmpty());
-
-        // Waiting for EventDateRange implementation
-
+        
+        if (DateRange?.Value.Start > DateRange?.Value.End)
+            errors.Add(EventErrors.DateRange.DateRangeStartMustBeBeforeEnd());
+        
+        if (DateRange?.Value.Start < DateTime.Now)
+            errors.Add(EventErrors.DateRange.EventStartTimeCannotBeInPast());
+        
+        Result guestLimitValidation = EventGuestLimit.Validate(GuestLimit.Value);
+        if (guestLimitValidation.IsFailure)
+            errors.AddRange(guestLimitValidation.Errors);
+        
+        Result titleValidation = EventTitle.Validate(Title.Value);
+        if (titleValidation.IsFailure)
+            errors.AddRange(titleValidation.Errors);
+        
+        
         if (errors.Count > 0)
             return Result.Failure(errors);
 

@@ -12,13 +12,22 @@ public class EventTitle : ValueObject<string>
 
     public static Result<EventTitle> Create(string value)
     {
-        var validation = Result.Validator()
-            .Assert(!string.IsNullOrWhiteSpace(value), EventErrors.Title.TitleMustBeBetween3And75Characters())
-            .Assert(value.Length is > MinLength and < MaxLength, EventErrors.Title.TitleMustBeBetween3And75Characters())
-            .Validate();
+        var validation = Validate(value);
         return validation.IsFailure
             ? Result.Failure<EventTitle>(validation.Errors)
             : Result.Success(new EventTitle(value!));
+    }
+
+    public static Result Validate(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Result.Validator()
+                .Assert(!string.IsNullOrWhiteSpace(value), EventErrors.Title.TitleMustBeBetween3And75Characters())
+                .Validate();
+        
+        return Result.Validator()
+            .Assert(value.Length is > MinLength and < MaxLength, EventErrors.Title.TitleMustBeBetween3And75Characters())
+            .Validate();
     }
     
    //overide Object.equals
