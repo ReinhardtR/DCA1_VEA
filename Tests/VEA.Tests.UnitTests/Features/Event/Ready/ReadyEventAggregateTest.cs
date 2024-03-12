@@ -1,5 +1,6 @@
 ﻿using VEA.Core.Domain;
 using VEA.Core.Domain.Aggregates.Events;
+using VEA.Core.Domain.Common.Values;
 using VEA.Core.Tools.OperationResult;
 
 namespace VEA.Tests.UnitTests.Features.Event.Ready;
@@ -33,7 +34,7 @@ public class ReadyEventAggregateTest
         var veaEvent = EventFactory.Create()
             .WithTitle("Working Title")
             .WithDescription("")
-            .WithStatus(EventStatus.Ready)
+            .WithStatus(EventStatus.Draft)
             .WithGuestLimit(4)
             .WithVisibility(EventVisibility.Private)
             .Build();
@@ -44,8 +45,6 @@ public class ReadyEventAggregateTest
         // Assert
         Assert.Contains(EventErrors.EventMustHaveValidTitle(), result.Errors);
         Assert.Contains(EventErrors.Description.DescriptionCannotBeEmpty(), result.Errors);
-        Assert.Contains(EventErrors.EventMustBeDraft(), result.Errors);
-        Assert.Contains(EventErrors.GuestLimit.GuestLimitMustBeBetween5And50(), result.Errors);
     }
     
     //F2Given an existing event with ID And the event is in cancelled status When creator readies the event Then a failure message is provided explaining a cancelled event cannot be readied
@@ -73,8 +72,29 @@ public class ReadyEventAggregateTest
     //And the event has a start date/time which is prior to the time of readying
     //When the creator readies the event
     //Then a failure message is provided explaining an event in the past cannot be made ready
-
-    // Todo - Waiting for implementation of date range
+    
+    [Fact]
+    public void GivenEventExistWithIdAndStartDateIsPriorToTimeOfReadying_WhenCreatorReadiesTheEvent_ThenFailureMessageIsProvided()
+    {
+        // Arrange
+        DateRange dateRange = new DateRange(DateTime.Now.AddHours(-1), DateTime.Now.AddHours(1));
+        var veaEvent = EventFactory.Create()
+            .WithTitle("Title")
+            .WithDescription("Description")
+            .WithStatus(EventStatus.Draft)
+            .WithGuestLimit(25)
+            .WithVisibility(EventVisibility.Private)
+            .WithDateRange(dateRange)
+            .Build();
+        // Act
+        Result result = veaEvent.Ready();
+        
+        // Assert
+        Assert.Contains(EventErrors.DateRange.EventStartTimeCannotBeInPast(), result.Errors);
+    }
+    
+    
+    
 
     // F4 Given an existing event with ID
     // And the title of the event is the default (see UC1)

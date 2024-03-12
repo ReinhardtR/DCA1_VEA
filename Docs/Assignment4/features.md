@@ -5,15 +5,15 @@
   - [ ] S2
   - [ ] S3
   - [ ] S4
-- [ ] UC2 - Event creator updates title of event
-  - [ ] S1
+- [X] UC2 - Event creator updates title of event
+  - [X] S1
   - [x] S2
   - [x] F1
   - [x] F2
   - [x] F3
   - [x] F4
-  - [ ] F5
-  - [ ] F6
+  - [X] F5
+  - [X] F6
 - [x] UC3 - Event creator updates description of event **Needs look after event status impementation**
   - [x] S1
   - [x] S2
@@ -60,7 +60,7 @@
   - [x] S1
   - [x] F1
   - [x] F2
-  - [ ] F3
+  - [X] F3
   - [x] F4
 - [x] UC9 - Event creator activates event
   - [x] S1

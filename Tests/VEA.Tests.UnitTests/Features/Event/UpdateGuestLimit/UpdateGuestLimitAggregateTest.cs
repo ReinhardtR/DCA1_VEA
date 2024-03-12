@@ -1,4 +1,5 @@
 ﻿using VEA.Core.Domain.Aggregates.Events;
+using VEA.Core.Domain.Aggregates.Guests;
 using VEA.Core.Tools.OperationResult;
 
 namespace VEA.Tests.UnitTests.Features.Event.UpdateGuestLimit;
@@ -43,32 +44,62 @@ public class UpdateGuestLimitAggregateTest
 
     }
 
-    //S3 TODO - depends on UC 8
+    //S3
+    // Given an existing event with ID
+    // And the event is in active status
+    // When creator sets the maximum number of guests
+    // And the number is between 5 and 50 (both inclusive)
+    // And the number of guests is larger than or equal to the previous value
+    // Then the maximum number of guests is set to the selected value
+    [Fact]
+    public void GivenEventExistWithIdAndIsReadyStatus_WhenCreatorSetsTheNumberOfMaximumGuestsAndTheNumberIsBetween5And50AndTheNumberOfGuestsIsLargerThanOrEqualToThePreviousValue_ThenTheMaximumNumberOfGuestsIsSetToTheSelectedValue()
+    {
+        // Arrange
+        var newGuestLimit = EventGuestLimit.Create(30).Payload;
+        var veaEvent = EventFactory.Create().WithStatus(EventStatus.Active).WithGuestLimit(25).Build();
+        veaEvent.Ready();
+
+        // Act
+        Result result = veaEvent.UpdateGuestLimit(newGuestLimit);
+
+        // Assert
+        Assert.Equal(newGuestLimit, veaEvent.GuestLimit);
+    }
 
 
     //F1 Given an existing event with ID And the event is in active status When creator reduces the number of maximum guests Then a failure message is provided explaining the maximum number of guests of an active cannot be reduced (it may only be increased)
-    // TODO - depends on UC 8
     [Fact]
     public void GivenEventExistWithIdAndIsReadyStatus_WhenCreatorReducesTheNumberOfMaximumGuests_ThenFailureMessageIsProvided()
     {
-        /*
+        
         // Arrange
-        var newGuestLimit = EventGuestLimit.Create(5).Payload;
-        var _event = EventFactory.Create().WithId().WithTitle("Event").Build();
-        _event.UpdateStatus(EventStatus.Ready);
+        var newGuestLimit = EventGuestLimit.Create(15).Payload;
+        var veaEvent = EventFactory.Create().WithStatus(EventStatus.Active).WithGuestLimit(20).Build();
+        veaEvent.Ready();
 
         // Act
-        var result = _event.UpdateGuestLimit(newGuestLimit);
+        var result = veaEvent.UpdateGuestLimit(newGuestLimit);
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(EventErrors.GuestLimitMustBeBetween5And50(), result.Errors);
-        */
-        Assert.True(false);
+        Assert.Contains(EventGuestLimit.Errors.CannotUpdateGuestLimitWhenEventActive(), result.Errors);
     }
 
     //F2 Given an existing event with ID And the event is in cancelled status When creator sets the number of maximum guests Then a failure message is provided explaining a cancelled event cannot be modified
-    // TODO - depends on UC 8
+    [Fact]
+    public void GivenEventExistWithIdAndIsCancelledStatus_WhenCreatorSetsTheNumberOfMaximumGuests_ThenFailureMessageIsProvided()
+    {
+        // Arrange
+        var newGuestLimit = EventGuestLimit.Create(3).Payload;
+        var veaEvent = EventFactory.Create().WithStatus(EventStatus.Cancelled).Build();
+
+        // Act
+        var result = veaEvent.UpdateGuestLimit(newGuestLimit);
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Contains(EventGuestLimit.Errors.CannotUpdateGuestLimitWhenEventCancelled(), result.Errors);
+    }
 
     //F3 TODO - depends on UC 16-20
 
