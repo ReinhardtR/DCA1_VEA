@@ -37,16 +37,16 @@ public sealed class ResultValidator
 {
     private readonly List<Error> _errors = [];
 
-    public ResultValidator Assert(Func<bool> condition, Error error)
+    public ResultValidator Assert(Func<bool> that, Error error)
     {
-        if (condition()) return this;
+        if (that()) return this;
         _errors.Add(error);
         return this;
     }
 
-    public ResultValidator Assert(bool condition, Error error)
+    public ResultValidator Assert(bool that, Error error)
     {
-        if (condition) return this;
+        if (that) return this;
         _errors.Add(error);
         return this;
     }

@@ -202,7 +202,7 @@ public class VeaEvent
     public Result CancelParticipation(Participation participation)
     {
         var validation = Result.Validator()
-            .Assert(() => EventHasNotStarted(), Errors.Participation.EventAlreadyStarted())
+            .Assert(EventHasNotStarted, Errors.Participation.EventAlreadyStarted())
             .Validate();
         if (validation.IsFailure) return validation;
         
