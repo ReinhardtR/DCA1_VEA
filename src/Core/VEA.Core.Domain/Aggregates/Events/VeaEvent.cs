@@ -67,8 +67,8 @@ public class VeaEvent
     public Result UpdateDateRange(EventDateRange dateRange)
     {
         var validation = Result.Validator()
-            .Assert(Status != EventStatus.Active, EventErrors.DateRange.UpdateDateRangeWhenEventActive())
-            .Assert(Status != EventStatus.Cancelled, EventErrors.DateRange.UpdateDateRangeWhenEventCancelled())
+            .Assert(Status != EventStatus.Active, EventDateRange.Errors.UpdateDateRangeWhenEventActive())
+            .Assert(Status != EventStatus.Cancelled, EventDateRange.Errors.UpdateDateRangeWhenEventCancelled())
             .Validate();
 
         if (validation.IsFailure)
@@ -149,10 +149,10 @@ public class VeaEvent
             errors.Add(EventDescription.Errors.DescriptionCannotBeEmpty());
         
         if (DateRange?.Value.Start > DateRange?.Value.End)
-            errors.Add(EventErrors.DateRange.DateRangeStartMustBeBeforeEnd());
+            errors.Add(EventDateRange.Errors.DateRangeStartMustBeBeforeEnd());
         
         if (DateRange?.Value.Start < DateTime.Now)
-            errors.Add(EventErrors.DateRange.EventStartTimeCannotBeInPast());
+            errors.Add(EventDateRange.Errors.EventStartTimeCannotBeInPast());
         
         Result guestLimitValidation = EventGuestLimit.Validate(GuestLimit.Value);
         if (guestLimitValidation.IsFailure)

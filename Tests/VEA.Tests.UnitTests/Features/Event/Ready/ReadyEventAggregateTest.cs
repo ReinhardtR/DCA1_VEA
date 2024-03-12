@@ -90,10 +90,8 @@ public class ReadyEventAggregateTest
         Result result = veaEvent.Ready();
         
         // Assert
-        Assert.Contains(EventErrors.DateRange.EventStartTimeCannotBeInPast(), result.Errors);
+        Assert.Contains(EventDateRange.Errors.EventStartTimeCannotBeInPast(), result.Errors);
     }
-    
-    
     
 
     // F4 Given an existing event with ID

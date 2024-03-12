@@ -34,28 +34,6 @@ public static class EventErrors
             new(ErrorType.InvalidOperation, 12, "Cannot set visibility when event is active");
     }
     
-    public static class DateRange
-    {
-        public static Error DateRangeStartMustBeBeforeEnd() =>
-            new(ErrorType.InvalidArgument, 15, "DateRange start date must be before end date");
-        public static Error DateRangeStartTimeMustBeMinimumDurationBeforeEndTime() =>
-            new(ErrorType.InvalidArgument, 16, "DateRange start time must be minimum duration before end time");
-        public static Error DateRangeStartTimeMustBeAfterEarliestTime() =>
-            new(ErrorType.InvalidArgument, 17, "DateRange start time must be after earliest time");
-        public static Error DateRangeEndTimeMustBeBeforeLatestTime() =>
-            new(ErrorType.InvalidArgument, 18, "DateRange start time must be before latest time");
-        public static Error UpdateDateRangeWhenEventActive() =>
-            new(ErrorType.InvalidArgument, 19, "Cannot update DateRange when event is active");
-        public static Error UpdateDateRangeWhenEventCancelled() =>
-            new(ErrorType.InvalidArgument, 20, "Cannot update DateRange when event is cancelled");
-        public static Error DateRangeDurationExceedsMaximum() =>
-            new(ErrorType.InvalidArgument, 21, "DateRange duration exceeds the maximum duration");
-        public static Error EventStartTimeCannotBeInPast() =>
-            new(ErrorType.InvalidArgument, 22, "Event start time cannot be in past");
-        public static Error DateRangeSpansBetweenLatestAndEarliestTime() =>
-            new(ErrorType.InvalidArgument, 23, "DateRange cannot span between the latest and earliest time");
-    }
-    
     public static class Invitation
     {
         public static Error ExtendInvitationWhenEventDraftOrCancelled() =>

@@ -77,16 +77,16 @@
   - [x] F5
   - [x] F6
   - [x] F7
-- [ ] UC11 - Guest chooses to participate in a public event
-  - [ ] S1
-  - [ ] F1
-  - [ ] F2
-  - [ ] F3
-  - [ ] F4
-  - [ ] F5
-- [ ] UC12 - Guest removes their choice to participate in a public event
+- [x] UC11 - Guest chooses to participate in a public event
   - [x] S1
-  - [ ] S2 - doesn't make sense with current participation implementation
+  - [x] F1
+  - [x] F2
+  - [x] F3
+  - [x] F4
+  - [x] F5
+- [x] UC12 - Guest removes their choice to participate in a public event
+  - [x] S1
+  - [x] S2
   - [x] F1
 - [x] UC13 - Event creator extends invitation to guest to participate in an event
   - [x] S1
