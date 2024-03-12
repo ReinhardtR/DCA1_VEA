@@ -83,8 +83,8 @@ public class VeaEvent
     public Result SetVisibility(EventVisibility newVisibility)
     {
         var validation = Result.Validator()
-            .Assert(Status == EventStatus.Cancelled, EventErrors.Visibility.SetVisibilityWhenEventCancelled())
-            .Assert(() => Status == EventStatus.Active, EventErrors.Visibility.SetVisibilityToPrivateWhenEventActive())
+            .Assert(Status != EventStatus.Cancelled, EventErrors.Visibility.SetVisibilityWhenEventCancelled())
+            .Assert(Status != EventStatus.Active, EventErrors.Visibility.SetVisibilityToPrivateWhenEventActive())
             .Validate();
         if (validation.IsFailure) return validation;
 
