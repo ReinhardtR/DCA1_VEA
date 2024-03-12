@@ -1,10 +1,10 @@
 # Completed Feature Status
 
-- [ ] UC1 - Event creator creates new event
-  - [ ] S1
-  - [ ] S2
-  - [ ] S3
-  - [ ] S4
+- [x] UC1 - Event creator creates new event
+  - [x] S1
+  - [x] S2
+  - [x] S3
+  - [x] S4
 - [X] UC2 - Event creator updates title of event
   - [X] S1
   - [x] S2

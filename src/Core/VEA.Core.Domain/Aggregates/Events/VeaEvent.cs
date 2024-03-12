@@ -28,7 +28,17 @@ public class VeaEvent
         Participants = participants;
     }
 
-    public static VeaEvent Create(EventId id, EventTitle? eventTitle, EventDescription? eventDescription, EventVisibility? eventVisibility, EventStatus? eventStatus, EventGuestLimit? eventGuestLimit, EventDateRange? eventDateRange, List<Invitation>? invitations, List<GuestId>? participants)
+    public static VeaEvent Create(
+        EventId id,
+        EventTitle? eventTitle = null,
+        EventDescription? eventDescription = null,
+        EventVisibility? eventVisibility = null,
+        EventStatus? eventStatus = null,
+        EventGuestLimit? eventGuestLimit = null,
+        EventDateRange? eventDateRange = null,
+        List<Invitation>? invitations = null,
+        List<GuestId>? participants = null
+    )
     {
         return new VeaEvent(
             id,
