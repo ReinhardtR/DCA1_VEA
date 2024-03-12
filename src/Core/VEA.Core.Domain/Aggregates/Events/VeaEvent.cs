@@ -279,19 +279,8 @@ public class VeaEvent
         return Result.Success();
     }
 
-    private bool GuestLimitReached(EventGuestLimit guestLimit)
-    {
-        var actualGuests = 0;
-        actualGuests += Participations.Count;
-        foreach(Invitation invitation in Invitations)
-        {
-            if (invitation.InvitationStatus == InvitationStatus.Accepted)
-            {
-                actualGuests++;
-            }
-        }
-        return actualGuests >= guestLimit.Value;
-    }
+    private bool GuestLimitReached(EventGuestLimit guestLimit) => 
+        Participations.Count + Invitations.Count(i => i.InvitationStatus == InvitationStatus.Accepted) >= guestLimit.Value;
     
     public static class Errors
     {
