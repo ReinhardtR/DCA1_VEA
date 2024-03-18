@@ -9,6 +9,7 @@
 - [x] Go through domain model and make sure return types and parameters are the same
 
 ## General
+- [ ] Remake UpdateDescription Tests to use the new systems we have created
 - [ ] Make DateRange non-nullable and add default value
 - [ ] Make DateRange not rely on DateTime.Now and implement ISystemTime or similar
 - [ ] Change errorcode in EventErrors to be ascending
