@@ -141,33 +141,19 @@ public class VeaEvent
 
     public Result Ready()
     {
-        List<Error> errors = new List<Error>();
-        if (Status != EventStatus.Draft)
-            errors.Add(EventErrors.EventMustBeDraft());
-
-        if (Title.Value.Equals("Working Title"))
-            errors.Add(EventErrors.EventMustHaveValidTitle());
-
-        if (Description.Value.Equals(""))
-            errors.Add(EventDescription.Errors.DescriptionCannotBeEmpty());
+        var validation = Result.Validator()
+            .Assert(Status == EventStatus.Draft, Errors.Event.EventMustBeDraft())
+            .Assert(!Title.Value.Equals("Working Title"), Errors.Event.EventMustHaveValidTitle())
+            .Assert(!Description.Value.Equals(""), EventDescription.Errors.DescriptionCannotBeEmpty())
+            .Assert(DateRange?.Value.Start < DateRange?.Value.End,
+                EventDateRange.Errors.DateRangeStartMustBeBeforeEnd())
+            .Assert(DateRange?.Value.Start > DateTime.Now, EventDateRange.Errors.EventStartTimeCannotBeInPast())
+            .Validate();
         
-        if (DateRange?.Value.Start > DateRange?.Value.End)
-            errors.Add(EventDateRange.Errors.DateRangeStartMustBeBeforeEnd());
+        validation = Result.Merge(validation, EventGuestLimit.Validate(GuestLimit.Value));
+        validation = Result.Merge(validation, EventTitle.Validate(Title.Value));
         
-        if (DateRange?.Value.Start < DateTime.Now)
-            errors.Add(EventDateRange.Errors.EventStartTimeCannotBeInPast());
-        
-        Result guestLimitValidation = EventGuestLimit.Validate(GuestLimit.Value);
-        if (guestLimitValidation.IsFailure)
-            errors.AddRange(guestLimitValidation.Errors);
-        
-        Result titleValidation = EventTitle.Validate(Title.Value);
-        if (titleValidation.IsFailure)
-            errors.AddRange(titleValidation.Errors);
-        
-        
-        if (errors.Count > 0)
-            return Result.Failure(errors);
+        if (validation.IsFailure) return validation;
 
         Status = EventStatus.Ready;
         return Result.Success();
@@ -175,20 +161,19 @@ public class VeaEvent
 
     public Result Activate()
     {
-        List<Error> errors = new List<Error>();
-
+       
         if (Status == EventStatus.Draft)
         {
             Result result = Ready();
             if (result.IsFailure)
                 return Result.Failure(result.Errors);
         }
-
-        if (Status == EventStatus.Cancelled)
-            errors.Add(EventErrors.EventCannotBeActivatedWhenCancelled());
-
-        if (errors.Count > 0)
-            return Result.Failure(errors);
+        
+        var validation = Result.Validator()
+            .Assert(Status != EventStatus.Cancelled, Errors.Event.EventCannotBeActivatedWhenCancelled())
+            .Validate();
+        
+        if (validation.IsFailure) return validation;
 
         Status = EventStatus.Active;
         return Result.Success();
@@ -294,6 +279,7 @@ public class VeaEvent
 
     public static class Errors
     {
+
         public static class Participation
         {
             public static Error EventIsNotActive() =>
@@ -325,6 +311,17 @@ public class VeaEvent
 
             public static Error GuestLimitReached() =>
                 new(ErrorType.InvalidOperation, 9, "The invitation cannot be accepted as the event has reached its guest limit");
+        }
+        public static class Event
+        {
+            public static Error EventMustBeDraft() =>
+                new(ErrorType.InvalidOperation, 10, "Event must be in draft status to be made ready");
+
+            public static Error EventMustHaveValidTitle() =>
+                new(ErrorType.InvalidOperation, 11, "Event must have a valid title to be made ready");
+
+            public static Error EventCannotBeActivatedWhenCancelled() =>
+                new(ErrorType.InvalidOperation, 12, "Event cannot be activated when cancelled");
         }
     }
 }

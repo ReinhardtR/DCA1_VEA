@@ -18,6 +18,7 @@ public class ReadyEventAggregateTest
             .WithStatus(EventStatus.Draft)
             .WithGuestLimit(25)
             .WithVisibility(EventVisibility.Private)
+            .WithDateRange(new DateRange(DateTime.Today.AddHours(10), DateTime.Today.AddHours(15)))
             .Build();
         // Act
         veaEvent.Ready();
@@ -43,7 +44,7 @@ public class ReadyEventAggregateTest
         Result result = veaEvent.Ready();
 
         // Assert
-        Assert.Contains(EventErrors.EventMustHaveValidTitle(), result.Errors);
+        Assert.Contains(VeaEvent.Errors.Event.EventMustHaveValidTitle(), result.Errors);
         Assert.Contains(EventDescription.Errors.DescriptionCannotBeEmpty(), result.Errors);
     }
     
@@ -65,7 +66,7 @@ public class ReadyEventAggregateTest
         Result result = veaEvent.Ready();
 
         // Assert
-        Assert.Contains(EventErrors.EventMustBeDraft(), result.Errors);
+        Assert.Contains(VeaEvent.Errors.Event.EventMustBeDraft(), result.Errors);
     }
     
     //F3 Given an existing event with ID
@@ -115,7 +116,7 @@ public class ReadyEventAggregateTest
         Result result = veaEvent.Ready();
 
         // Assert
-        Assert.Contains(EventErrors.EventMustHaveValidTitle(), result.Errors);
+        Assert.Contains(VeaEvent.Errors.Event.EventMustHaveValidTitle(), result.Errors);
     }
 
 }

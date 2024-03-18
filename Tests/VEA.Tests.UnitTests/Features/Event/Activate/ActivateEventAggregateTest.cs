@@ -1,4 +1,5 @@
 ﻿using VEA.Core.Domain.Aggregates.Events;
+using VEA.Core.Domain.Common.Values;
 using VEA.Core.Tools.OperationResult;
 
 namespace VEA.Tests.UnitTests.Features.Event.Activate;
@@ -18,7 +19,9 @@ public class ActivateEventAggregateTest
         public void GivenEventExistWithIdAndIsDraftStatusAndDataIsSetWithValidValues_WhenCreatorActivatesTheEvent_ThenEventIsFirstMadeReadyAndIfSuccessfulThenMadeActive()
         {
             // Arrange
-            var veaEvent = EventFactory.Create().WithTitle("Title").WithDescription("Description").Build();
+            var veaEvent = EventFactory.Create().WithTitle("Title").WithDescription("Description")
+                .WithDateRange(new DateRange(DateTime.Today.AddHours(10), DateTime.Today.AddHours(15)))
+                .Build();
             
             // Act
             Result result = veaEvent.Activate();
@@ -99,7 +102,7 @@ public class ActivateEventAggregateTest
             Result result = veaEvent.Activate();
             
             // Assert
-            Assert.Contains(EventErrors.EventMustHaveValidTitle(), result.Errors);
+            Assert.Contains(VeaEvent.Errors.Event.EventMustHaveValidTitle(), result.Errors);
             Assert.Contains(EventDescription.Errors.DescriptionCannotBeEmpty(), result.Errors);
         }
 
@@ -123,7 +126,7 @@ public class ActivateEventAggregateTest
             Result result = veaEvent.Activate();
             
             // Assert
-            Assert.Contains(EventErrors.EventCannotBeActivatedWhenCancelled(), result.Errors);
+            Assert.Contains(VeaEvent.Errors.Event.EventCannotBeActivatedWhenCancelled(), result.Errors);
         }
 
     }
