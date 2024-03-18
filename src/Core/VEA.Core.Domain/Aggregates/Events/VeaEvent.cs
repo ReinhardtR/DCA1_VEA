@@ -1,4 +1,5 @@
-﻿using VEA.Core.Domain.Aggregates.Guests;
+﻿using System.Runtime.InteropServices.ComTypes;
+using VEA.Core.Domain.Aggregates.Guests;
 using VEA.Core.Tools.OperationResult;
 
 namespace VEA.Core.Domain.Aggregates.Events;
@@ -55,15 +56,14 @@ public class VeaEvent
 
     public Result UpdateDescription(EventDescription description)
     {
-        List<Error> errors = new List<Error>();
-        if (Status == EventStatus.Active)
-            errors.Add(EventDescription.Errors.CannotUpdateActiveEvent());
-
-        if (Status == EventStatus.Cancelled)
-            errors.Add(EventDescription.Errors.CannotUpdateCancelledEvent());
-
-        if (errors.Count > 0)
-            return Result.Failure(errors);
+        
+        var validation = Result.Validator()
+            .Assert(Status != EventStatus.Active, EventDescription.Errors.CannotUpdateActiveEvent())
+            .Assert(Status != EventStatus.Cancelled, EventDescription.Errors.CannotUpdateCancelledEvent())
+            .Validate();
+        
+        if (validation.IsFailure)
+            return Result.Failure(validation.Errors);
 
         //Else succeed
         Description = description;
@@ -112,16 +112,14 @@ public class VeaEvent
 
     public Result UpdateTitle(EventTitle title)
     {
-        List<Error> errors = new();
         
-        if (Status == EventStatus.Active)
-            errors.Add(EventErrors.Title.UpdateTitleWhenEventActive());
+        var validation = Result.Validator()
+            .Assert(Status != EventStatus.Active, EventErrors.Title.UpdateTitleWhenEventActive())
+            .Assert(Status != EventStatus.Cancelled, EventErrors.Title.UpdateTitleWhenEventCancelled())
+            .Validate();
         
-        if (Status == EventStatus.Cancelled)
-            errors.Add(EventErrors.Title.UpdateTitleWhenEventCancelled());
-        
-        if (errors.Count > 0)
-            return Result.Failure(errors);
+        if (validation.IsFailure)
+            return Result.Failure(validation.Errors);
 
         Title = title;
         return Result.Success();
@@ -129,18 +127,13 @@ public class VeaEvent
 
     public Result UpdateGuestLimit(EventGuestLimit guestLimit)
     {
-        List<Error> errors = new List<Error>();
-
-
-        if (Status == EventStatus.Active && GuestLimit.Value > guestLimit.Value)
-            errors.Add(EventGuestLimit.Errors.CannotUpdateGuestLimitWhenEventActive());
+        var validation = Result.Validator()
+            .Assert(Status != EventStatus.Active || GuestLimit.Value <= guestLimit.Value, EventGuestLimit.Errors.CannotUpdateGuestLimitWhenEventActive())
+            .Assert(Status != EventStatus.Cancelled, EventGuestLimit.Errors.CannotUpdateGuestLimitWhenEventCancelled())
+            .Validate();
         
-        if (Status == EventStatus.Cancelled)
-            errors.Add(EventGuestLimit.Errors.CannotUpdateGuestLimitWhenEventCancelled());
-
-
-        if (errors.Count > 0)
-            return Result.Failure(errors);
+        if (validation.IsFailure)
+            return Result.Failure(validation.Errors);
 
         GuestLimit = guestLimit;
         return Result.Success();
