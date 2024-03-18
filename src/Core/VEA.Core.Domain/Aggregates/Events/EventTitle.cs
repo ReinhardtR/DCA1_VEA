@@ -22,12 +22,22 @@ public class EventTitle : ValueObject<string>
     {
         if (string.IsNullOrWhiteSpace(value))
             return Result.Validator()
-                .Assert(!string.IsNullOrWhiteSpace(value), EventErrors.Title.TitleMustBeBetween3And75Characters())
+                .Assert(!string.IsNullOrWhiteSpace(value), Errors.TitleMustBeBetween3And75Characters())
                 .Validate();
         
         return Result.Validator()
-            .Assert(value.Length is > MinLength and < MaxLength, EventErrors.Title.TitleMustBeBetween3And75Characters())
+            .Assert(value.Length is > MinLength and < MaxLength, Errors.TitleMustBeBetween3And75Characters())
             .Validate();
+    }
+
+    public class Errors
+    {
+        public static Error TitleMustBeBetween3And75Characters() =>
+            new(ErrorType.InvalidArgument, 6, "Title must be between 3 and 75 characters");
+        public static Error UpdateTitleWhenEventActive() =>
+            new(ErrorType.InvalidArgument, 7, "Cannot update title when event is active");
+        public static Error UpdateTitleWhenEventCancelled() =>
+            new(ErrorType.InvalidArgument, 8, "Cannot update title when event is cancelled");
     }
     
    //overide Object.equals

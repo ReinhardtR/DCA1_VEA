@@ -2,30 +2,6 @@
 
 public static class EventErrors
 {
-    public static Error EventMustHaveValidTitle() =>
-        new(ErrorType.InvalidOperation, 13, "Event must have a valid title");
-    public static Error VisibilityMustBeSet() =>
-        new(ErrorType.InvalidOperation, 14, "Visibility must be set");
-    public static Error EventMustBeDraft() =>
-        new(ErrorType.InvalidOperation, 10, "Event must be in draft status");
-    public static Error EventCannotBeActivatedWhenCancelled() =>
-        new(ErrorType.InvalidOperation, 24, "Event cannot be activated when cancelled");
-    public static class Title
-    {
-        public static Error TitleMustBeBetween3And75Characters() =>
-            new(ErrorType.InvalidArgument, 6, "Title must be between 3 and 75 characters");
-        public static Error UpdateTitleWhenEventActive() =>
-            new(ErrorType.InvalidArgument, 7, "Cannot update title when event is active");
-        public static Error UpdateTitleWhenEventCancelled() =>
-            new(ErrorType.InvalidArgument, 8, "Cannot update title when event is cancelled");
-    }
-
-    public static class GuestLimit
-    {
-        public static Error GuestLimitMustBeBetween5And50() =>
-            new(ErrorType.InvalidArgument, 9, "Guest limit must be between 5 and 50");
-    }
-    
     public static class Visibility
     {
         public static Error SetVisibilityWhenEventCancelled() =>

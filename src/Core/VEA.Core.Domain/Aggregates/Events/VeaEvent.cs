@@ -114,8 +114,8 @@ public class VeaEvent
     {
         
         var validation = Result.Validator()
-            .Assert(Status != EventStatus.Active, EventErrors.Title.UpdateTitleWhenEventActive())
-            .Assert(Status != EventStatus.Cancelled, EventErrors.Title.UpdateTitleWhenEventCancelled())
+            .Assert(Status != EventStatus.Active, EventTitle.Errors.UpdateTitleWhenEventActive())
+            .Assert(Status != EventStatus.Cancelled, EventTitle.Errors.UpdateTitleWhenEventCancelled())
             .Validate();
         
         if (validation.IsFailure)
