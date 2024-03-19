@@ -219,7 +219,7 @@ public class VeaEvent
     public Result ExtendInvitation(Invitation invitation)
     {
         var validation = Result.Validator()
-            .Assert(!GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
+            .Assert(!GuestLimitReached(GuestLimit), Invitation.Errors.GuestLimitReached())
             .Assert(Status != EventStatus.Cancelled && Status != EventStatus.Draft, EventErrors.Invitation.ExtendInvitationWhenEventDraftOrCancelled())
             .Validate();
 
@@ -236,10 +236,10 @@ public class VeaEvent
         var invitationForGuest = Invitations.FirstOrDefault(inv => inv.GuestId == guestId);
 
         var validation = Result.Validator()
-            .Assert(invitationForGuest != null, Errors.Invitation.GuestHasNoInvitation())
-            .Assert(!GuestLimitReached(GuestLimit), Errors.Invitation.GuestLimitReached())
-            .Assert(Status != EventStatus.Cancelled, Errors.Invitation.EventIsCancelled())
-            .Assert(Status != EventStatus.Ready, Errors.Invitation.EventIsNotActive())
+            .Assert(invitationForGuest != null, Invitation.Errors.GuestHasNoInvitation())
+            .Assert(!GuestLimitReached(GuestLimit), Invitation.Errors.GuestLimitReached())
+            .Assert(Status != EventStatus.Cancelled, Invitation.Errors.EventIsCancelled())
+            .Assert(Status != EventStatus.Ready, Invitation.Errors.EventIsNotActive())
             .Validate();
 
         if (validation.IsFailure)
@@ -255,9 +255,9 @@ public class VeaEvent
         var invitationForGuest = Invitations.FirstOrDefault(inv => inv.GuestId == guestId);
 
         var validation = Result.Validator()
-            .Assert(invitationForGuest != null, Errors.Invitation.GuestHasNoInvitation())
-            .Assert(Status != EventStatus.Cancelled, Errors.Invitation.EventIsCancelled())
-            .Assert(Status == EventStatus.Active, Errors.Invitation.EventIsNotActive())
+            .Assert(invitationForGuest != null, Invitation.Errors.GuestHasNoInvitation())
+            .Assert(Status != EventStatus.Cancelled, Invitation.Errors.EventIsCancelled())
+            .Assert(Status == EventStatus.Active, Invitation.Errors.EventIsNotActive())
             .Validate();
 
         if (validation.IsFailure)
@@ -297,21 +297,7 @@ public class VeaEvent
             public static Error GuestAlreadyParticipated() =>
                new(ErrorType.InvalidOperation, 5, "Guest has already participated in the event");
         }
-
-        public static class Invitation
-        {
-            public static Error GuestHasNoInvitation() =>
-                new(ErrorType.InvalidOperation, 6, "This guest has no pending invitation");
-
-            public static Error EventIsCancelled() =>
-                new(ErrorType.InvalidOperation, 7, "The invitation can not be accepted as the event is cancelled");
-
-            public static Error EventIsNotActive() =>
-                new(ErrorType.InvalidOperation, 8, "The invitation can not be accepted as the event is not yet active");
-
-            public static Error GuestLimitReached() =>
-                new(ErrorType.InvalidOperation, 9, "The invitation cannot be accepted as the event has reached its guest limit");
-        }
+        
         public static class Event
         {
             public static Error EventMustBeDraft() =>

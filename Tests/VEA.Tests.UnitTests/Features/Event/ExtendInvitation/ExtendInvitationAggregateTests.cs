@@ -61,6 +61,6 @@ public class ExtendInvitationAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(VeaEvent.Errors.Invitation.GuestLimitReached(), result.Errors);
+        Assert.Contains(Invitation.Errors.GuestLimitReached(), result.Errors);
     }
 }

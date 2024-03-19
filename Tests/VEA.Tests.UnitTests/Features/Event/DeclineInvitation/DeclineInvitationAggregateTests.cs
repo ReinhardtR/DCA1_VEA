@@ -61,7 +61,7 @@ public class DeclineInvitationAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(VeaEvent.Errors.Invitation.GuestHasNoInvitation(), result.Errors);
+        Assert.Contains(Invitation.Errors.GuestHasNoInvitation(), result.Errors);
     }
     
     // F2
@@ -81,7 +81,7 @@ public class DeclineInvitationAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(VeaEvent.Errors.Invitation.EventIsCancelled(), result.Errors);
+        Assert.Contains(Invitation.Errors.EventIsCancelled(), result.Errors);
     }
     
     // F3
@@ -101,6 +101,6 @@ public class DeclineInvitationAggregateTests
 
         //Assert
         Assert.True(result.IsFailure);
-        Assert.Contains(VeaEvent.Errors.Invitation.EventIsNotActive(), result.Errors);
+        Assert.Contains(Invitation.Errors.EventIsNotActive(), result.Errors);
     }
 }
