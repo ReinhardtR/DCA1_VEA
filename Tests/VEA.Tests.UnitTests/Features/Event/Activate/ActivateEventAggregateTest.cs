@@ -20,7 +20,7 @@ public class ActivateEventAggregateTest
         {
             // Arrange
             var veaEvent = EventFactory.Create().WithTitle("Title").WithDescription("Description")
-                .WithDateRange(new DateRange(DateTime.Today.AddHours(10), DateTime.Today.AddHours(15)))
+                .WithDateRange(new DateRange(DateTime.Today.AddDays(1).AddHours(10), DateTime.Today.AddDays(1).AddHours(15)))
                 .Build();
             
             // Act

@@ -18,7 +18,7 @@ public class ReadyEventAggregateTest
             .WithStatus(EventStatus.Draft)
             .WithGuestLimit(25)
             .WithVisibility(EventVisibility.Private)
-            .WithDateRange(new DateRange(DateTime.Today.AddHours(10), DateTime.Today.AddHours(15)))
+            .WithDateRange(new DateRange(DateTime.Today.AddDays(1).AddHours(10), DateTime.Today.AddDays(1).AddHours(15)))
             .Build();
         // Act
         veaEvent.Ready();
