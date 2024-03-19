@@ -5,7 +5,7 @@ namespace VEA.Core.Domain.Aggregates.Guests;
 
 public interface IGuestRepository
 {
-    Task<Result> AddAsync(Guest guest);
-    Task<Result> FindAsync(GuestId id);
+    Task<Result<GuestId>> AddAsync(Guest guest);
+    Task<Result<Guest>> FindAsync(GuestId id);
     Task<Result> RemoveAsync(GuestId id);
 }

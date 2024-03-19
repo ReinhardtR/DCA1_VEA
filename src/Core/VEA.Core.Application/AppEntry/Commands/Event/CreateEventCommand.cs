@@ -1,6 +1,6 @@
 ﻿namespace VEA.Core.Application.AppEntry.Commands.Event;
 
-public class CreateEventCommand : ICommand
+public class CreateEventCommand
 {
     public CreateEventCommand Create(string yo)
     {

@@ -6,28 +6,28 @@ namespace VEA.Tests.UnitTests.Fakes;
 public class GuestRepositoryFake : IGuestRepository
 {
     //In memory list
-    private readonly List<Guest> guests = new();
+    private readonly List<Guest> _guests = [];
 
-    public Task<Result> AddAsync(Guest guest)
+    public Task<Result<GuestId>> AddAsync(Guest guest)
     {
-        guests.Add(guest);
-        return Task.FromResult(Result.Success());
+        _guests.Add(guest);
+        return Task.FromResult(Result.Success(guest.Id));
     }
 
-    public Task<Result> FindAsync(GuestId id)
+    public Task<Result<Guest>> FindAsync(GuestId id)
     {
-        var guest = guests.FirstOrDefault(g => g.Id == id);
-        return Task.FromResult(guest is null ? Result.Failure(Guest.Errors.GuestDoesNotExist()) : Result.Success());
+        var guest = _guests.FirstOrDefault(g => g.Id == id);
+        return Task.FromResult(guest is null ? Result.Failure<Guest>(Guest.Errors.GuestDoesNotExist()) : Result.Success(guest));
     }
 
     public Task<Result> RemoveAsync(GuestId id)
     {
-        var guest = guests.FirstOrDefault(g => g.Id == id);
+        var guest = _guests.FirstOrDefault(g => g.Id == id);
         if (guest is null)
         {
             return Task.FromResult(Result.Failure(Guest.Errors.GuestDoesNotExist()));
         }
-        guests.Remove(guest);
+        _guests.Remove(guest);
         return Task.FromResult(Result.Success());
     }
 }

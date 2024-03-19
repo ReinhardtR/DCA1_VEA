@@ -1,5 +1,6 @@
 # Completed Status
 
+## Sebastian
 - [ ] UC1 - Event creator creates new event
     - [ ] Command
     - [ ] Handler
@@ -9,6 +10,8 @@
 - [ ] UC3 - Event creator updates description of event
     - [ ] Command
     - [ ] Handler
+
+## Milo
 - [ ] UC4 - Event creator updates start-time and -date, and end-time and -date of event
     - [ ] Command
     - [ ] Handler
@@ -18,6 +21,8 @@
 - [ ] UC6 - Event creator sets visibility of event to “private”
     - [ ] Command
     - [ ] Handler
+
+##  *Søren* Jakob
 - [ ] UC7 - Event creator sets maximum number of guests
     - [ ] Command
     - [ ] Handler
@@ -30,6 +35,8 @@
 - [ ] UC10 - Anonymous registers a new account
     - [ ] Command
     - [ ] Handler
+
+## Reinhardt
 - [ ] UC11 - Guest chooses to participate in a public event
     - [ ] Command
     - [ ] Handler
