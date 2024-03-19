@@ -323,5 +323,8 @@ public class VeaEvent
             public static Error EventCannotBeActivatedWhenCancelled() =>
                 new(ErrorType.InvalidOperation, 12, "Event cannot be activated when cancelled");
         }
+
+        public static Error EventDoesNotExist() =>
+            new(ErrorType.NotFound, 13, "Event does not exist");
     }
 }

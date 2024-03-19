@@ -1,4 +1,5 @@
 ﻿using VEA.Core.Domain.Common.Values;
+using VEA.Core.Tools.OperationResult;
 
 namespace VEA.Core.Domain.Aggregates.Guests;
 
@@ -27,6 +28,12 @@ public class Guest
             lastName ?? LastName.Create("Doe").Payload,
             email ?? ViaEmail.Create("JohnDoe@mail.com").Payload,
             profilePicture ?? Url.Create("https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50").Payload);
+    }
+
+    public static class Errors
+    {
+        public static Error GuestDoesNotExist() =>
+            new Error(ErrorType.NotFound, 1, "Guest does not exist.");
     }
     
 }
