@@ -1,0 +1,47 @@
+# Completed Status
+
+- [ ] UC1 - Event creator creates new event
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC2 - Event creator updates title of event
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC3 - Event creator updates description of event
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC4 - Event creator updates start-time and -date, and end-time and -date of event
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC5 - Event creator sets visibility of event to “public”
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC6 - Event creator sets visibility of event to “private”
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC7 - Event creator sets maximum number of guests
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC8 - Event creator readies event
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC9 - Event creator activates event
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC10 - Anonymous registers a new account
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC11 - Guest chooses to participate in a public event
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC12 - Guest removes their choice to participate in a public event
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC13 - Event creator extends invitation to guest to participate in an event
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC14 - Guest accepts invitation
+    - [ ] Command
+    - [ ] Handler
+- [ ] UC15 - Guest declines invitation
+    - [ ] Command
+    - [ ] Handler
