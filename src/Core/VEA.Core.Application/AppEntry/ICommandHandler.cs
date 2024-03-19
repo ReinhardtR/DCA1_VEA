@@ -2,7 +2,7 @@
 
 namespace VEA.Core.Application.AppEntry;
 
-public interface ICommandHandler<TCommand>
+public interface ICommandHandler
 {
-    Task<Result> Handle(TCommand command);
+    Task<Result> Handle(ICommand command);
 }

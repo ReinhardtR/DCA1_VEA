@@ -1,10 +1,4 @@
-﻿namespace VEA.Core.Application.AppEntry;
+namespace VEA.Core.Application.AppEntry;
 
-public abstract class ICommand
-{
-    // with only create method
-    public static T Create<T>() where T : ICommand, new()
-    {
-        return new T();
-    }
-}
+// commands can extend ICommand, which requires a create method with any signature
+public interface ICommand { }
