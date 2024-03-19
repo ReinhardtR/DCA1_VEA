@@ -1,6 +1,8 @@
-﻿namespace VEA.Core.Application.AppEntry;
+﻿using VEA.Core.Tools.OperationResult;
 
-public class ICommandHandler
+namespace VEA.Core.Application.AppEntry;
+
+public interface ICommandHandler<TCommand>
 {
-    
+    Task<Result> Handle(TCommand command);
 }
